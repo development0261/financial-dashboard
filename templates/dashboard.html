@@ -1,0 +1,2258 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+
+<style>
+    nav.navbar {
+        width: fit-content;
+    }
+
+    /* .main-header-left {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        z-index: 99999;
+    } */
+
+    .jctkr-wrapper.jctkr-initialized ul {
+        display: flex;
+    }
+
+    .__web-inspector-hide-shortcut__ {
+        visibility: visible !important;
+    }
+
+    .crypto_icon img {
+        height: 25px !important;
+        width: 25px !important;
+        min-width: 25px;
+        margin: auto 0;
+    }
+
+    .crypto_card {
+        align-items: center !important;
+    }
+
+    .financial_title {
+        text-align: center;
+    }
+
+    .market_search_button {
+        padding: 6px 17px;
+        height: fit-content;
+        background-color: #5965f9;
+        color: #fff;
+    }
+
+    .search_table_wrp .table input {
+        width: auto;
+        margin: 0;
+    }
+
+    select#crypto_time {
+        border: 1px solid rgba(227, 231, 237, 0.1);
+        background-color: #ffffff12;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .price_data_table_wrp table,
+    .search_table_wrp table,
+    .symbol_data_table {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th.financial_value,
+    .search_table_wrp table tbody tr td,
+    .symbol_data_table tr td,
+    #all_data tr .financial_value {
+        font-size: 11px;
+        letter-spacing: .5px;
+        color: #8587a7;
+    }
+
+    td.financial_title,
+    .search_table_wrp table tbody tr th,
+    .symbol_data_table tr th {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        color: #fff !important;
+        padding-top: 5px !important;
+    }
+
+    .search_table_wrp table tbody tr th {
+        padding: 0.75rem !important;
+    }
+
+    .price_data_table_wrp table thead tr th {
+        color: #fff;
+
+    }
+
+    .price_data_table_wrp table tbody tr th {
+        background-color: #ffffff00 !important;
+    }
+
+    .market_search_bar {
+        margin-bottom: 16px;
+    }
+
+    input.market_search_bar:focus {
+        background-color: rgba(66, 71, 100, 0.4);
+        border: 1px solid rgba(226, 232, 245, 0.2) !important;
+    }
+
+    .price_data_table_wrp .pagination_data {
+        justify-content: center;
+    }
+
+    .price_data_table_wrp .pagination_data .page-item .page-link {
+        line-height: 1.5;
+    }
+
+    .statistical_metrics_title h6 {
+        color: #fff;
+        margin-bottom: 0;
+        margin-bottom: 10px;
+
+    }
+
+    .statistical_metrics_title {
+        border-bottom: 1px solid rgba(227, 231, 237, 0.1);
+        margin-bottom: 10px;
+    }
+
+    .statistical_metrics_chart {
+        margin: 10px 0;
+    }
+
+    .statistical_metrics_chart_wrp {
+        padding: 10px;
+    }
+
+    .financial_market_search {
+
+        margin-bottom: 20px;
+    }
+
+    .financial_market_search .visualized_statistical_metrics {
+        margin-bottom: 50px;
+    }
+
+    select#crypto_select {
+        background-color: #ffffff12;
+        color: #fff;
+        border: 1px solid rgba(227, 231, 237, 0.1);
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    select#crypto_select option {
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    #all_data tr .financial_value {
+        padding: 3px;
+        width: fit-content;
+    }
+
+    .statistical_metrics_chart {
+        border: 1px solid rgba(227, 231, 237, 0.1);
+        padding: 20px;
+    }
+
+    .paging-nav {
+  text-align: right;
+  padding-top: 2px;
+}
+
+.paging-nav a {
+  margin: auto 1px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1px 7px;
+  background: #91b9e6;
+  color: white;
+  border-radius: 3px;
+}
+
+.paging-nav .selected-page {
+  background: #187ed5;
+  font-weight: bold;
+}
+
+.paging-nav,
+#price_data_table {
+  width: 400px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+</style>
+
+
+
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+<!-- main-header -->
+<div class="main-header  side-header nav nav-item">
+    <div class="container-fluid">
+
+        <div class="main-header-left ">
+            <!-- <div class="app-sidebar__toggle mobile-toggle" data-toggle="sidebar">
+                <a class="open-toggle" href="#"><i class="header-icons" data-eva="menu-outline"></i></a>
+                <a class="close-toggle" href="#"><i class="header-icons" data-eva="close-outline"></i></a>
+            </div> -->
+            <!-- <div class="main-header-center ml-3 d-sm-none d-md-none d-lg-block">
+                <input type="search" class="form-control" placeholder="Search for anything...">
+                <button class="btn"><i class="fas fa-search"></i></button>
+            </div> -->
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <a class="navbar-brand heading-black" href="index.html">
+                    Fin-Dash
+                </a>
+                <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span data-feather="grid"></span>
+                </button>
+
+            </nav>
+        </div>
+        <div class="main-header-center">
+            <div class="responsive-logo">
+                <a href="index.html"><img src="../../assets/img/brand/logo-theme-dark.png" class="mobile-logo"
+                        alt="logo"></a>
+            </div>
+        </div>
+        <!-- <div class="main-header-right">
+            <div class="nav nav-item  navbar-nav-right ml-auto">
+                <form class="navbar-form nav-item my-auto d-lg-none" role="search">
+                    <div class="input-group nav-item my-auto">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button type="reset" class="btn btn-default">
+                                <i class="ti-close"></i>
+                            </button>
+                            <button class="btn btn-default nav-link">
+                                <i class="ti-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <div class="nav-item full-screen fullscreen-button">
+                    <a class="new nav-link full-screen-link" href="#"><i class="ti-fullscreen"></i></span></a>
+                </div>
+                <div class="dropdown  nav-item main-header-message ">
+                    <a class="new nav-link" href="#" ><i class="ti-email"></i><span class="pulse-danger"></span></a>
+                    <div class="dropdown-menu dropdown-menu-arrow animated fadeInUp ">
+                        <div class="main-dropdown-header  d-sm-none">
+                            <a class="main-header-arrow" href=""><i class="icon ion-md-arrow-back"></i></a>
+                        </div>
+                        <div class="menu-header-content text-left d-flex">
+                            <div class="">
+                                <h6 class="menu-header-title text-white mb-0">5 new Messages</h6>
+                            </div>
+                            <div class="my-auto ml-auto">
+                                <span class="badge badge-pill badge-warning float-right">Mark All Read</span>
+                            </div>
+                        </div>
+                        <div class="main-message-list chat-scroll">
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="  drop-img  cover-image  " data-image-src="../../assets/img/faces/3.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Paul Molive</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">10 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">I'm sorry but i'm not sure how...</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/2.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Sahar Dary</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">13 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">All set ! Now, time to get to you now......</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/9.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Khadija Mehr</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">20 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">Are you ready to pickup your Delivery...</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/12.jpg">
+                                    <span class="avatar-status bg-danger"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Barney Cull</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">30 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">Here are some products ...</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/5.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Petey Cruiser</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">35 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">I'm sorry but i'm not sure how...</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="text-center dropdown-footer">
+                            <a href="text-center">VIEW ALL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown nav-item main-header-notification">
+                    <a class="new nav-link " href="#"><i class="ti-bell animated bell-animations"></i><span class=" pulse"></span></a>
+                    <div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
+                        <div class="menu-header-content text-left d-flex">
+                            <div class="">
+                                <h6 class="menu-header-title text-white mb-0">7 new Notifications</h6>
+                            </div>
+                            <div class="my-auto ml-auto">
+                                <span class="badge badge-pill badge-warning float-right">Mark All Read</span>
+                            </div>
+                        </div>
+                        <div class="main-notification-list Notification-scroll">
+                            <a href="#" class="d-flex  p-3 border-bottom ">
+                                <div class="notifyimg bg-success-transparent">
+                                    <i class="la la-shopping-basket text-success"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">New Order Received</h5>
+                                    <div class="notification-subtext">1 hour ago</div>
+                                </div>
+                                <div class="ml-auto" >
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-danger-transparent">
+                                    <i class="la la-user-check text-danger"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">22 verified registrations</h5>
+                                    <div class="notification-subtext">2 hour ago</div>
+                                </div>
+                                <div class="ml-auto" >
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                   <div class="notifyimg bg-primary-transparent">
+                                    <i class="la la-check-circle text-primary"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">Project has been approved</h5>
+                                    <div class="notification-subtext">4 hour ago</div>
+                                </div>
+                                <div class="ml-auto" >
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-pink-transparent">
+                                    <i class="la la-file-alt text-pink"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">New files available</h5>
+                                    <div class="notification-subtext">10 hour ago</div>
+                                </div>
+                                <div class="ml-auto" >
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-warning-transparent">
+                                    <i class="la la-envelope-open text-warning"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">New review received</h5>
+                                    <div class="notification-subtext">1 day ago</div>
+                                </div>
+                                <div class="ml-auto" >
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#"  class="d-flex p-3">
+                                 <div class="notifyimg bg-purple-transparent">
+                                    <i class="la la-gem text-purple"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">Updates Available</h5>
+                                    <div class="notification-subtext">2 days ago</div>
+                                </div>
+                                <div class="ml-auto" >
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="dropdown-footer">
+                            <a href="">VIEW ALL</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="navbar-toggler navresponsive-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fe fe-more-vertical "></span>
+                </button>
+                <div class="dropdown main-profile-menu nav nav-item nav-link">
+                    <a class="profile-user" href=""><img alt="" src="../../assets/img/faces/5.jpg"></a>
+                    <div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
+                        <div class="main-header-profile header-img">
+                            <div class="main-img-user"><img alt="" src="../../assets/img/faces/5.jpg"></div>
+                            <h6>Elizabeth Jane</h6><span>Premium Member</span>
+                        </div>
+                        <a class="dropdown-item" href=""><i class="far fa-user"></i> My Profile</a>
+                        <a class="dropdown-item" href=""><i class="far fa-edit"></i> Edit Profile</a>
+                        <a class="dropdown-item" href=""><i class="far fa-clock"></i> Activity Logs</a>
+                        <a class="dropdown-item" href=""><i class="fas fa-sliders-h"></i> Account Settings</a>
+                        <a class="dropdown-item" href="page-signin.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    </div>
+                </div>
+                <div class="dropdown main-header-message right-toggle">
+                    <a class="nav-link " data-toggle="sidebar-right" data-target=".sidebar-right">
+                        <i class="ti-menu tx-20 bg-transparent"></i>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<!--/main-header -->
+
+<!-- mobile-header -->
+
+
+
+
+<div class="responsive main-header">
+    <div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark d-sm-none ">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <div class="d-flex order-lg-2 ml-auto">
+                <form class="navbar-form nav-item my-auto d-lg-none" role="search">
+                    <div class="input-group nav-item my-auto">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button type="reset" class="btn btn-default">
+                                <i class="ti-close"></i>
+                            </button>
+                            <button class="btn btn-default nav-link">
+                                <i class="ti-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <div class="d-md-flex">
+                    <div class="nav-item full-screen fullscreen-button">
+                        <a class="new nav-link full-screen-link" href="#"><i class="ti-fullscreen"></i></span></a>
+                    </div>
+                </div>
+                <div class="dropdown  nav-item main-header-message header-contact">
+                    <a class="new nav-link" href="#"><i class="ti-email"></i><span class=" pulse-danger"></span></a>
+                    <div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
+                        <div class="main-dropdown-header d-sm-none">
+                            <a class="main-header-arrow" href=""><i class="icon ion-md-arrow-back"></i></a>
+                        </div>
+                        <div class="menu-header-content text-left d-flex">
+                            <div class="">
+                                <h6 class="menu-header-title text-white mb-0">5 new Messages</h6>
+                            </div>
+                            <div class="my-auto ml-auto">
+                                <span class="badge badge-pill badge-warning float-right">Mark All Read</span>
+                            </div>
+                        </div>
+                        <div class="main-message-list text-scroll">
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="  drop-img  cover-image  " data-image-src="../../assets/img/faces/3.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Paul Molive</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">10 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">I'm sorry but i'm not sure how...</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/2.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Sahar Dary</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">13 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">All set ! Now, time to get to you now......</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/9.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Khadija Mehr</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">20 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">Are you ready to pickup your Delivery...</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/12.jpg">
+                                    <span class="avatar-status bg-danger"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Barney Cull</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">30 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">Here are some products ...</p>
+                                </div>
+                            </a>
+                            <a href="#" class="p-3 d-flex border-bottom">
+                                <div class="drop-img cover-image" data-image-src="../../assets/img/faces/5.jpg">
+                                    <span class="avatar-status bg-teal"></span>
+                                </div>
+                                <div class="wd-90p">
+                                    <div class="d-flex">
+                                        <h5 class="mb-1 name">Petey Cruiser</h5>
+                                        <p class="time mb-0 text-right ml-auto float-right">35 min ago</p>
+                                    </div>
+                                    <p class="mb-0 desc">I'm sorry but i'm not sure how...</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="text-center dropdown-footer">
+                            <a href="text-center">VIEW ALL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown nav-item main-header-notification">
+                    <a class="new nav-link" href="#"><i class="ti-bell "></i><span class=" pulse"></span></a>
+                    <div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
+                        <div class="menu-header-content text-left d-flex">
+                            <div class="">
+                                <h6 class="menu-header-title text-white mb-0">7 new Notifications</h6>
+                            </div>
+                            <div class="my-auto ml-auto">
+                                <span class="badge badge-pill badge-warning float-right">Mark All Read</span>
+                            </div>
+                        </div>
+                        <div class="main-notification-list notify-scroll">
+                            <a href="#" class="d-flex  p-3 border-bottom ">
+                                <div class="notifyimg bg-success-transparent">
+                                    <i class="la la-shopping-basket text-success"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">New Order Received</h5>
+                                    <div class="notification-subtext">1 hour ago</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-danger-transparent">
+                                    <i class="la la-user-check text-danger"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">22 verified registrations</h5>
+                                    <div class="notification-subtext">2 hour ago</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-primary-transparent">
+                                    <i class="la la-check-circle text-primary"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">Project has been approved</h5>
+                                    <div class="notification-subtext">4 hour ago</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-pink-transparent">
+                                    <i class="la la-file-alt text-pink"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">New files available</h5>
+                                    <div class="notification-subtext">10 hour ago</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3 border-bottom">
+                                <div class="notifyimg bg-warning-transparent">
+                                    <i class="la la-envelope-open text-warning"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">New review received</h5>
+                                    <div class="notification-subtext">1 day ago</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                            <a href="#" class="d-flex p-3">
+                                <div class="notifyimg bg-purple-transparent">
+                                    <i class="la la-gem text-purple"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="notification-label mb-1">Updates Available</h5>
+                                    <div class="notification-subtext">2 days ago</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <i class="las la-angle-right text-right text-muted"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="dropdown-footer">
+                            <a href="">VIEW ALL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown main-profile-menu nav nav-item nav-link">
+                    <a class="profile-user" href=""><img alt="" src="../../assets/img/faces/5.jpg"></a>
+                    <div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
+                        <div class="main-header-profile header-img">
+                            <div class="main-img-user"><img alt="" src="../../assets/img/faces/5.jpg"></div>
+                            <h6>Elizabeth Jane</h6><span>Premium Member</span>
+                        </div>
+                        <a class="dropdown-item" href=""><i class="far fa-user"></i> My Profile</a>
+                        <a class="dropdown-item" href=""><i class="far fa-edit"></i> Edit Profile</a>
+                        <a class="dropdown-item" href=""><i class="far fa-clock"></i> Activity Logs</a>
+                        <a class="dropdown-item" href=""><i class="fas fa-sliders-h"></i> Account Settings</a>
+                        <a class="dropdown-item" href="page-signin.html"><i class="fas fa-sign-out-alt"></i> Sign
+                            Out</a>
+                    </div>
+                </div>
+                <div class="dropdown main-header-message right-toggle">
+                    <a class="nav-link " data-toggle="sidebar-right" data-target=".sidebar-right">
+                        <i class="ti-menu tx-20 bg-transparent"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- mobile-header -->
+
+<div class="container-fluid">
+
+<!--Crypto tab -->
+
+    <!-- row  -->
+    <div class="row">
+        <div class="col-lg-12">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Crypto</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Stocks</a>
+                    
+                </div>
+            </nav>
+            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class=" overflow-hidden bg-transparent card-crypto-scroll shadow-none">
+                        <div class="js-conveyor-example">
+                            <ul class="news-crypto">
+                                <li>
+                                    <div class="crypto-card" id="rep_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="my-auto crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Augur.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">REP / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="rep_data"></span>
+                                                        <span class="tx-13" id="rep_history"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+        
+                                <li>
+                                    <div class="crypto-card" id="bts_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/BitShares.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">BTS / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="bts_data"></span>
+                                                        <span class="ml-2" id="bts_history"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+        
+                                <li>
+                                    <div class="crypto-card" id="dash_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="my-auto crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Dash.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">Dash / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="dash_data"></span><span
+                                                            class="text-success ml-2" id="dash_history"></span></div>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="crypto-card" id="eur_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/EOS.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">EUR / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="eur_data"></span>
+                                                        <span class="text-success ml-2" id="eur_history"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="crypto-card" id="eth_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Decred.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">ETH / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning ">$<span class="eth_data"></span><span
+                                                            class="text-success ml-2" id="eth_history"></span></div>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="crypto-card" id="iota_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/IOTA.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">IOTA / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="iot_data"> ..</span><span
+                                                            class="text-success ml-2" id="iota_history"></span></div>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="crypto-card" id="ltc_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Litecoin.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">LTC / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="ltc_data"></span><span
+                                                            class="text-success ml-2" id="ltc_history"></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="crypto-card" id="xmr_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Monero.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">XMR / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="xmr_data"></span><span
+                                                            class="text-success ml-2" id="xmr_history"></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="crypto-card" id="neo_data_history">
+                                        <div class="row">
+                                            <div class="d-flex crypto_card">
+                                                <div class="crypto_icon">
+                                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Netko-coin.svg' %}"
+                                                        class="w-6 h-6 mt-0" alt="">
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="mb-1 tx-13">NEO / USDT</p>
+                                                    <div class="m-0 tx-13 text-warning">$<span class="neo_data"></span><span
+                                                            class="text-success ml-2" id="neo_history"></span></div>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- cryptop table -->
+    <div class="row">
+        <div class="col-lg-6">
+            <form action="">
+                <div class="price_data_table_wrp">
+                    <table id="price_data_table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td class="financial_title" colspan="8">Price</td>
+                            </tr>
+                            <tr>
+                                <th class="financial_date">Date</th>
+                                <th class="financial_date">Open</th>
+                                <th class="financial_date">High</th>
+                                <th class="financial_date">Low</th>
+                                <th class="financial_date">Close</th>
+                                <th class="financial_date">Volume</th>
+                                <th class="financial_date">Absolute Move </th>
+                                <th class="financial_date">Weekly Return</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all_data" class="datatable-body">
+                            <tr>
+                                <td class="financial_value">23/5/21</td>
+                                <td class="financial_value">Open</td>
+                                <td class="financial_value">High</td>
+                                <td class="financial_value">Low</td>
+                                <td class="financial_value">Close</td>
+                                <td class="financial_value">Volume</td>
+                                <td class="financial_value">Absolute Move </td>
+                                <td class="financial_value">Weekly Return</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination_data">
+                            <!-- <li class="page-item">
+                           
+                            </li>
+                            <li class="page-item">     <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>"page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li> -->
+                        </ul>
+                    </nav>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3">
+            <div class="search_table_wrp">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Ticker</th>
+                            <td><span id="ticker_name"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td><input type="date" id="date_crypto" /></td>
+                        </tr>
+                        <tr>
+                            <th>Time Frame</th>
+                            <td>
+                                <select class="form-select crypto mr-3" id="crypto_time"
+                                    aria-label="Default select example">
+                                    <option value="1MINUTE" selected>1 Minute</option>
+                                    <option value="30MINUTE">30 Minute</option>
+                                    <option value="1WEEK">1 Week</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Average Price(Every 5 minutes)</th>
+                            <td><span id="avg_price_crypto"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="financial_market_search">
+                    <form class="d-flex">
+                        <!-- <input class="form-control me-2 market_search_bar" id="cryptoSearch" type="search" placeholder="Search"
+                            aria-label="Search"> -->
+
+                        <select class="form-select crypto mr-3" id="crypto_select" aria-label="Default select example">
+                            <option value="BTSUSDT" selected>BTS/USDT</option>
+                            <option value="DASHUSDT">Dash/USDT</option>
+                            <option value="EURUSDT">EUR/USDT</option>
+                            <option value="ETHUSDT">ETH/USDT</option>
+                            <option value="IOTAUSDT">IOTA/USDT</option>
+                            <option value="LTCUSDT">LTC/USDT</option>
+                            <option value="XMRUSDT">XMR/USDT</option>
+                            <option value="NEOUSDT">NEO/USDT</option>
+                        </select>
+
+                        <button class="btn market_search_button" id="search_crypto" type="submit">Search</button>
+                    </form>
+                </div>
+
+            </div>
+            <div class="symbol_data_wrp">
+                <table class="table symbol_data_table">
+                    <tbody>
+                        <tr>
+                            <th>Current Stock Price</th>
+                            <td>$21</td>
+                        </tr>
+                        <tr>
+                            <th>Percent Change</th>
+                            <td>21%</td>
+                        </tr>
+                        <tr>
+                            <th>2 Week Return</th>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <th>Beta</th>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <th>Beta(7Day)</th>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <th>Beta(15Day)</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>52 Week High</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>52 Week Low</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Mean</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Absolute Mean Move</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Variance</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Std.Dev</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>2Std.Dev</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>3Std.Dev</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Range Mean</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Range Std.Dev</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Loss</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Loss</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Move</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Move</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Historical Weekly Volatility</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Projected Range</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Projected Daily Move</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Current Price </th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price Down</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price Daily High </th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price Daily Low</th>
+                            <td>12</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="visualized_statistical_metrics">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="statistical_metrics_title">
+                            <h6>Metrics</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="statistical_metrics_chart">
+                            Chart Section
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="statistical_metrics_chart">Chart Section</div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="statistical_metrics_chart">Chart Section</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /crypto table -->
+
+    <!-- row -->
+    <div class="row row-sm">
+        <div class="col-xl-4 col-lg-6 col-md-12">
+            <div class="card crypto crypt-primary overflow-hidden">
+                <div class="card-body iconfont text-left">
+                    <div class="media">
+                        <div class="coin-logo bg-primary-transparent">
+                            <i class="cf cf-eth text-primary"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6>Ethereum</h6>
+                            <p>ETH (USD) = $148.46 (<span class="text-danger">-12.24%</span>)</p>
+                        </div>
+                        <div class="card-body-top mb-3">
+                            <div>
+                                <a href="">14</a> USD Markets
+                            </div>
+                            <div>
+                                <a href="">82</a> LTC Markets
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flot-wrapper">
+                        <div class="flot-chart ht-150 mt-4" id="flotChart3"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <nav class="nav">
+                        <a class="nav-link active" href=""><span>1D</span><span>-12.24%</span></a> <a class="nav-link"
+                            href=""><span>1W</span><span>-16.48%</span></a> <a class="nav-link"
+                            href=""><span>1M</span><span>-15.21%</span></a> <a class="nav-link"
+                            href=""><span>1Y</span><span>-40.17%</span></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12">
+            <div class="card crypto crypt-danger overflow-hidden">
+                <div class="card-body iconfont text-left">
+                    <div class="media">
+                        <div class="coin-logo bg-danger-transparent">
+                            <i class="cf cf-ltc tx-18 text-danger"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6>Litecoin</h6>
+                            <p>LTC (USD) = $45.81 (<span class="text-danger">-12.24%</span>)</p>
+                        </div>
+                        <div class="card-body-top">
+                            <div>
+                                <a href="">21</a> USD Markets
+                            </div>
+                            <div>
+                                <a href="">56</a> LTC Markets
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flot-wrapper">
+                        <div class="flot-chart ht-150  mt-4" id="flotChart5"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <nav class="nav">
+                        <a class="nav-link active" href=""><span>1D</span><span>-15.24%</span></a> <a class="nav-link"
+                            href=""><span>1W</span><span>-24.68%</span></a> <a class="nav-link"
+                            href=""><span>1M</span><span>-17.15%</span></a> <a class="nav-link"
+                            href=""><span>1Y</span><span>-30.23%</span></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-12 col-md-12">
+            <div class="card crypto  crypt-success overflow-hidden">
+                <div class="card-body iconfont text-left">
+                    <div class="media">
+                        <div class="coin-logo bg-success-transparent">
+                            <i class="cf cf-xrp text-success"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6>Ripple</h6>
+                            <p>XRP (USD) = $0.2195(<span class="text-danger">-2.97%</span>)</p>
+                        </div>
+                        <div class="card-body-top">
+                            <div>
+                                <a href="">4</a> USD Markets
+                            </div>
+                            <div>
+                                <a href="">45</a> LTC Markets
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flot-wrapper">
+                        <div class="flot-chart ht-150 mt-4" id="flotChart1"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <nav class="nav">
+                        <a class="nav-link active" href=""><span>1D</span><span>-14.32%</span></a> <a class="nav-link"
+                            href=""><span>1W</span><span>-24.39%</span></a> <a class="nav-link"
+                            href=""><span>1M</span><span>-42.12%</span></a> <a class="nav-link"
+                            href=""><span>1Y</span><span>-50.34%</span></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /row -->
+
+    <!-- row -->
+    <div class="row row-sm row-deck">
+        <div class="col-xl-4 col-lg-12">
+            <div class="card overflow-hidden ">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-10">Market Info</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                    </div>
+                    <p class="tx-12 tx-gray-500 mb-2">An activity is a scheduled phase in a project plan with a distinct
+                        beginning and end. <a href="">Learn more</a></p>
+                </div>
+                <div class="card-body p-0">
+                    <div class="">
+                        <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3 mt-0">
+                            <img class="w-6 h-6"
+                                src="{% static 'assets/img/crypto-currencies/round-outline/Bitcoin.svg' %}" alt="image">
+                            <div class="w-100 ml-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
+                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$<span
+                                            class="etc_data"></span></span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-success tx-13" id="coinHistory"><i
+                                            class="fa fa-caret-up mr-1"></i>2.04%</span>
+                                    <small class="text-muted ml-auto">340.5 USD</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Ethereum.svg"
+                                alt="image">
+                            <div class="w-100 ml-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="mt-1 mb-0 font-weight-semibold">ETH/USD</p>
+                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$15,183.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.25%</span>
+                                    <small class="text-muted ml-auto">283.5 USD</small>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Litecoin.svg"
+                                alt="image">
+                            <div class="w-100 ml-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="mt-1 mb-0 font-weight-semibold">LTC/USD</p>
+                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$14,348.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.04%</span>
+                                    <small class="text-muted ml-auto">368.2 USD</small>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Dash.svg"
+                                alt="image">
+                            <div class="w-100 ml-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="mt-1 mb-0 font-weight-semibold">Dash/USD</p>
+                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$12,157.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>2.04%</span>
+                                    <small class="text-muted ml-auto">127.3 USD</small>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="list d-flex align-items-center p-2 pl-3 pr-3 mb-0">
+                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/NEM.svg"
+                                alt="image">
+                            <div class=" w-100 ml-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
+                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$11,183.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>1.04%</span>
+                                    <small class="text-muted ml-auto ">165.8 USD</small>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 col-lg-12">
+            <div class="card card-bitcoin">
+                <div class=" card-minimal-two">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Bitcoin / USD Rate</h4>
+                        <div class="">
+                            <nav class="nav nav-pills">
+                                <a class="nav-link active" data-toggle="tab" href="#">BTH</a> <a class="nav-link"
+                                    data-toggle="tab" href="#">ETH</a> <a class="nav-link" data-toggle="tab"
+                                    href="#">LTC</a> <a class="nav-link" data-toggle="tab" href="#">BTG</a>
+                            </nav>
+                        </div><!-- card-header-right -->
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-icon"><i class="fab fa-bitcoin"></i></div>
+                        <div class="media-body">
+                            <div class="row row-sm">
+                                <div class="col">
+                                    <label>Symbol</label>
+                                    <p>BTC</p>
+                                </div>
+                                <div class="col-3">
+                                    <label>Price Benchmark</label>
+                                    <p>128.00%</p>
+                                </div>
+                                <div class="col">
+                                    <label>Price (USD)</label>
+                                    <p>$4,253.49</p>
+                                </div>
+                                <div class="col">
+                                    <label>Change (24H)</label>
+                                    <p>-0.24%</p>
+                                </div>
+                                <div class="col">
+                                    <label>Market Cap</label>
+                                    <p>$179.12B</p>
+                                </div>
+                            </div><!-- row -->
+                        </div>
+                    </div><!-- media-body -->
+                    <div class="flot-wrapper">
+                        <div class="flot-chart ht-226 wd-100p" id="flotChart12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
+                    <button class="btn market_search_button" id="stock" type="submit">Search</button>
+                    <div class="price_data_table_wrp">
+                        <table id="price_data_table1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td class="financial_title" colspan="8">Price</td>
+                                </tr>
+                                <tr>
+                                    <th class="financial_date">Date</th>
+                                    <th class="financial_date">Open</th>
+                                    <th class="financial_date">High</th>
+                                    <th class="financial_date">Low</th>
+                                    <th class="financial_date">Close</th>
+                                    <th class="financial_date">Volume</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="stock_details" class="datatable-body">
+                                <tr>
+                                    <td class="financial_value">23/5/21</td>
+                                    <td class="financial_value">Open</td>
+                                    <td class="financial_value">High</td>
+                                    <td class="financial_value">Low</td>
+                                    <td class="financial_value">Close</td>
+                                    <td class="financial_value">Volume</td>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination_data d-flex mt-4">
+                             
+                                  
+                            </ul> 
+                        </nav>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        
+        <!-- <div class="col-xl-12 col-md-12 col-lg-12">
+            <div class=" overflow-hidden bg-transparent card-crypto-scroll shadow-none">
+                <div class="js-conveyor-example">
+                    <ul class="news-crypto">
+                        <li>
+                            <div class="crypto-card" id="rep_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="my-auto crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/Augur.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">REP / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="rep_data"></span>
+                                                <span class="tx-13" id="rep_history"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="crypto-card" id="bts_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/BitShares.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">BTS / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="bts_data"></span>
+                                                <span class="ml-2" id="bts_history"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="crypto-card" id="dash_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="my-auto crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/Dash.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">Dash / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="dash_data"></span><span
+                                                    class="text-success ml-2" id="dash_history"></span></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="crypto-card" id="eur_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/EOS.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">EUR / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="eur_data"></span>
+                                                <span class="text-success ml-2" id="eur_history"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="crypto-card" id="eth_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/Decred.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">ETH / USDT</p>
+                                            <div class="m-0 tx-13 text-warning ">$<span class="eth_data"></span><span
+                                                    class="text-success ml-2" id="eth_history"></span></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="crypto-card" id="iota_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/IOTA.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">IOTA / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="iot_data"> ..</span><span
+                                                    class="text-success ml-2" id="iota_history"></span></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="crypto-card" id="ltc_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/Litecoin.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">LTC / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="ltc_data"></span><span
+                                                    class="text-success ml-2" id="ltc_history"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="crypto-card" id="xmr_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/Monero.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">XMR / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="xmr_data"></span><span
+                                                    class="text-success ml-2" id="xmr_history"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="crypto-card" id="neo_data_history">
+                                <div class="row">
+                                    <div class="d-flex crypto_card">
+                                        <div class="crypto_icon">
+                                            <img src="{% static 'assets/img/crypto-currencies/round-outline/Netko-coin.svg' %}"
+                                                class="w-6 h-6 mt-0" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="mb-1 tx-13">NEO / USDT</p>
+                                            <div class="m-0 tx-13 text-warning">$<span class="neo_data"></span><span
+                                                    class="text-success ml-2" id="neo_history"></span></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- /row -->
+
+    
+    <!-- /row  -->
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+
+    btc_value = 0
+    var interval = 1000;
+    var ajax_btc = function () {
+        $.ajax({
+            type: 'GET',
+            url: "/user/btc_data/",
+            success: function (data) {
+                btc_value = data.price
+                $('.etc_data').html(parseFloat(data.price).toFixed(4));
+            },
+            timeout: 1000
+        });
+
+    };
+    setInterval(ajax_btc, interval);
+
+    
+    
+    var stock_data = function () {
+        $.ajax({
+            type: 'GET',
+            url: "/user/stocks_data/",
+            success: function (data) {
+                console.log(data)
+                // btc_value = data.price
+                // $('.etc_data').html(parseFloat(data.price).toFixed(4));
+            },
+        });
+    };
+
+    
+    var ajax_eth = function () {
+        $.ajax({
+            type: 'GET',
+            url: "/user/eth_data/",
+            success: function (data) {
+                $('.eth_data').html(parseFloat(data.price).toFixed(4));
+                $.ajax({
+                    type: 'GET',
+                    url: "/user/iot_data/",
+                    success: function (data) {
+                        if (data != false && btc_value != 0) {
+                            $('.iot_data').html(parseFloat(data.price * btc_value).toFixed(4));
+                        }
+                        $.ajax({
+                            type: 'GET',
+                            url: "/user/rep_data/",
+                            success: function (data) {
+                                if (data != false) {
+                                    $('.rep_data').html(parseFloat(data.price).toFixed(4));
+                                }
+                                $.ajax({
+                                    type: 'GET',
+                                    url: "/user/bts_data/",
+                                    success: function (data) {
+                                        if (data != false) {
+                                            $('.bts_data').html(parseFloat(data.price).toFixed(4));
+                                        }
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: "/user/dash_data/",
+                                            success: function (data) {
+                                                if (data != false) {
+                                                    $('.dash_data').html(parseFloat(data.price).toFixed(4));
+                                                }
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: "/user/eur_data/",
+                                                    success: function (data) {
+                                                        if (data != false) {
+                                                            $('.eur_data').html(parseFloat(data.price).toFixed(4));
+                                                        }
+                                                        $.ajax({
+                                                            type: 'GET',
+                                                            url: "/user/ltc_data/",
+                                                            success: function (data) {
+                                                                if (data != false) {
+                                                                    $('.ltc_data').html(parseFloat(data.price).toFixed(4));
+                                                                }
+                                                                $.ajax({
+                                                                    type: 'GET',
+                                                                    url: "/user/xmr_data/",
+                                                                    success: function (data) {
+                                                                        if (data != false) {
+                                                                            $('.xmr_data').html(parseFloat(data.price).toFixed(4));
+                                                                        }
+                                                                        $.ajax({
+                                                                            type: 'GET',
+                                                                            url: "/user/neo_data/",
+                                                                            success: function (data) {
+                                                                                if (data != false) {
+                                                                                    $('.neo_data').html(parseFloat(data.price).toFixed(4));
+                                                                                }
+                                                                            },
+
+                                                                        });
+                                                                    },
+
+                                                                });
+                                                            },
+
+                                                        });
+                                                    },
+
+                                                });
+                                            },
+
+                                        });
+
+                                    },
+
+                                });
+                            },
+
+                        });
+
+
+                    },
+
+                });
+
+            },
+
+        });
+
+    };
+    setInterval(ajax_eth, 1000);
+
+
+    var ajax_per_btc = function () {
+        $.ajax({
+            type: 'GET',
+            url: "/user/history_data/BTCUSDT",
+            success: function (data) {
+                $("#coinHistory").removeClass("text-success")
+                $("#coinHistory").empty()
+                if (data.indicator == true) {
+                    $("#coinHistory").addClass("text-success")
+                    $("#coinHistory").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                } else {
+                    $("#coinHistory").addClass("text-danger")
+                    $("#coinHistory").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                }
+            },
+            timeout: 5000
+        });
+
+    };
+    setInterval(ajax_per_btc, 5000);
+
+
+    $("#stock").click(function (e) {
+        var user_date = document.getElementById("stock_search").value;
+        
+        $.ajax({
+            type: 'GET',
+            url: "/user/stocks_data/",
+            success: function (data) {
+                var vdata = Object.keys(data)[1];
+                console.log(data[vdata])
+                $("#stock_details").empty()
+                data = data[vdata]
+                console.log(Object.keys(data))
+                for (let i = 0; i < Object.keys(data).length; i++) {
+                    console.log(i)
+                    console.log(Object.keys(data)[i])
+                   
+                    data1 = data[Object.keys(data)[i]]
+                    var open_time = Object.keys(data)[i]
+                    date_epoch = String(new Date(open_time))
+                    var d = date_epoch.slice(0, 14);
+                    var t = date_epoch.slice(16, 24);
+                    
+                    var open = data1[Object.keys(data1)[0]]
+                    var high = data1[Object.keys(data1)[1]]
+                    var low = data1[Object.keys(data1)[2]]
+                    var close = data1[Object.keys(data1)[3]]
+                    var Volume = data1[Object.keys(data1)[4]]
+                    
+                    $("#stock_details").append(`
+                    <tr class="datatable-row" style="color:wheat">
+                            <td class="financial_value">${d}<br> ${t}</td>
+                            <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>
+                            
+                        </tr>
+                    `)
+                }
+                setTimeout(function(){
+                    $("#price_data_table1").append(`
+			<div class="pagination m-3 d-flex justify-content-end">
+			</div>
+		`)
+		function getPageList(totalPages, page, maxLength) {
+        if (maxLength < 5) throw "maxLength must be at least 5";
+    
+        function range(start, end) {
+            return Array.from(Array(end - start + 1), (_, i) => i + start); 
+        }	
+		
+    
+        var sideWidth = maxLength < 9 ? 1 : 2;
+        var leftWidth = (maxLength - sideWidth*2 - 3) >> 1;
+        var rightWidth = (maxLength - sideWidth*2 - 2) >> 1;
+        if (totalPages <= maxLength) {
+            // no breaks in list
+            return range(1, totalPages);
+        }
+        if (page <= maxLength - sideWidth - 1 - rightWidth) {
+            // no break on left of page
+            return range(1, maxLength - sideWidth - 1)
+                .concat(0, range(totalPages - sideWidth + 1, totalPages));
+        }
+        if (page >= totalPages - sideWidth - 1 - rightWidth) {
+            // no break on right of page
+            return range(1, sideWidth)
+                .concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
+        }
+        // Breaks on both sides
+        return range(1, sideWidth)
+            .concat(0, range(page - leftWidth, page + rightWidth),
+                    0, range(totalPages - sideWidth + 1, totalPages));
+    }
+    
+    // Below is an example use of the above function.
+    $(function () {
+        // Number of items and limits the number of items per page
+        var numberOfItems = $(".datatable-body .datatable-row").length;
+	
+        var limitPerPage = 15;
+        // Total pages rounded upwards
+        var totalPages = Math.ceil(numberOfItems / limitPerPage);
+        // Number of buttons at the top, not counting prev/next,
+        // but including the dotted buttons.
+        // Must be at least 5:
+        var paginationSize = 7; 
+        var currentPage;
+    
+        function showPage(whichPage) {
+			
+            if (whichPage < 1 || whichPage > totalPages) return false;
+            currentPage = whichPage;
+            $(".datatable-body .datatable-row").hide()
+                .slice((currentPage-1) * limitPerPage, 
+                        currentPage * limitPerPage).show();
+            // Replace the navigation items (not prev/next):            
+            $(".pagination li").slice(1, -1).remove();
+            getPageList(totalPages, currentPage, paginationSize).forEach( item => {
+                $("<li>").addClass("page-item")
+                         .addClass(item ? "current-page" : "disabled")
+                         .toggleClass("active", item === currentPage).append(
+                    $("<a>").addClass("page-link").attr({
+                        href: "javascript:void(0)"}).text(item || "...")
+                ).insertBefore("#next-page");
+            });
+            // Disable prev/next when at first/last page:
+            $("#previous-page").toggleClass("disabled", currentPage === 1);
+            $("#next-page").toggleClass("disabled", currentPage === totalPages);
+            return true;
+        }
+    
+        // Include the prev/next buttons:
+        $(".pagination").append(
+            $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
+                $("<a>").addClass("page-link").attr({
+                    href: "javascript:void(0)"}).text("<")
+            ),
+            $("<li>").addClass("page-item").attr({ id: "next-page" }).append(
+                $("<a>").addClass("page-link").attr({
+                    href: "javascript:void(0)"}).text(">")
+            )
+        );
+        // Show the page links
+        $(".datatable-body").show();
+        showPage(1);
+    
+        // Use event delegation, as these items are recreated later    
+        $(document).on("click", ".pagination li.current-page:not(.active)", function () {
+            return showPage(+$(this).text());
+        });
+        $("#next-page").on("click", function () {
+            return showPage(currentPage+1);
+        });
+    
+        $("#previous-page").on("click", function () {
+            return showPage(currentPage-1);
+        });
+    });
+},1000)
+            },
+        });
+   
+    // $(document).ready(function(){
+    //     stock_data()
+    // })
+    });
+    
+
+    $("#search_crypto").click(function (e) {
+        e.preventDefault();
+        var crypto_val = document.getElementById("crypto_select");
+        var cryptoCoin = crypto_val.value;
+        document.getElementById("ticker_name").innerHTML = cryptoCoin;
+        var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+        var user_date = document.getElementById("date_crypto").value;
+        /*date*/
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const d = new Date(user_date);
+        const selecteddate  = user_date.split('-');
+        // var selecteddate = d.getDate()+1;
+        var selectedmonth = monthNames[d.getMonth()];
+        var final_date = (selecteddate[2]+ " "+ selectedmonth + " , "+ selecteddate[0]);
+      
+        // var selectedyear = d.getFullYear();
+        // d.toLocaleString('en-us', { month: 'short' })
+        // alert(user_date+"--"+selecteddate+ "--" +selectedmonth+"=="+selectedyear);
+        /*over*/
+        var crypto_time = document.getElementById("crypto_time");
+        var user_time = crypto_time.value;
+        
+
+        $.ajax({
+            type: 'GET',
+            url: "/user/avg_price/" + cryptoCoin,
+            success: function (data) {
+                document.getElementById("avg_price_crypto").innerHTML = (parseFloat(data.price).toFixed(4));
+            },
+
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: "/user/all_data/" + cryptoCoin + "/" + final_date + "/" + user_time + "/",
+            success: function (data) {
+                
+                $("#all_data").empty()
+                for (let i = 0; i < data.length; i++) {
+                    var open_time = data[i][0]
+                    date_epoch = String(new Date(open_time))
+                    var d = date_epoch.slice(0, 14);
+                    var t = date_epoch.slice(16, 24);
+                    var open = data[i][1]
+                    var high = data[i][2]
+                    var low = data[i][3]
+                    var close = data[i][4]
+                    var Volume = data[i][5]
+                    var weeklyReturn
+                    if(i < data.length -1 ){
+                        weeklyReturn = ((data[i][5] / data[i + 1][5]) - 1)
+                    }
+                    
+                    $("#all_data").append(`
+                    <tr class="datatable-row">
+                            <td class="financial_value">${d}<br> ${t}</td>
+                            <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>
+                            <td class="financial_value">${Math.abs(weeklyReturn).toFixed(3)} </td>
+                            <td class="financial_value">${parseFloat(weeklyReturn).toFixed(3)}</td>
+                        </tr>
+                    `)
+                }
+    console.log( $('#price_data_table tr').length)
+    
+    
+    setTimeout(function(){
+		$("#price_data_table").append(`
+			<div class="pagination m-3 d-flex justify-content-end">
+			</div>
+		`)
+
+		function getPageList(totalPages, page, maxLength) {
+        if (maxLength < 5) throw "maxLength must be at least 5";
+    
+        function range(start, end) {
+            return Array.from(Array(end - start + 1), (_, i) => i + start); 
+        }	
+		
+    
+        var sideWidth = maxLength < 9 ? 1 : 2;
+        var leftWidth = (maxLength - sideWidth*2 - 3) >> 1;
+        var rightWidth = (maxLength - sideWidth*2 - 2) >> 1;
+        if (totalPages <= maxLength) {
+            // no breaks in list
+            return range(1, totalPages);
+        }
+        if (page <= maxLength - sideWidth - 1 - rightWidth) {
+            // no break on left of page
+            return range(1, maxLength - sideWidth - 1)
+                .concat(0, range(totalPages - sideWidth + 1, totalPages));
+        }
+        if (page >= totalPages - sideWidth - 1 - rightWidth) {
+            // no break on right of page
+            return range(1, sideWidth)
+                .concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
+        }
+        // Breaks on both sides
+        return range(1, sideWidth)
+            .concat(0, range(page - leftWidth, page + rightWidth),
+                    0, range(totalPages - sideWidth + 1, totalPages));
+    }
+    
+    // Below is an example use of the above function.
+    $(function () {
+        // Number of items and limits the number of items per page
+        var numberOfItems = $(".datatable-body .datatable-row").length;
+	
+        var limitPerPage = 15;
+        // Total pages rounded upwards
+        var totalPages = Math.ceil(numberOfItems / limitPerPage);
+        // Number of buttons at the top, not counting prev/next,
+        // but including the dotted buttons.
+        // Must be at least 5:
+        var paginationSize = 7; 
+        var currentPage;
+    
+        function showPage(whichPage) {
+			
+            if (whichPage < 1 || whichPage > totalPages) return false;
+            currentPage = whichPage;
+            $(".datatable-body .datatable-row").hide()
+                .slice((currentPage-1) * limitPerPage, 
+                        currentPage * limitPerPage).show();
+            // Replace the navigation items (not prev/next):            
+            $(".pagination li").slice(1, -1).remove();
+            getPageList(totalPages, currentPage, paginationSize).forEach( item => {
+                $("<li>").addClass("page-item")
+                         .addClass(item ? "current-page" : "disabled")
+                         .toggleClass("active", item === currentPage).append(
+                    $("<a>").addClass("page-link").attr({
+                        href: "javascript:void(0)"}).text(item || "...")
+                ).insertBefore("#next-page");
+            });
+            // Disable prev/next when at first/last page:
+            $("#previous-page").toggleClass("disabled", currentPage === 1);
+            $("#next-page").toggleClass("disabled", currentPage === totalPages);
+            return true;
+        }
+    
+        // Include the prev/next buttons:
+        $(".pagination").append(
+            $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
+                $("<a>").addClass("page-link").attr({
+                    href: "javascript:void(0)"}).text("<")
+            ),
+            $("<li>").addClass("page-item").attr({ id: "next-page" }).append(
+                $("<a>").addClass("page-link").attr({
+                    href: "javascript:void(0)"}).text(">")
+            )
+        );
+        // Show the page links
+        $(".datatable-body").show();
+        showPage(1);
+    
+        // Use event delegation, as these items are recreated later    
+        $(document).on("click", ".pagination li.current-page:not(.active)", function () {
+            return showPage(+$(this).text());
+        });
+        $("#next-page").on("click", function () {
+            return showPage(currentPage+1);
+        });
+    
+        $("#previous-page").on("click", function () {
+            return showPage(currentPage-1);
+        });
+    });
+},1000)
+            },
+
+
+        });
+    });
+
+
+
+    var ajax_per_rep = function () {
+        $.ajax({
+            type: 'GET',
+            url: "/user/history_data/REPUSDT",
+            success: function (data) {
+                if (data.indicator == true) {
+                    $("#rep_data_history #rep_history").removeClass("text-danger")
+                    $("#rep_data_history #rep_history").addClass("text-success")
+                    $("#rep_data_history #rep_history").html(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                } else {
+
+                    $("#rep_data_history #rep_history").removeClass("text-success")
+                    $("#rep_data_history #rep_history").addClass("text-danger")
+                    $("#rep_data_history #rep_history").html(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+
+                }
+                // sequence ajax
+
+                $.ajax({
+                    type: 'GET',
+                    url: "/user/history_data/BTSUSDT",
+                    success: function (data) {
+
+                        $("#bts_data_history #bts_history").removeClass("text-success")
+                        $("#bts_data_history #bts_history").empty()
+                        if (data.indicator == true) {
+                            $("#bts_data_history #bts_history").addClass("text-success")
+                            $("#bts_data_history #bts_history").removeClass("text-danger")
+
+                            $("#bts_data_history #bts_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                        } else {
+                            $("#bts_data_history #bts_history").addClass("text-danger")
+                            $("#bts_data_history #bts_history").removeClass("text-success")
+
+                            $("#bts_data_history #bts_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                        }
+                        $.ajax({
+                            type: 'GET',
+                            url: "/user/history_data/DASHUSDT",
+                            success: function (data) {
+
+                                $("#dash_data_history #dash_history").removeClass("text-success")
+                                $("#dash_data_history #dash_history").empty()
+                                if (data.indicator == true) {
+                                    $("#dash_data_history #dash_history").addClass("text-success")
+                                    $("#dash_data_history #dash_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                } else {
+                                    $("#dash_data_history #dash_history").addClass("text-danger")
+                                    $("#dash_data_history #dash_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                }
+                                $.ajax({
+                                    type: 'GET',
+                                    url: "/user/history_data/EURUSDT",
+                                    success: function (data) {
+                                        $("#eur_data_history #eur_history").removeClass("text-success")
+                                        $("#eur_data_history #eur_history").empty()
+                                        if (data.indicator == true) {
+                                            $("#eur_data_history #eur_history").addClass("text-success")
+                                            $("#eur_data_history #eur_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                        } else {
+                                            $("#eur_data_history #eur_history").addClass("text-danger")
+                                            $("#eur_data_history #eur_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                        }
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: "/user/history_data/ETHUSDT",
+                                            success: function (data) {
+                                                $("#eth_data_history #eth_history").removeClass("text-success")
+                                                $("#eth_data_history #eth_history").empty()
+                                                if (data.indicator == true) {
+                                                    $("#eth_data_history #eth_history").addClass("text-success")
+                                                    $("#eth_data_history #eth_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                } else {
+                                                    $("#eth_data_history #eth_history").addClass("text-danger")
+                                                    $("#eth_data_history #eth_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                }
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: "/user/history_data/IOTAUSDT",
+                                                    success: function (data) {
+                                                        $("#iota_data_history #iota_history").removeClass("text-success")
+                                                        $("#iota_data_history #iota_history").empty()
+                                                        if (data.indicator == true) {
+                                                            $("#iota_data_history #iota_history").addClass("text-success")
+                                                            $("#iota_data_history #iota_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                        } else {
+                                                            $("#iota_data_history #iota_history").addClass("text-danger")
+                                                            $("#iota_data_history #iota_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                        }
+                                                        $.ajax({
+                                                            type: 'GET',
+                                                            url: "/user/history_data/LTCUSDT",
+                                                            success: function (data) {
+                                                                $("#ltc_data_history #ltc_history").removeClass("text-success")
+                                                                $("#ltc_data_history #ltc_history").empty()
+                                                                if (data.indicator == true) {
+                                                                    $("#ltc_data_history #ltc_history").addClass("text-success")
+                                                                    $("#ltc_data_history #ltc_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                } else {
+                                                                    $("#ltc_data_history #ltc_history").addClass("text-danger")
+                                                                    $("#ltc_data_history #ltc_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                }
+                                                                $.ajax({
+                                                                    type: 'GET',
+                                                                    url: "/user/history_data/XMRUSDT",
+                                                                    success: function (data) {
+                                                                        $("#xmr_data_history #xmr_history").removeClass("text-success")
+                                                                        $("#xmr_data_history #xmr_history").empty()
+                                                                        if (data.indicator == true) {
+                                                                            $("#xmr_data_history #xmr_history").addClass("text-success")
+                                                                            $("#xmr_data_history #xmr_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                        } else {
+                                                                            $("#xmr_data_history #xmr_history").addClass("text-danger")
+                                                                            $("#xmr_data_history #xmr_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                        }
+                                                                        $.ajax({
+                                                                            type: 'GET',
+                                                                            url: "/user/history_data/NEOUSDT",
+                                                                            success: function (data) {
+
+                                                                                $("#neo_data_history #neo_history").removeClass("text-success")
+                                                                                $("#neo_data_history #neo_history").empty()
+                                                                                if (data.indicator == true) {
+                                                                                    $("#neo_data_history #neo_history").addClass("text-success")
+                                                                                    $("#neo_data_history #neo_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                                } else {
+                                                                                    $("#neo_data_history #neo_history").addClass("text-danger")
+                                                                                    $("#neo_data_history #neo_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                                }
+                                                                            },
+
+                                                                        });
+                                                                    },
+
+                                                                });
+
+                                                            },
+
+                                                        });
+                                                    },
+
+                                                });
+
+                                            },
+
+                                        });
+                                    },
+
+
+
+                                });
+
+                            },
+
+
+                        });
+                    },
+
+                });
+            },
+
+        });
+
+    };
+    setInterval(ajax_per_rep, 5000);
+
+   
+
+</script>
+<script type="text/javascript" src="{% static 'paging.js' %}"></script>
+<script type="text/javascript">
+    
+    
+</script>
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36251023-1']);
+_gaq.push(['_setDomainName', 'jqueryscript.net']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+
+
+  <!-- Icons css -->
+
+
+  <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet">
+
+
+  <!-- Internal Chart-Morris css-->
+  <link href="{% static 'assets/plugins/morris.js/morris.css' %}" rel="stylesheet">
+
+  <!--  Left-Sidebar css -->
+  <link href="{%static 'assets/css/sidemenu-closed.css' %}" rel="stylesheet">
+
+  <!--  Right-sidemenu css -->
+  <link href="{% static 'assets/plugins/sidebar/sidebar.css' %}" rel="stylesheet">
+
+  <!-- Internal Nice-select css  -->
+  <link href="{% static 'assets/plugins/jquery-nice-select/css/nice-select.css' %}" rel="stylesheet"/>
+
+  <!-- Internal News-Ticker css-->
+  <link href="{% static 'assets/plugins/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet">
+
+  <!-- Jquery-countdown css-->
+  <link href="{% static 'assets/plugins/jquery-countdown/countdown.css' %}" rel="stylesheet">
+
+  <!-- Internal News-Ticker css-->
+  <link href="{% static 'assets/plugins/newsticker/jquery.jConveyorTicker.css' %}" rel="stylesheet" />
+
+  <!-- style css-->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- skin css-->
+  <link href="{% static 'assets/css/skin-modes.css' %}" rel="stylesheet">
+
+  <!-- dark-theme css-->
+  <link href="{% static 'assets/css/style-dark.css' %}" rel="stylesheet">
+
+  <!--- Animations css-->
+  <link href="{% static 'assets/css/animate.css' %}" rel="stylesheet">
+
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- icon -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'default.css' %}" id="theme-color">
+    <link rel="stylesheet" href="{% static 'login.css' %}" id="theme-color">
+  <title>Fin-Dash</title>
+
+  {% block style %}
+
+  {% endblock %}
+
+</head>
+
+<body class="main-body app sidebar-mini dark-theme">
+
+<!--navigation-->
+<section class="smart-scroll">
+  <div class="container-fluid">
+    
+  </div>
+</section>
+
+
+{% block content %}
+{% endblock content %}
+
+
+<script src="{% static 'assets/plugins/jquery/jquery.min.js' %} "></script>
+
+		<!-- Datepicker js -->
+		<script src="{% static 'assets/plugins/jquery-ui/ui/widgets/datepicker.js' %}"></script>
+    <!-- Chart js  -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<!-- Bootstrap Bundle js -->
+		<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+		<!-- Ionicons js -->
+		<script src="{% static 'assets/plugins/ionicons/ionicons.js' %}"></script>
+
+		<!-- Moment js -->
+		<script src="{% static 'assets/plugins/moment/moment.js' %}"></script>
+
+		<!--Chart bundle min js -->
+		<script src="{% static 'assets/plugins/chart.js/Chart.bundle.min.js' %}"></script>
+		<script src="{% static 'assets/plugins/raphael/raphael.min.js' %}"></script>
+		<script src="{% static 'assets/plugins/peity/jquery.peity.min.js' %}"></script>
+
+		<!-- JQuery sparkline js -->
+		<script src="{% static 'assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+
+		<!-- Sampledata js -->
+		<script src="{% static 'assets/js/chart.flot.sampledata.js' %}"></script>
+
+		<!-- Perfect-scrollbar js -->
+		<script src="{% static 'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+		<script src="{% static 'assets/plugins/perfect-scrollbar/p-scroll.js' %}"></script>
+
+		<!-- Internal  Flot js-->
+		<script src="{% static 'assets/plugins/jquery.flot/jquery.flot.js' %}"></script>
+		<script src="{% static 'assets/plugins/jquery.flot/jquery.flot.pie.js' %}"></script>
+		<script src="{% static 'assets/plugins/jquery.flot/jquery.flot.categories.js' %}"></script>
+		<script src="{% static 'assets/js/dashboard.sampledata.js' %}"></script>
+		<script src="{% static 'assets/js/chart.flot.sampledata.js' %}"></script>
+
+		<!-- Internal Newsticker js-->
+		<script src="{% static 'assets/plugins/newsticker/jquery.jConveyorTicker.js' %}"></script>
+		<script src="{% static 'assets/js/newsticker.js' %}"></script>
+
+		<!-- Eva-icons js -->
+		<script src="{% static 'assets/js/eva-icons.min.js' %}"></script>
+
+		<!-- Sidebar js -->
+		<script src="{% static 'assets/plugins/side-menu/sidemenu.js' %}"></script>
+
+		<!-- right-sidebar js -->
+		<script src="{% static 'assets/plugins/sidebar/sidebar.js' %}"></script>
+		<script src="{% static 'assets/plugins/sidebar/sidebar-custom.js' %}"></script>
+
+		<!-- Rating js-->
+		<script src="{% static 'assets/plugins/rating/jquery.rating-stars.js' %}"></script>
+		<script src="{% static 'assets/plugins/rating/jquery.barrating.js' %}"></script>
+
+		<!-- Internal Nice-select js-->
+		<script src="{% static 'assets/plugins/jquery-nice-select/js/jquery.nice-select.js' %}"></script>
+		<script src="{% static 'assets/plugins/jquery-nice-select/js/nice-select.js' %}"></script>
+
+
+		<!-- Sticky js -->
+		<script src="{% static 'assets/js/sticky.js' %}"></script>
+
+		<!-- index js -->
+		<script src="{% static 'assets/js/dashboard.js' %}"></script>
+
+		<!-- custom js -->
+		<script src="{% static 'assets/js/custom.js' %}"></script>
+    {% block script %}
+    {% endblock %}
+  </body>
+
+</html>
+

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load socialaccount %}
+{% block style %}
+
+{% endblock %}
+{% block content %}
+
+<style>
+    .brand_logo {
+        margin-bottom: 40px;
+    }
+
+    .login_form {
+        padding: 50px;
+        background-color: #00000042;
+    }
+
+    .brand_logo h1 {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #1de9b6;
+        text-transform: uppercase;
+    }
+
+    .login_text {
+        margin-bottom: 40px;
+    }
+
+    .login_text span {
+        display: block;
+        letter-spacing: 2px;
+        font-size: 43px;
+    }
+
+    .login_text span:first-child {
+        font-size: 43px;
+        font-weight: 200;
+        line-height: 1;
+    }
+
+    .terms_condition p {
+        color: #ffffffbd;
+        font-weight: 100;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
+
+    .terms_condition p a {
+        font-weight: 200;
+        text-decoration: underline;
+    }
+
+    .terms_condition {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .google_login {
+        text-align: center;
+    }
+
+    .google_login a {
+        padding: 10px 70px;
+        border: none;
+        font-size: 15px;
+        font-weight: 500;
+        color: #fff;
+        border-radius: 5px;
+        background-color: #ffffff17;
+    }
+
+    .google_login a img {
+        width: 22px;
+        margin-right: 8px;
+    }
+</style>
+
+<div class="flex-container">
+    <div class="content-container">
+        <div class="login_form">
+            <form action="">
+                <div class="brand_logo">
+                    <h1>Fin-Dash</h1>
+                </div>
+                <div class="login_text">
+                    <span>Simple</span>
+                    <span><b>investing.</b></span>
+                </div>
+                <div class="terms_condition">
+                    <p>By proceeding. I agree to the <a href="#">T & C</a> and <a href="#">Privacy Policy</a></p>
+                </div>
+                <div class="google_login">
+                    <a href="{% provider_login_url 'google' %}" type="submit"><img src="https://i.ibb.co/ScJzDsk/search.png"
+                            class="img-fluid" alt=""> Continue with
+                        Google</a> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock %}
