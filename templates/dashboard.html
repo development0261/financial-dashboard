@@ -1738,11 +1738,11 @@
 
 
     $("#stock").click(function (e) {
-        var user_date = document.getElementById("stock_search").value;
+        var user_data = document.getElementById("stock_search").value;
         
         $.ajax({
             type: 'GET',
-            url: "/user/stocks_data/",
+            url: "/user/stocks_data/"+user_data+"/",
             success: function (data) {
                 var vdata = Object.keys(data)[1];
                 console.log(data[vdata])
