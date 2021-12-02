@@ -275,8 +275,8 @@ def demo(request):
     return render(request, 'demo.html')
 
 # Stocks api
-def stocks_data(request,stock):
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=5min&apikey=WMICTHH9A9JQYK44'.format(stock)
+def stocks_data(request,stock,time):
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval={}&apikey=WMICTHH9A9JQYK44'.format(stock,time)
     r = requests.get(url)
     stocks_data = r.json()
     print(stocks_data)

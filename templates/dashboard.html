@@ -916,7 +916,7 @@
                     <tbody>
                         <tr>
                             <th>Ticker</th>
-                            <td><span id="ticker_name"></span></td>
+                            <td><input type="text" id="crypto_select" placeholder="BTSUSDT"  required/></td>
                         </tr>
                         <tr>
                             <th>Frome Date</th>
@@ -944,11 +944,11 @@
                     </tbody>
                 </table>
                 <div class="financial_market_search">
-                    <form class="d-flex">
+                    <form class="d-flex justify-content-end">
                         <!-- <input class="form-control me-2 market_search_bar" id="cryptoSearch" type="search" placeholder="Search"
                             aria-label="Search"> -->
 
-                        <select class="form-select crypto mr-3" id="crypto_select" aria-label="Default select example">
+                        <!-- <select class="form-select crypto mr-3" id="crypto_select" aria-label="Default select example">
                             <option value="BTSUSDT" selected>BTS/USDT</option>
                             <option value="DASHUSDT">Dash/USDT</option>
                             <option value="EURUSDT">EUR/USDT</option>
@@ -957,7 +957,7 @@
                             <option value="LTCUSDT">LTC/USDT</option>
                             <option value="XMRUSDT">XMR/USDT</option>
                             <option value="NEOUSDT">NEO/USDT</option>
-                        </select>
+                        </select> -->
 
                         <button class="btn market_search_button" id="search_crypto" type="submit">Search</button>
                     </form>
@@ -1359,8 +1359,28 @@
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                   <div class="row">
                       <div class="col-lg-6">
-                        <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
-                        <button class="btn market_search_button" id="stock" type="submit">Search</button>
+                        <div class="d-flex">
+                            <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
+                            <select class="crypto mx-3" id="timeInterval" aria-label="Default select example" style="    padding: 0px !important;
+                            height: 37px;
+                            width: 260px;
+                            border: 1px solid rgba(227, 231, 237, 0.1);
+    background-color: #ffffff12;
+    color: #fff;
+    font-size: 14px;
+                            ">
+                                <option value="1min" selected>1min</option>
+                                <option value="5min" >5min</option>
+                                <option value="15min" >15min</option>
+                                <option value="30min" >30min</option>
+                                <option value="60min" >60min</option>
+
+                            
+                            </select> 
+                            <button class="btn market_search_button" id="stock" type="submit">Search</button>
+                            <button class="btn market_search_button ml-3" id="get_company" type="button">Get Company Details</button>
+
+                        </div>
                         <div class="price_data_table_wrp" id="price_data_table1_div">
                             <table id="price_data_table1" class="table table-striped">
                                 <thead>
@@ -1740,10 +1760,11 @@
 
     $("#stock").click(function (e) {
         var user_data = document.getElementById("stock_search").value;
-        
+        var timeInterval = document.getElementById("timeInterval").value;
+       
         $.ajax({
             type: 'GET',
-            url: "/user/stocks_data/"+user_data+"/",
+            url: "/user/stocks_data/"+user_data+"/"+timeInterval+"/",
             success: function (data) {
                 var vdata = Object.keys(data)[1];
                 console.log(data[vdata])
@@ -1757,7 +1778,7 @@
                     data1 = data[Object.keys(data)[i]]
                     var open_time = Object.keys(data)[i]
                     date_epoch = String(new Date(open_time))
-                    var d = date_epoch.slice(0, 14);
+                    var d = date_epoch.slice(0, 15);
                     var t = date_epoch.slice(16, 24);
                     
                     var open = data1[Object.keys(data1)[0]]
@@ -1842,11 +1863,11 @@
                          .toggleClass("active", item === currentPage).append(
                     $("<a>").addClass("page-link").attr({
                         href: "javascript:void(0)"}).text(item || "...")
-                ).insertBefore("#next-page");
+                ).insertBefore("#stockPagination #next-page");
             });
             // Disable prev/next when at first/last page:
-            $("#previous-page").toggleClass("disabled", currentPage === 1);
-            $("#next-page").toggleClass("disabled", currentPage === totalPages);
+            $("#stockPagination #previous-page").toggleClass("disabled", currentPage === 1);
+            $("#stockPagination #next-page").toggleClass("disabled", currentPage === totalPages);
             return true;
         }
     
@@ -1869,11 +1890,11 @@
         $(document).on("click", "#stockPagination li.current-page:not(.active)", function () {
             return showPage(+$(this).text());
         });
-        $("#next-page").on("click", function () {
+        $("#stockPagination #next-page").on("click", function () {
             return showPage(currentPage+1);
         });
     
-        $("#previous-page").on("click", function () {
+        $("#stockPagination #previous-page").on("click", function () {
             return showPage(currentPage-1);
         });
     });
@@ -1891,7 +1912,7 @@
         e.preventDefault();
         var crypto_val = document.getElementById("crypto_select");
         var cryptoCoin = crypto_val.value;
-        document.getElementById("ticker_name").innerHTML = cryptoCoin;
+        document.getElementById("crypto_select").value = cryptoCoin;
         var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
         var user_date = document.getElementById("date_crypto").value;
         var to_user_date = document.getElementById("to_date_crypto").value;
@@ -1934,14 +1955,15 @@
                 $("#all_data").empty()
                 for (let i = 0; i < data.length; i++) {
                     var open_time = data[i][0]
-                    date_epoch = String(new Date(open_time))
-                    console.log(d)
-                    console.log(date_to)
-                    var d = date_epoch.slice(0, 15);
-                    if (d == date_to)
-                    {
-                        console.log('called')
+                    date_epoch = new Date(open_time).toDateString()
+                    to_formated_date = new Date(date_to).toDateString()
+                    console.log(to_formated_date)
+                    console.log(date_epoch)
+                    if(to_formated_date < date_epoch){
+                        break
                     }
+                    var d = date_epoch.slice(0, 15);
+                    
                     var t = date_epoch.slice(16, 24);
                     var open = data[i][1]
                     var high = data[i][2]
@@ -1962,11 +1984,13 @@
                             <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
                             <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>
                             <td class="financial_value">${Math.abs(weeklyReturn).toFixed(3)} </td>
-                            <td class="financial_value">${parseFloat(weeklyReturn).toFixed(3)}</td>
+                            <td class="financial_value">${parseFloat(weeklyReturn).toFixed(3)} %
+                                ${ parseFloat(weeklyReturn) > 0 ? `<i class="fa fa-caret-up ml-1" style="color:green"></i>`:`<i class="fa fa-caret-down ml-1" style="color:red"></i>`}
+                                </td>
                         </tr>
                     `)
                 }
-    console.log( $('#price_data_table tr').length)
+    
     
     
     setTimeout(function(){
@@ -2038,8 +2062,8 @@
                 ).insertBefore("#next-page");
             });
             // Disable prev/next when at first/last page:
-            $("#previous-page").toggleClass("disabled", currentPage === 1);
-            $("#next-page").toggleClass("disabled", currentPage === totalPages);
+            $("#crypto_pagination #previous-page").toggleClass("disabled", currentPage === 1);
+            $("#crypto_pagination #next-page").toggleClass("disabled", currentPage === totalPages);
             return true;
         }
     
@@ -2062,11 +2086,11 @@
         $(document).on("click", "#crypto_pagination li.current-page:not(.active)", function () {
             return showPage(+$(this).text());
         });
-        $("#next-page").on("click", function () {
+        $("#crypto_pagination #next-page").on("click", function () {
             return showPage(currentPage+1);
         });
     
-        $("#previous-page").on("click", function () {
+        $("#crypto_pagination #previous-page").on("click", function () {
             return showPage(currentPage-1);
         });
     });

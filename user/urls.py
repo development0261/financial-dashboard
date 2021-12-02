@@ -26,7 +26,7 @@ urlpatterns = [
     path('avg_price/<str:crypto>',average_price),
     # path("all_data_filter/<str:date>/<str:time>/",all_data_filter,name="all_data_filter"),
     # Stocks API stocks_data
-    path('stocks_data/<str:stock>/', stocks_data),
+    path('stocks_data/<str:stock>/<str:time>/', stocks_data),
     
     path('demo', demo, name='demo'),
   
