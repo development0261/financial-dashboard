@@ -188,6 +188,15 @@
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
+#stock_details td.financial_value {
+    font-size: 11px;
+    letter-spacing: .5px;
+    color: #8587a7;
+}
+#stock_details td.financial_value p {
+    margin: 0 !important;
+    color: #8587a7;
+}
 </style>
 
 
@@ -867,7 +876,7 @@
     <div class="row">
         <div class="col-lg-6">
             <form action="">
-                <div class="price_data_table_wrp">
+                <div class="price_data_table_wrp" id="price_data_table_div">
                     <table id="price_data_table" class="table table-striped">
                         <thead>
                             <tr>
@@ -897,23 +906,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination_data">
-                            <!-- <li class="page-item">
-                           
-                            </li>
-                            <li class="page-item">     <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>"page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li> -->
-                        </ul>
-                    </nav>
+                   
                 </div>
             </form>
         </div>
@@ -926,8 +919,12 @@
                             <td><span id="ticker_name"></span></td>
                         </tr>
                         <tr>
-                            <th>Date</th>
+                            <th>Frome Date</th>
                             <td><input type="date" id="date_crypto" /></td>
+                        </tr>
+                        <tr>
+                            <th>To Date</th>
+                            <td><input type="date" id="to_date_crypto" /></td>
                         </tr>
                         <tr>
                             <th>Time Frame</th>
@@ -967,7 +964,7 @@
                 </div>
 
             </div>
-            <div class="symbol_data_wrp">
+            <!-- <div class="symbol_data_wrp">
                 <table class="table symbol_data_table">
                     <tbody>
                         <tr>
@@ -1084,7 +1081,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
         <div class="col-lg-3">
             <div class="visualized_statistical_metrics">
@@ -1220,7 +1217,7 @@
     <!-- /row -->
 
     <!-- row -->
-    <div class="row row-sm row-deck">
+    <div class="row">
         <div class="col-xl-4 col-lg-12">
             <div class="card overflow-hidden ">
                 <div class="card-header pb-0">
@@ -1360,43 +1357,47 @@
     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
-                    <button class="btn market_search_button" id="stock" type="submit">Search</button>
-                    <div class="price_data_table_wrp">
-                        <table id="price_data_table1" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <td class="financial_title" colspan="8">Price</td>
-                                </tr>
-                                <tr>
-                                    <th class="financial_date">Date</th>
-                                    <th class="financial_date">Open</th>
-                                    <th class="financial_date">High</th>
-                                    <th class="financial_date">Low</th>
-                                    <th class="financial_date">Close</th>
-                                    <th class="financial_date">Volume</th>
-
-                                </tr>
-                            </thead>
-                            <tbody id="stock_details" class="datatable-body">
-                                <tr>
-                                    <td class="financial_value">23/5/21</td>
-                                    <td class="financial_value">Open</td>
-                                    <td class="financial_value">High</td>
-                                    <td class="financial_value">Low</td>
-                                    <td class="financial_value">Close</td>
-                                    <td class="financial_value">Volume</td>
-                                   
-                                </tr>
-                            </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination_data d-flex mt-4">
-                             
-                                  
-                            </ul> 
-                        </nav>
-                    </div>
+                  <div class="row">
+                      <div class="col-lg-6">
+                        <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
+                        <button class="btn market_search_button" id="stock" type="submit">Search</button>
+                        <div class="price_data_table_wrp" id="price_data_table1_div">
+                            <table id="price_data_table1" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <td class="financial_title" colspan="8">Price</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="financial_date">Date</th>
+                                        <th class="financial_date">Open</th>
+                                        <th class="financial_date">High</th>
+                                        <th class="financial_date">Low</th>
+                                        <th class="financial_date">Close</th>
+                                        <th class="financial_date">Volume</th>
+    
+                                    </tr>
+                                </thead>
+                                <tbody id="stock_details" class="datatable-body">
+                                    <tr>
+                                        <td class="financial_value">23/5/21</td>
+                                        <td class="financial_value">Open</td>
+                                        <td class="financial_value">High</td>
+                                        <td class="financial_value">Low</td>
+                                        <td class="financial_value">Close</td>
+                                        <td class="financial_value">Volume</td>
+                                       
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination_data d-flex mt-4">
+                                 
+                                      
+                                </ul> 
+                            </nav>
+                        </div>
+                      </div>
+                  </div>
                 </div>
                
             </div>
@@ -1767,20 +1768,19 @@
                     
                     $("#stock_details").append(`
                     <tr class="datatable-row" style="color:wheat">
-                            <td class="financial_value">${d}<br> ${t}</td>
+                            <td class="financial_value"><p>${d}<br> ${t}</p></td>
                             <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
                             <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
                             <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
                             <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
-                            <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>
-                            
+                            <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>     
                         </tr>
                     `)
                 }
                 setTimeout(function(){
-                    $("#price_data_table1").append(`
-			<div class="pagination m-3 d-flex justify-content-end">
-			</div>
+                    $("#price_data_table1_div").append(`
+			<ul class="pagination m-3 d-flex justify-content-center" id="stockPagination">
+			</ul>
 		`)
 		function getPageList(totalPages, page, maxLength) {
         if (maxLength < 5) throw "maxLength must be at least 5";
@@ -1816,8 +1816,8 @@
     // Below is an example use of the above function.
     $(function () {
         // Number of items and limits the number of items per page
-        var numberOfItems = $(".datatable-body .datatable-row").length;
-	
+        var numberOfItems = $("#stock_details.datatable-body .datatable-row").length;
+       
         var limitPerPage = 15;
         // Total pages rounded upwards
         var totalPages = Math.ceil(numberOfItems / limitPerPage);
@@ -1831,11 +1831,11 @@
 			
             if (whichPage < 1 || whichPage > totalPages) return false;
             currentPage = whichPage;
-            $(".datatable-body .datatable-row").hide()
+            $("#stock_details.datatable-body .datatable-row").hide()
                 .slice((currentPage-1) * limitPerPage, 
                         currentPage * limitPerPage).show();
             // Replace the navigation items (not prev/next):            
-            $(".pagination li").slice(1, -1).remove();
+            $("#stockPagination li").slice(1, -1).remove();
             getPageList(totalPages, currentPage, paginationSize).forEach( item => {
                 $("<li>").addClass("page-item")
                          .addClass(item ? "current-page" : "disabled")
@@ -1851,7 +1851,7 @@
         }
     
         // Include the prev/next buttons:
-        $(".pagination").append(
+        $("#stockPagination").append(
             $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
                 $("<a>").addClass("page-link").attr({
                     href: "javascript:void(0)"}).text("<")
@@ -1866,7 +1866,7 @@
         showPage(1);
     
         // Use event delegation, as these items are recreated later    
-        $(document).on("click", ".pagination li.current-page:not(.active)", function () {
+        $(document).on("click", "#stockPagination li.current-page:not(.active)", function () {
             return showPage(+$(this).text());
         });
         $("#next-page").on("click", function () {
@@ -1894,13 +1894,20 @@
         document.getElementById("ticker_name").innerHTML = cryptoCoin;
         var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
         var user_date = document.getElementById("date_crypto").value;
+        var to_user_date = document.getElementById("to_date_crypto").value;
         /*date*/
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const d = new Date(user_date);
+        const to_d = new Date(to_user_date);
         const selecteddate  = user_date.split('-');
+        const selecteddateto  = to_user_date.split('-');
         // var selecteddate = d.getDate()+1;
         var selectedmonth = monthNames[d.getMonth()];
+        var selectedmonthto = monthNames[to_d.getMonth()];
         var final_date = (selecteddate[2]+ " "+ selectedmonth + " , "+ selecteddate[0]);
+        var date_to = (selecteddateto[2]+ " "+ selectedmonthto + " , "+ selecteddateto[0]);
+        
+        
       
         // var selectedyear = d.getFullYear();
         // d.toLocaleString('en-us', { month: 'short' })
@@ -1923,12 +1930,18 @@
             type: 'GET',
             url: "/user/all_data/" + cryptoCoin + "/" + final_date + "/" + user_time + "/",
             success: function (data) {
-                
+              
                 $("#all_data").empty()
                 for (let i = 0; i < data.length; i++) {
                     var open_time = data[i][0]
                     date_epoch = String(new Date(open_time))
-                    var d = date_epoch.slice(0, 14);
+                    console.log(d)
+                    console.log(date_to)
+                    var d = date_epoch.slice(0, 15);
+                    if (d == date_to)
+                    {
+                        console.log('called')
+                    }
                     var t = date_epoch.slice(16, 24);
                     var open = data[i][1]
                     var high = data[i][2]
@@ -1942,7 +1955,7 @@
                     
                     $("#all_data").append(`
                     <tr class="datatable-row">
-                            <td class="financial_value">${d}<br> ${t}</td>
+                            <td class="financial_value">${d} ${t}</td>
                             <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
                             <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
                             <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
@@ -1957,9 +1970,9 @@
     
     
     setTimeout(function(){
-		$("#price_data_table").append(`
-			<div class="pagination m-3 d-flex justify-content-end">
-			</div>
+		$("#price_data_table_div").append(`
+			<ul class="pagination m-3 d-flex justify-content-center" id="crypto_pagination">
+			</ul>
 		`)
 
 		function getPageList(totalPages, page, maxLength) {
@@ -1996,7 +2009,7 @@
     // Below is an example use of the above function.
     $(function () {
         // Number of items and limits the number of items per page
-        var numberOfItems = $(".datatable-body .datatable-row").length;
+        var numberOfItems = $("#all_data.datatable-body .datatable-row").length;
 	
         var limitPerPage = 15;
         // Total pages rounded upwards
@@ -2011,11 +2024,11 @@
 			
             if (whichPage < 1 || whichPage > totalPages) return false;
             currentPage = whichPage;
-            $(".datatable-body .datatable-row").hide()
+            $("#all_data.datatable-body .datatable-row").hide()
                 .slice((currentPage-1) * limitPerPage, 
                         currentPage * limitPerPage).show();
             // Replace the navigation items (not prev/next):            
-            $(".pagination li").slice(1, -1).remove();
+            $("#crypto_pagination li").slice(1, -1).remove();
             getPageList(totalPages, currentPage, paginationSize).forEach( item => {
                 $("<li>").addClass("page-item")
                          .addClass(item ? "current-page" : "disabled")
@@ -2031,7 +2044,7 @@
         }
     
         // Include the prev/next buttons:
-        $(".pagination").append(
+        $("#crypto_pagination").append(
             $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
                 $("<a>").addClass("page-link").attr({
                     href: "javascript:void(0)"}).text("<")
@@ -2046,7 +2059,7 @@
         showPage(1);
     
         // Use event delegation, as these items are recreated later    
-        $(document).on("click", ".pagination li.current-page:not(.active)", function () {
+        $(document).on("click", "#crypto_pagination li.current-page:not(.active)", function () {
             return showPage(+$(this).text());
         });
         $("#next-page").on("click", function () {
