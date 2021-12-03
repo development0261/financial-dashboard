@@ -394,3 +394,11 @@ def logoutProcess(request):
         logout(request)
 
     return redirect('index')
+
+
+def companyData(request,stock):
+    url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
+    r = requests.get(url)
+    stocks_data = r.json()
+    print(stocks_data)
+    return JsonResponse(stocks_data,safe=False)

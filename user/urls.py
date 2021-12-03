@@ -29,5 +29,5 @@ urlpatterns = [
     path('stocks_data/<str:stock>/<str:time>/', stocks_data),
     
     path('demo', demo, name='demo'),
-  
+    path('companyData/<str:stock>/',companyData,name="companyData")
 ]

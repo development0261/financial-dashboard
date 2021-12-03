@@ -197,6 +197,22 @@
     margin: 0 !important;
     color: #8587a7;
 }
+
+#staticBackdrop .modal-dialog{
+    min-width: 1000px;
+}
+#staticBackdrop h6.model_title {
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    width: 170px;
+    margin-bottom: 0;
+}
+
+#staticBackdrop p.model_value {
+    font-size: 12px;
+    color: #8587a7;
+}
 </style>
 
 
@@ -964,124 +980,7 @@
                 </div>
 
             </div>
-            <!-- <div class="symbol_data_wrp">
-                <table class="table symbol_data_table">
-                    <tbody>
-                        <tr>
-                            <th>Current Stock Price</th>
-                            <td>$21</td>
-                        </tr>
-                        <tr>
-                            <th>Percent Change</th>
-                            <td>21%</td>
-                        </tr>
-                        <tr>
-                            <th>2 Week Return</th>
-                            <td>21</td>
-                        </tr>
-                        <tr>
-                            <th>Beta</th>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <th>Beta(7Day)</th>
-                            <td>7</td>
-                        </tr>
-                        <tr>
-                            <th>Beta(15Day)</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>52 Week High</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>52 Week Low</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Mean</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Absolute Mean Move</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Variance</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Std.Dev</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>2Std.Dev</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>3Std.Dev</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Range Mean</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Range Std.Dev</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Biggest Loss</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Smallest Loss</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Biggest Move</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Smallest Move</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Historical Weekly Volatility</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Projected Range</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Projected Daily Move</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Current Price </th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price Down</th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price Daily High </th>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price Daily Low</th>
-                            <td>12</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
+          
         </div>
         <div class="col-lg-3">
             <div class="visualized_statistical_metrics">
@@ -1379,7 +1278,22 @@
                             </select> 
                             <button class="btn market_search_button" id="stock" type="submit">Search</button>
                             <button class="btn market_search_button ml-3" id="get_company" type="button">Get Company Details</button>
-
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="staticBackdropBody">
+                                     
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </div>
                         <div class="price_data_table_wrp" id="price_data_table1_div">
                             <table id="price_data_table1" class="table table-striped">
@@ -1415,6 +1329,127 @@
                                       
                                 </ul> 
                             </nav>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="symbol_data_wrp">
+                            <table class="table symbol_data_table">
+                                <tbody>
+                                    <tr>
+                                        <th>Current Stock Price</th>
+                                        <td>$21</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Percent Change</th>
+                                        <td>21%</td>
+                                    </tr>
+                                    <tr>
+                                        <th>2 Week Return</th>
+                                        <td>21</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Beta</th>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Beta(7Day)</th>
+                                        <td>7</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Beta(15Day)</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>52 Week High</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>52 Week Low</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mean</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Absolute Mean Move</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Variance</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Std.Dev</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>2Std.Dev</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>3Std.Dev</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Range Mean</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Range Std.Dev</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Biggest Loss</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Smallest Loss</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Biggest Move</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Smallest Move</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Historical Weekly Volatility</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Projected Range</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Projected Daily Move</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Current Price </th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Expected Price</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Expected Price Down</th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Expected Price Daily High </th>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Expected Price Daily Low</th>
+                                        <td>12</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                       </div>
                   </div>
@@ -2270,7 +2305,113 @@
     setInterval(ajax_per_rep, 5000);
 
    
+$("#get_company").click(function(){
+    var stock_search = $("#stock_search").val()
+    
+    
+    $.ajax({url: "/user/companyData/"+stock_search+"/", success: function(result){
+      console.log(result)
+      console.log(result['52WeekHigh'])
+        $("#staticBackdropLabel").html(stock_search)
+        $("#staticBackdropBody").empty()
+      $("#staticBackdropBody").append(`
+      
+      <div class="model_detail">
+                                          <div class="row">
+                                              <div class="col-lg-12 text-center mb-5">
+                                                  <a href="#">${result.Symbol}</a>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Name</h6>
+                                                <p class="model_value">${result.Name}</p>
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <h6 class="model_title">Description</h6>
+                                                <p class="model_value">${result.Description}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Assettype</h6>
+                                                <p class="model_value">${result.AssetType}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Exchnage</h6>
+                                                <p class="model_value">${result.Exchange}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Currency</h6>
+                                                <p class="model_value">${result.Currency}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Country</h6>
+                                                <p class="model_value">${result.Country}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Sector</h6>
+                                                <p class="model_value">${result.Sector}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Market Capitalization</h6>
+                                                <p class="model_value">${result.MarketCapitalization}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Dividend Yield</h6>
+                                                <p class="model_value">${result.DividendYield}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Dividend PerShare</h6>
+                                                <p class="model_value">${result.DividendPerShare}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Revenue PerShare TTM</h6>
+                                                <p class="model_value">${result.RevenuePerShareTTM}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Profit Margin</h6>
+                                                <p class="model_value">${result.ProfitMargin}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Gross Profit TTM</h6>
+                                                <p class="model_value">${result.GrossProfitTTM}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">52 Week High</h6>
+                                                <p class="model_value">${result['52WeekHigh']}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">52 Week Low</h6>
+                                                <p class="model_value">${result['52WeekLow']}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">50 Day Moving Average</h6>
+                                                <p class="model_value">${result['50DayMovingAverage']}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">200 Day Moving Average</h6>
+                                                <p class="model_value">${result['200DayMovingAverage']}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Shares Outstanding</h6>
+                                                <p class="model_value">${result['SharesOutstanding']}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">Dividend Date</h6>
+                                                <p class="model_value">${result['DividendDate']}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <h6 class="model_title">ExDividend Date</h6>
+                                                <p class="model_value">${result['ExDividendDate']}</p>
+                                              </div>
+                                          </div>
+                                      </div>
+      `)
+      $("#staticBackdrop").modal()
+    }});
+    
+})
 
+$("#close_modal").click(function(){
+    $("#staticBackdrop").modal('hide')
+})
 </script>
 <script type="text/javascript" src="{% static 'paging.js' %}"></script>
 <script type="text/javascript">
