@@ -208,7 +208,7 @@ def crypto_all_data(request,crypto,date,time):
     if time == "30MINUTE":
         klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE, date)    
     if time == "1WEEK":
-        klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE, date)    
+        klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_1WEEK, date)    
     return JsonResponse(klines,safe=False)
 
 # def all_data_filter(request,date,time):
@@ -402,3 +402,33 @@ def companyData(request,stock):
     stocks_data = r.json()
     print(stocks_data)
     return JsonResponse(stocks_data,safe=False)
+
+def get_graphData(request,crypto):
+    from datetime import datetime,date
+    today_date = date.today()
+    str_today_date = today_date.strftime("%d %b, %Y")
+    print(str_today_date)
+    klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_today_date )
+    return JsonResponse(klines,safe=False)
+
+def get_graphDataTime(request,crypto,time):
+    from datetime import datetime,date,timedelta
+    today_date = date.today()
+    str_today_date = today_date.strftime("%d %b, %Y")
+    str_end_date = None
+    print(str_today_date)
+    if time == "1Day":
+        str_end_date = date.today() - timedelta(days=2)
+        str_end_date = str_end_date.strftime("%d %b, %Y")
+    elif time == "1Week":
+        str_end_date = date.today() - timedelta(days=7)
+        str_end_date = str_end_date.strftime("%d %b, %Y")
+    elif time == "1Month":
+        str_end_date = date.today() - timedelta(days=30)
+        str_end_date = str_end_date.strftime("%d %b, %Y")
+    elif time == "1Year":
+        str_end_date = date.today() - timedelta(days=365)
+        str_end_date = str_end_date.strftime("%d %b, %Y")
+
+    klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_end_date,str_today_date)
+    return JsonResponse(klines,safe=False)

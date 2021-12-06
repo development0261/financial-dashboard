@@ -29,5 +29,8 @@ urlpatterns = [
     path('stocks_data/<str:stock>/<str:time>/', stocks_data),
     
     path('demo', demo, name='demo'),
-    path('companyData/<str:stock>/',companyData,name="companyData")
+    path('companyData/<str:stock>/',companyData,name="companyData"),
+    path('get_graphData/<str:crypto>/',get_graphData,name="get_graphData"),
+    path('get_graphDataTime/<str:crypto>/<str:time>/',get_graphDataTime,name="get_graphDataTime")
+
 ]

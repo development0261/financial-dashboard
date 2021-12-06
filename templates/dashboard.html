@@ -245,6 +245,16 @@
                 <a class="navbar-brand heading-black" href="index.html">
                     Fin-Dash
                 </a>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll d-flex flex-row align-items-center text-primary" href="{% url 'logoutProcess' %}">
+                                <em data-feather="layout" width="18" height="18" class="mr-2"></em>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
                     data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -1019,27 +1029,22 @@
                         </div>
                         <div class="media-body">
                             <h6>Ethereum</h6>
-                            <p>ETH (USD) = $148.46 (<span class="text-danger">-12.24%</span>)</p>
+                            <p id="ETH_Chart_Text" style="color: #fff;">ETH (USD) = $148.46 </p> (<span class="" id="ETH_Chart_History">-12.24%</span>)
                         </div>
-                        <div class="card-body-top mb-3">
-                            <div>
-                                <a href="">14</a> USD Markets
-                            </div>
-                            <div>
-                                <a href="">82</a> LTC Markets
-                            </div>
-                        </div>
+                     
                     </div>
-                    <div class="flot-wrapper">
-                        <div class="flot-chart ht-150 mt-4" id="flotChart3"></div>
+                    <div class="flot-wrapper mt-5">
+                        <div class="flot-chart ht-150 mt-4" id="">
+                            <canvas id="ETHChart"></canvas>
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer mt-2" style="z-index: 999;">
                     <nav class="nav">
-                        <a class="nav-link active" href=""><span>1D</span><span>-12.24%</span></a> <a class="nav-link"
-                            href=""><span>1W</span><span>-16.48%</span></a> <a class="nav-link"
-                            href=""><span>1M</span><span>-15.21%</span></a> <a class="nav-link"
-                            href=""><span>1Y</span><span>-40.17%</span></a>
+                        <a class="nav-link 1D_Data"  id="ETH_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="ETH_1W"
+                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="ETH_1M"
+                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="ETH_1Y"
+                            ><span>1Y</span></a>
                     </nav>
                 </div>
             </div>
@@ -1053,27 +1058,23 @@
                         </div>
                         <div class="media-body">
                             <h6>Litecoin</h6>
-                            <p>LTC (USD) = $45.81 (<span class="text-danger">-12.24%</span>)</p>
+                            <p id="LTC_Chart_Text" style="color: #fff;">LTC (USD) = $45.81 </p>(<span class="" id="LTC_Chart_History">-12.24%</span>)
                         </div>
-                        <div class="card-body-top">
-                            <div>
-                                <a href="">21</a> USD Markets
-                            </div>
-                            <div>
-                                <a href="">56</a> LTC Markets
-                            </div>
-                        </div>
+                      
                     </div>
-                    <div class="flot-wrapper">
-                        <div class="flot-chart ht-150  mt-4" id="flotChart5"></div>
+                    <div class="flot-wrapper mt-5">
+                        <div class="flot-chart ht-150 mt-4" id="">
+                            <canvas id="LTCChart"></canvas>
+                        </div>
+                        
                     </div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer mt-2" style="z-index: 999;">
                     <nav class="nav">
-                        <a class="nav-link active" href=""><span>1D</span><span>-15.24%</span></a> <a class="nav-link"
-                            href=""><span>1W</span><span>-24.68%</span></a> <a class="nav-link"
-                            href=""><span>1M</span><span>-17.15%</span></a> <a class="nav-link"
-                            href=""><span>1Y</span><span>-30.23%</span></a>
+                        <a class="nav-link 1D_Data"  id="LTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="LTC_1W"
+                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="LTC_1M"
+                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="LTC_1Y"
+                            ><span>1Y</span></a>
                     </nav>
                 </div>
             </div>
@@ -1087,27 +1088,22 @@
                         </div>
                         <div class="media-body">
                             <h6>Ripple</h6>
-                            <p>XRP (USD) = $0.2195(<span class="text-danger">-2.97%</span>)</p>
+                            <p id="XRP_Chart_Text" style="color: #fff;">XRP (USD) = $45.81 </p>(<span class="" id="XRP_Chart_History">-12.24%</span>)
                         </div>
-                        <div class="card-body-top">
-                            <div>
-                                <a href="">4</a> USD Markets
-                            </div>
-                            <div>
-                                <a href="">45</a> LTC Markets
-                            </div>
-                        </div>
+                     
                     </div>
-                    <div class="flot-wrapper">
-                        <div class="flot-chart ht-150 mt-4" id="flotChart1"></div>
+                    <div class="flot-wrapper mt-5">
+                        <div class="flot-chart ht-150 mt-4" id="">
+                            <canvas id="XRPChart"></canvas>
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer mt-2" style="z-index: 999;">
                     <nav class="nav">
-                        <a class="nav-link active" href=""><span>1D</span><span>-14.32%</span></a> <a class="nav-link"
-                            href=""><span>1W</span><span>-24.39%</span></a> <a class="nav-link"
-                            href=""><span>1M</span><span>-42.12%</span></a> <a class="nav-link"
-                            href=""><span>1Y</span><span>-50.34%</span></a>
+                        <a class="nav-link 1D_Data" id="XRP_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="XRP_1W"
+                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="XRP_1M"
+                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="XRP_1Y"
+                            ><span>1Y</span></a>
                     </nav>
                 </div>
             </div>
@@ -1206,7 +1202,7 @@
             </div>
         </div>
         <div class="col-xl-8 col-lg-12">
-            <div class="card card-bitcoin">
+            <div class="card card-bitcoin" style="height: 500px;">
                 <div class=" card-minimal-two">
                     <div class="card-header">
                         <h4 class="card-title mb-0">Bitcoin / USD Rate</h4>
@@ -1228,17 +1224,14 @@
                                     <label>Symbol</label>
                                     <p>BTC</p>
                                 </div>
-                                <div class="col-3">
-                                    <label>Price Benchmark</label>
-                                    <p>128.00%</p>
-                                </div>
-                                <div class="col">
+                                <div class="col mx-2">
                                     <label>Price (USD)</label>
-                                    <p>$4,253.49</p>
+                                    <p id="btc_price" >128.00%</p>
                                 </div>
+                                
                                 <div class="col">
                                     <label>Change (24H)</label>
-                                    <p>-0.24%</p>
+                                    <p id="btcGraphHistory">-0.24%</p>
                                 </div>
                                 <div class="col">
                                     <label>Market Cap</label>
@@ -1248,7 +1241,13 @@
                         </div>
                     </div><!-- media-body -->
                     <div class="flot-wrapper">
-                        <div class="flot-chart ht-226 wd-100p" id="flotChart12"></div>
+                        <div class="flot-chart ht-226 wd-100p" id="">
+                            <canvas id="BTCChart" style="display: block !important;
+                            box-sizing: border-box !important;
+                            height: 366px !important;
+                            width: 808px !important;
+                        "></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1651,6 +1650,8 @@
             success: function (data) {
                 btc_value = data.price
                 $('.etc_data').html(parseFloat(data.price).toFixed(4));
+                $('#btc_price').html(`$ ${parseFloat(data.price).toFixed(4)}`);
+
             },
             timeout: 1000
         });
@@ -1679,6 +1680,8 @@
             url: "/user/eth_data/",
             success: function (data) {
                 $('.eth_data').html(parseFloat(data.price).toFixed(4));
+                $("#ETH_Chart_Text").html(`ETH (USD) = $ ${parseFloat(data.price).toFixed(4)}`)
+                
                 $.ajax({
                     type: 'GET',
                     url: "/user/iot_data/",
@@ -1692,6 +1695,7 @@
                             success: function (data) {
                                 if (data != false) {
                                     $('.rep_data').html(parseFloat(data.price).toFixed(4));
+                                    $("#XRP_Chart_Text").html(`XRP (USD) = $ ${parseFloat(data.price).toFixed(4)}`)
                                 }
                                 $.ajax({
                                     type: 'GET',
@@ -1719,6 +1723,8 @@
                                                             url: "/user/ltc_data/",
                                                             success: function (data) {
                                                                 if (data != false) {
+                                                                    
+                                                                    $("#LTC_Chart_Text").html(`LTC (USD) = $ ${parseFloat(data.price).toFixed(4)}`)
                                                                     $('.ltc_data').html(parseFloat(data.price).toFixed(4));
                                                                 }
                                                                 $.ajax({
@@ -1778,12 +1784,20 @@
             success: function (data) {
                 $("#coinHistory").removeClass("text-success")
                 $("#coinHistory").empty()
+                $("#btcGraphHistory").empty()
+
                 if (data.indicator == true) {
                     $("#coinHistory").addClass("text-success")
                     $("#coinHistory").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                    $("#btcGraphHistory").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                    $("#btcGraphHistory").addClass("text-success")
+
+
                 } else {
                     $("#coinHistory").addClass("text-danger")
                     $("#coinHistory").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                    $("#btcGraphHistory").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                    $("#btcGraphHistory").addClass("text-danger")
                 }
             },
             timeout: 5000
@@ -1963,8 +1977,11 @@
         var final_date = (selecteddate[2]+ " "+ selectedmonth + " , "+ selecteddate[0]);
         var date_to = (selecteddateto[2]+ " "+ selectedmonthto + " , "+ selecteddateto[0]);
         
-        
-      
+        var to_date = $("#to_date_crypto").val()
+        console.log(to_date)
+        to_date = new Date(to_date).toDateString()
+        console.log(to_date)
+
         // var selectedyear = d.getFullYear();
         // d.toLocaleString('en-us', { month: 'short' })
         // alert(user_date+"--"+selecteddate+ "--" +selectedmonth+"=="+selectedyear);
@@ -1992,11 +2009,9 @@
                     var open_time = data[i][0]
                     date_epoch = new Date(open_time).toDateString()
                     to_formated_date = new Date(date_to).toDateString()
-                    console.log(to_formated_date)
-                    console.log(date_epoch)
-                    if(to_formated_date < date_epoch){
-                        break
-                    }
+                   
+
+                    
                     var d = date_epoch.slice(0, 15);
                     
                     var t = date_epoch.slice(16, 24);
@@ -2024,6 +2039,11 @@
                                 </td>
                         </tr>
                     `)
+
+                    if(new Date(date_to) < new Date(open_time)){
+                        console.log("Matcged")
+                        break
+                    }
                 }
     
     
@@ -2143,16 +2163,22 @@
             type: 'GET',
             url: "/user/history_data/REPUSDT",
             success: function (data) {
+                $("#XRP_Chart_History").removeClass("text-success")
+                $("#XRP_Chart_History").empty()
                 if (data.indicator == true) {
                     $("#rep_data_history #rep_history").removeClass("text-danger")
                     $("#rep_data_history #rep_history").addClass("text-success")
                     $("#rep_data_history #rep_history").html(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                    $("#XRP_Chart_History").addClass("text-success")
+                    $("#XRP_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
+                
                 } else {
 
                     $("#rep_data_history #rep_history").removeClass("text-success")
                     $("#rep_data_history #rep_history").addClass("text-danger")
                     $("#rep_data_history #rep_history").html(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
-
+                    $("#XRP_Chart_History").addClass("text-danger")
+                    $("#XRP_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
                 }
                 // sequence ajax
 
@@ -2207,12 +2233,18 @@
                                             success: function (data) {
                                                 $("#eth_data_history #eth_history").removeClass("text-success")
                                                 $("#eth_data_history #eth_history").empty()
+                                                $("#ETH_Chart_History").removeClass("text-success")
+                                                $("#ETH_Chart_History").empty()
                                                 if (data.indicator == true) {
                                                     $("#eth_data_history #eth_history").addClass("text-success")
                                                     $("#eth_data_history #eth_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                    $("#ETH_Chart_History").addClass("text-success")
+                                                    $("#ETH_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
                                                 } else {
                                                     $("#eth_data_history #eth_history").addClass("text-danger")
                                                     $("#eth_data_history #eth_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                    $("#ETH_Chart_History").addClass("text-danger")
+                                                    $("#ETH_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
                                                 }
                                                 $.ajax({
                                                     type: 'GET',
@@ -2233,12 +2265,20 @@
                                                             success: function (data) {
                                                                 $("#ltc_data_history #ltc_history").removeClass("text-success")
                                                                 $("#ltc_data_history #ltc_history").empty()
+                                                                $("#LTC_Chart_History").removeClass("text-success")
+                                                                $("#LTC_Chart_History").empty()
                                                                 if (data.indicator == true) {
+                                                                    
                                                                     $("#ltc_data_history #ltc_history").addClass("text-success")
                                                                     $("#ltc_data_history #ltc_history").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                    $("#LTC_Chart_History").addClass("text-success")
+                                                                    $("#LTC_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
+
                                                                 } else {
                                                                     $("#ltc_data_history #ltc_history").addClass("text-danger")
                                                                     $("#ltc_data_history #ltc_history").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
+                                                                    $("#LTC_Chart_History").addClass("text-danger")
+                                                                    $("#LTC_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
                                                                 }
                                                                 $.ajax({
                                                                     type: 'GET',
@@ -2418,6 +2458,7 @@ $("#close_modal").click(function(){
     
     
 </script>
+
 <script type="text/javascript">
 
 var _gaq = _gaq || [];
@@ -2431,6 +2472,322 @@ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www')
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+
+const BTC_data = {
+  labels: ["","","","","","","","","","","",""],
+  datasets: [{
+    fill: {
+                target: 'origin',
+                above: 'rgb(247, 147, 26)',   // Area will be red above the origin
+                below: 'rgb(247, 147, 26)'    // And blue below the origin
+              },
+    label: 'BTC Close',
+    backgroundColor: 'rgb(247, 147, 26)',
+    borderColor: 'rgb(247, 147, 26)',
+    data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+  }]
+};
+const BTC_config = {
+  type: 'line',
+  data: BTC_data,
+  options: {
+   
+  }
+};
+const BTC_myChart = new Chart(
+    document.getElementById('BTCChart'),
+    BTC_config
+  );
+
+
+function BTC_graph(chart) {
+    var crypto_coin = "BTCUSDT"
+    $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
+        console.log(result)
+        r_labels = []
+        r_data = []
+        for(let i=0;i< result.length;i++){
+            r_labels.push("")
+            r_data.push(result[i][4])
+        }
+        chart.data.labels = r_labels;
+        chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+        chart.update(); // finally update our chart
+    }});
+
+}
+BTC_graph(BTC_myChart);
+
+const eth_data = {
+  labels: ["","","","","","","","","","","",""],
+  datasets: [{
+    fill: {
+                target: 'origin',
+                above: 'rgb(20, 123, 112)',   // Area will be red above the origin
+                below: 'rgb(20, 123, 112)'    // And blue below the origin
+              },
+    label: 'ETH Close',
+    backgroundColor: 'rgb(20, 123, 112)',
+    borderColor: 'rgb(20, 123, 112)',
+    data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+  }]
+};
+const eth_config = {
+  type: 'line',
+  data: eth_data,
+  options: {
+   
+  }
+};
+const eth_myChart = new Chart(
+    document.getElementById('ETHChart'),
+    eth_config
+  );
+</script>
+
+<script>
+   
+
+// function to update our chart
+function eth_graph(chart) {
+    var crypto_coin = "ETHUSDT"
+    $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
+        console.log(result)
+        r_labels = []
+        r_data = []
+        for(let i=0;i< result.length;i++){
+            r_labels.push("")
+            r_data.push(result[i][4])
+        }
+        chart.data.labels = r_labels;
+        chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+        chart.update(); // finally update our chart
+    }});
+
+}
+eth_graph(eth_myChart);
+
+
+const Lite_data = {
+  labels: ["","","","","","","","","","","",""],
+  datasets: [{
+    fill: {
+                target: 'origin',
+                above: 'rgb(255, 23, 68)',   // Area will be red above the origin
+                below: 'rgb(255, 23, 68)'    // And blue below the origin
+              },
+    label: 'LITE Close',
+    backgroundColor: 'rgb(255, 23, 68)',
+    borderColor: 'rgb(255, 23, 68)',
+    data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+  }]
+};
+const Lite_config = {
+  type: 'line',
+  data: Lite_data,
+  options: {
+   
+  }
+};
+const Lite_myChart = new Chart(
+    document.getElementById('LTCChart'),
+    Lite_config
+  );
+  function Lite_graph(chart) {
+    var crypto_coin = "LTCUSDT"
+    $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
+        console.log(result)
+        r_labels = []
+        r_data = []
+        for(let i=0;i< result.length;i++){
+            r_labels.push("")
+            r_data.push(result[i][4])
+        }
+        chart.data.labels = r_labels;
+        chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+        chart.update(); // finally update our chart
+    }});
+
+}
+Lite_graph(Lite_myChart);
+
+
+const XRP_data = {
+  labels: ["","","","","","","","","","","",""],
+  datasets: [{
+    fill: {
+                target: 'origin',
+                above: 'rgb(0, 230, 118)',   // Area will be red above the origin
+                below: 'rgb(0, 230, 118)'    // And blue below the origin
+              },
+    label: 'XRP Close',
+    backgroundColor: 'rgb(0, 230, 118)',
+    borderColor: 'rgb(0, 230, 118)',
+    data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+  }]
+};
+const XRP_config = {
+  type: 'line',
+  data: XRP_data,
+  options: {
+   
+  }
+};
+const XRP_myChart = new Chart(
+    document.getElementById('XRPChart'),
+    XRP_config
+  );
+  function XRP_graph(chart) {
+    var crypto_coin = "XRPUSDT"
+    $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
+        console.log(result)
+        r_labels = []
+        r_data = []
+        for(let i=0;i< result.length;i++){
+            r_labels.push("")
+            r_data.push(result[i][4])
+        }
+        chart.data.labels = r_labels;
+        chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+        chart.update(); // finally update our chart
+    }});
+
+}
+XRP_graph(XRP_myChart);
+</script>
+<script>
+   
+    $(document).on('click',".1D_Data",function(){
+        var id = $(this).attr('id').split("_")[0]
+        var crypto_coin = id+"USDT"
+        var time = "1Day" 
+        $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
+            console.log(result)
+            r_labels = []
+            r_data = []
+            for(let i=0;i< result.length;i++){
+                r_labels.push("")
+                r_data.push(result[i][4])
+            }
+            if(id == "ETH"){
+                
+                eth_myChart.data.labels = r_labels;
+                eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                eth_myChart.update(); 
+            }else if(id == "XRP"){
+                XRP_myChart.data.labels = r_labels;
+                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                XRP_myChart.update(); 
+            }
+            else if(id == "LTC"){
+                Lite_myChart.data.labels = r_labels;
+                Lite_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                Lite_myChart.update(); 
+            }
+        }});
+    
+    })
+
+    $(document).on('click',".1W_Data",function(){
+        var id = $(this).attr('id').split("_")[0]
+        var crypto_coin = id+"USDT"
+        var time = "1Week" 
+        $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
+            
+            r_labels = []
+            r_data = []
+            for(let i=0;i< result.length;i++){
+                r_labels.push("")
+                r_data.push(result[i][4])
+            }
+        
+            if(id == "ETH"){
+                
+                eth_myChart.data.labels = r_labels;
+                eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                eth_myChart.update(); 
+            }else if(id == "XRP"){
+                XRP_myChart.data.labels = r_labels;
+                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                XRP_myChart.update(); 
+            }
+            else if(id == "LTC"){
+                Lite_myChart.data.labels = r_labels;
+                Lite_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                Lite_myChart.update(); 
+            }
+          // finally update our chart
+        }});
+    
+    })
+
+    $(document).on('click',".1M_Data",function(){
+        var id = $(this).attr('id').split("_")[0]
+        var crypto_coin = id+"USDT"
+        var time = "1Month" 
+        $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
+            console.log(result)
+            r_labels = []
+            r_data = []
+            for(let i=0;i< result.length;i++){
+                r_labels.push("")
+                r_data.push(result[i][4])
+            }
+            if(id == "ETH"){
+                
+                eth_myChart.data.labels = r_labels;
+                eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                eth_myChart.update(); 
+            }else if(id == "XRP"){
+                XRP_myChart.data.labels = r_labels;
+                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                XRP_myChart.update(); 
+            }
+            else if(id == "LTC"){
+                Lite_myChart.data.labels = r_labels;
+                Lite_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                Lite_myChart.update(); 
+            }
+        }});
+    
+    })
+
+    $(document).on('click',".1Y_Data",function(){
+        var id = $(this).attr('id').split("_")[0]
+        var crypto_coin = id+"USDT"
+        var time = "1Year" 
+        $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
+            console.log(result)
+            r_labels = []
+            r_data = []
+            for(let i=0;i< result.length;i++){
+                r_labels.push("")
+                r_data.push(result[i][4])
+            }
+
+            if(id == "ETH"){
+                
+                eth_myChart.data.labels = r_labels;
+                eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                eth_myChart.update(); 
+            }else if(id == "XRP"){
+                XRP_myChart.data.labels = r_labels;
+                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                XRP_myChart.update(); 
+            }
+            else if(id == "LTC"){
+                Lite_myChart.data.labels = r_labels;
+                Lite_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                Lite_myChart.update(); 
+            }
+        }});
+    
+    })
+    
 </script>
 
 {% endblock %}
