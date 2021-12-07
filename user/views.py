@@ -255,14 +255,16 @@ def crypto_history_data(request,crypto):
     last = list(history_data.values())[-1]
     res = dict(reversed(list(history_data.items())))
     dict_last = dict(itertools.islice(res.items(),50))
-    per_increase = ((float(first) - float(last)) / float(first)) * 100
-    
+    per_increase = ((float(last) - float(first)) / float(first)) * 100
+    print(per_increase)    
     indicator = None
     if per_increase < 0:
         indicator = False
     else:
         indicator = True
-        
+    print("BTC")
+    print(indicator)    
+
     dict_last['per_increase'] = per_increase
     dict_last['indicator'] = indicator
     return JsonResponse(dict_last,safe=False)
@@ -280,7 +282,11 @@ def stocks_data(request,stock,time):
     r = requests.get(url)
     stocks_data = r.json()
     print(stocks_data)
-    return JsonResponse(stocks_data,safe=False)
+
+    url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
+    r = requests.get(url)
+    c_data = r.json()
+    return JsonResponse({'c_data':c_data,'stocks_data':stocks_data},safe=False)
 
  
 
@@ -410,6 +416,39 @@ def get_graphData(request,crypto):
     print(str_today_date)
     klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_today_date )
     return JsonResponse(klines,safe=False)
+
+def get_allgraphData(request,crypto):
+    from datetime import datetime,date
+    today_date = date.today()
+    str_today_date = today_date.strftime("%d %b, %Y")
+    print(str_today_date)
+    klines1 = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_today_date )
+   
+    klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")
+    history_data = {}
+    
+    for i in klines:
+        s,ms = divmod(int(i[6]),1000)
+        time = datetime.fromtimestamp(s).strftime("%m/%d/%Y, %H:%M:%S")
+        history_data[time] = i[4]
+    
+    first = list(history_data.values())[0]
+    last = list(history_data.values())[-1]
+    res = dict(reversed(list(history_data.items())))
+    dict_last = dict(itertools.islice(res.items(),50))
+    per_increase = ((float(last) - float(first)) / float(first)) * 100
+    print(per_increase)    
+    indicator = None
+    if per_increase < 0:
+        indicator = False
+    else:
+        indicator = True
+      
+
+    dict_last['per_increase'] = per_increase
+    dict_last['indicator'] = indicator
+    
+    return JsonResponse({'klines':klines1,'dict_last':dict_last},safe=False)    
 
 def get_graphDataTime(request,crypto,time):
     from datetime import datetime,date,timedelta

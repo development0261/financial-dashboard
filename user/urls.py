@@ -31,6 +31,8 @@ urlpatterns = [
     path('demo', demo, name='demo'),
     path('companyData/<str:stock>/',companyData,name="companyData"),
     path('get_graphData/<str:crypto>/',get_graphData,name="get_graphData"),
+    path('get_allgraphData/<str:crypto>/',get_allgraphData,name="get_allgraphData"),
+
     path('get_graphDataTime/<str:crypto>/<str:time>/',get_graphDataTime,name="get_graphDataTime")
 
 ]

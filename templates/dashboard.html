@@ -1020,6 +1020,36 @@
 
     <!-- row -->
     <div class="row row-sm">
+        <div class="col-xl-4 col-lg-12 col-md-12">
+            <div class="card crypto  crypt-success overflow-hidden">
+                <div class="card-body iconfont text-left">
+                    <div class="media">
+                        <div class="coin-logo bg-success-transparent" style="  background-color: rgba(247, 147, 26, 0.17) !important;
+                    ">
+                            <i class="cf cf-btc" style="color:rgb(247, 147, 26)"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6>Bitcoin</h6>
+                            <p id="BTC_Chart_Text" style="color: #fff;">BTC (USD) = $45.81 </p>(<span class="" id="BTC_Chart_History">-12.24%</span>)
+                        </div>
+                     
+                    </div>
+                    <div class="flot-wrapper mt-5">
+                        <div class="flot-chart ht-150 mt-4" id="">
+                            <canvas id="BTCChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer mt-2" style="z-index: 999;">
+                    <nav class="nav">
+                        <a class="nav-link 1D_Data" id="BTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="BTC_1W"
+                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="BTC_1M"
+                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="BTC_1Y"
+                            ><span>1Y</span></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
         <div class="col-xl-4 col-lg-6 col-md-12">
             <div class="card crypto crypt-primary overflow-hidden">
                 <div class="card-body iconfont text-left">
@@ -1079,35 +1109,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-lg-12 col-md-12">
-            <div class="card crypto  crypt-success overflow-hidden">
-                <div class="card-body iconfont text-left">
-                    <div class="media">
-                        <div class="coin-logo bg-success-transparent">
-                            <i class="cf cf-xrp text-success"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6>Ripple</h6>
-                            <p id="XRP_Chart_Text" style="color: #fff;">XRP (USD) = $45.81 </p>(<span class="" id="XRP_Chart_History">-12.24%</span>)
-                        </div>
-                     
-                    </div>
-                    <div class="flot-wrapper mt-5">
-                        <div class="flot-chart ht-150 mt-4" id="">
-                            <canvas id="XRPChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer mt-2" style="z-index: 999;">
-                    <nav class="nav">
-                        <a class="nav-link 1D_Data" id="XRP_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="XRP_1W"
-                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="XRP_1M"
-                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="XRP_1Y"
-                            ><span>1Y</span></a>
-                    </nav>
-                </div>
-            </div>
-        </div>
+       
     </div>
     <!-- /row -->
 
@@ -1205,10 +1207,10 @@
             <div class="card card-bitcoin" style="height: 500px;">
                 <div class=" card-minimal-two">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Bitcoin / USD Rate</h4>
+                        <h4 class="card-title mb-0" id="cryptoTitle">Bitcoin / USD Rate</h4>
                         <div class="">
                             <nav class="nav nav-pills">
-                                <a class="nav-link active" data-toggle="tab" href="#">BTH</a> <a class="nav-link"
+                                <a class="nav-link active" data-toggle="tab" href="#">BTC</a> <a class="nav-link"
                                     data-toggle="tab" href="#">ETH</a> <a class="nav-link" data-toggle="tab"
                                     href="#">LTC</a> <a class="nav-link" data-toggle="tab" href="#">BTG</a>
                             </nav>
@@ -1219,7 +1221,7 @@
                     <div class="media">
                         <div class="media-icon"><i class="fab fa-bitcoin"></i></div>
                         <div class="media-body">
-                            <div class="row row-sm">
+                            <div class="row row-sm" id="cryptoValues">
                                 <div class="col">
                                     <label>Symbol</label>
                                     <p>BTC</p>
@@ -1242,7 +1244,7 @@
                     </div><!-- media-body -->
                     <div class="flot-wrapper">
                         <div class="flot-chart ht-226 wd-100p" id="">
-                            <canvas id="BTCChart" style="display: block !important;
+                            <canvas id="ALLChart" style="display: block !important;
                             box-sizing: border-box !important;
                             height: 366px !important;
                             width: 808px !important;
@@ -1643,15 +1645,19 @@
 
     btc_value = 0
     var interval = 1000;
+   
     var ajax_btc = function () {
+        
+        $("#BTC_Chart_Text").empty()
         $.ajax({
             type: 'GET',
             url: "/user/btc_data/",
+
             success: function (data) {
                 btc_value = data.price
                 $('.etc_data').html(parseFloat(data.price).toFixed(4));
                 $('#btc_price').html(`$ ${parseFloat(data.price).toFixed(4)}`);
-
+                $("#BTC_Chart_Text").html(`BTC (USD)=$ ${parseFloat(data.price).toFixed(4)}`);
             },
             timeout: 1000
         });
@@ -1776,7 +1782,59 @@
     };
     setInterval(ajax_eth, 1000);
 
+    const findVariance = (arr = []) => {
+        if(!arr.length){
+           return 0;
+        };
+        const sum = arr.reduce((acc, val) => acc + val);
+        const { length: num } = arr;
+        const median = sum / num;
+        let variance = 0;
+        arr.forEach(num => {
+           variance += ((num - median) * (num - median));
+        });
+        variance /= num;
+        return variance;
+     };
 
+    function simpleMovingAverage(prices, window = 5) {
+        if (!prices || prices.length < window) {
+          return [];
+        }
+      
+        let index = window - 1;
+        const length = prices.length + 1;
+      
+        const simpleMovingAverages = [];
+      
+        while (++index < length) {
+          const windowSlice = prices.slice(index - window, index);
+          const sum = windowSlice.reduce((prev, curr) => prev + curr, 0);
+          simpleMovingAverages.push(sum / window);
+        }
+      
+        return simpleMovingAverages[simpleMovingAverages.length-1 ];
+      }
+      function dev(arr){
+        // Creating the mean with Array.reduce
+        let mean = arr.reduce((acc, curr)=>{
+          return acc + curr
+        }, 0) / arr.length;
+         
+        // Assigning (value - mean) ^ 2 to every array item
+        arr = arr.map((k)=>{
+          return (k - mean) ** 2
+        })
+         
+        // Calculating the sum of updated array
+       let sum = arr.reduce((acc, curr)=> acc + curr, 0);
+        
+       // Calculating the variance
+       let variance = sum / arr.length
+        
+       // Returning the Standered deviation
+       return Math.sqrt(sum / arr.length)
+      }  
     var ajax_per_btc = function () {
         $.ajax({
             type: 'GET',
@@ -1784,20 +1842,23 @@
             success: function (data) {
                 $("#coinHistory").removeClass("text-success")
                 $("#coinHistory").empty()
-                $("#btcGraphHistory").empty()
-
+     
+                $("#BTC_Chart_History").empty()
                 if (data.indicator == true) {
                     $("#coinHistory").addClass("text-success")
                     $("#coinHistory").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
-                    $("#btcGraphHistory").append(`<i class="fa fa-caret-up mr-1"></i>${data.per_increase.toFixed(4)}%`)
-                    $("#btcGraphHistory").addClass("text-success")
+                 
+                    $("#BTC_Chart_History").addClass("text-success")
+                    $("#BTC_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
 
+                    
 
                 } else {
                     $("#coinHistory").addClass("text-danger")
                     $("#coinHistory").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
-                    $("#btcGraphHistory").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
-                    $("#btcGraphHistory").addClass("text-danger")
+               
+                    $("#BTC_Chart_History").addClass("text-danger")
+                    $("#BTC_Chart_History").html(`- ${data.per_increase.toFixed(4)}% `)
                 }
             },
             timeout: 5000
@@ -1810,16 +1871,29 @@
     $("#stock").click(function (e) {
         var user_data = document.getElementById("stock_search").value;
         var timeInterval = document.getElementById("timeInterval").value;
-       
+        var stock_price = 0.0
         $.ajax({
             type: 'GET',
             url: "/user/stocks_data/"+user_data+"/"+timeInterval+"/",
-            success: function (data) {
+            success: function (result) {
+                console.log(result)
+                data = result.stocks_data
                 var vdata = Object.keys(data)[1];
                 console.log(data[vdata])
                 $("#stock_details").empty()
                 data = data[vdata]
                 console.log(Object.keys(data))
+                data1 = data[Object.keys(data)[0]]
+                stock_price = data1[Object.keys(data1)[3]]
+                var per_change = (data1[Object.keys(data1)[3]] - data1[Object.keys(data1)[0]])*100/(data1[Object.keys(data1)[0]])
+                var sum_close = 0
+                var total_data = Object.keys(data).length
+                var arr_to_variance = []
+                var biggest_loss = 0
+                var smallest_loss = 0
+                var loss_arr = []
+                var move_arr = []
+
                 for (let i = 0; i < Object.keys(data).length; i++) {
                     console.log(i)
                     console.log(Object.keys(data)[i])
@@ -1834,8 +1908,16 @@
                     var high = data1[Object.keys(data1)[1]]
                     var low = data1[Object.keys(data1)[2]]
                     var close = data1[Object.keys(data1)[3]]
+                    arr_to_variance.push(parseFloat(close))
                     var Volume = data1[Object.keys(data1)[4]]
-                    
+                    sum_close = parseFloat(sum_close) + parseFloat(close) 
+
+                    if(parseFloat(open)-parseFloat(close) > 0){
+                        loss_arr.push(parseFloat(open)-parseFloat(close))
+                    }
+                    if(parseFloat(close)-parseFloat(open) > 0){
+                        move_arr.push(parseFloat(close)-parseFloat(open))
+                    }
                     $("#stock_details").append(`
                     <tr class="datatable-row" style="color:wheat">
                             <td class="financial_value"><p>${d}<br> ${t}</p></td>
@@ -1847,6 +1929,82 @@
                         </tr>
                     `)
                 }
+
+                $(".symbol_data_wrp").empty()
+                $(".symbol_data_wrp").append(`
+                <table class="table symbol_data_table">
+                    <tbody>
+                        <tr>
+                            <th>Current Stock Price</th>
+                            <td>$ ${stock_price}</td>
+                        </tr>
+                        <tr>
+                            <th>Percent Change</th>
+                            <td>${per_change.toFixed(2)} %</td>
+                        </tr>
+                      
+                        <tr>
+                            <th>Beta</th>
+                            <td>${result.c_data.Beta} </td>
+                        </tr>
+                      
+                        <tr>
+                            <th>52 Week High</th>
+                            <td>${result.c_data['52WeekHigh']}</td>
+                        </tr>
+                        <tr>
+                            <th>52 Week Low</th>
+                            <td>${result.c_data['52WeekLow']}</td>
+                        </tr>
+                        <tr>
+                            <th>Mean</th>
+                            <td>${(sum_close/total_data).toFixed(2)} </td>
+                        </tr>
+                        <tr>
+                            <th>Absolute Mean Move</th>
+                            <td>${simpleMovingAverage(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <th>Variance</th>
+                            <td>${findVariance(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <th>Std.Dev</th>
+                            <td>${dev(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                      
+                        <tr>
+                            <th>Range Mean</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Range Std.Dev</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Loss</th>
+                            <td>${Math.max(...loss_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Loss</th>
+                            <td>${Math.min(...loss_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Move</th>
+                            <td>${Math.max(...move_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Move</th>
+                            <td>${Math.min(...move_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Historical Weekly Volatility</th>
+                            <td>${dev(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                      
+                    </tbody>
+                </table>
+                `)
                 setTimeout(function(){
                     $("#price_data_table1_div").append(`
 			<ul class="pagination m-3 d-flex justify-content-center" id="stockPagination">
@@ -2475,52 +2633,86 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
-
-const BTC_data = {
-  labels: ["","","","","","","","","","","",""],
-  datasets: [{
-    fill: {
-                target: 'origin',
-                above: 'rgb(247, 147, 26)',   // Area will be red above the origin
-                below: 'rgb(247, 147, 26)'    // And blue below the origin
-              },
-    label: 'BTC Close',
-    backgroundColor: 'rgb(247, 147, 26)',
-    borderColor: 'rgb(247, 147, 26)',
-    data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
-  }]
-};
-const BTC_config = {
-  type: 'line',
-  data: BTC_data,
-  options: {
-   
-  }
-};
-const BTC_myChart = new Chart(
-    document.getElementById('BTCChart'),
-    BTC_config
-  );
-
-
-function BTC_graph(chart) {
-    var crypto_coin = "BTCUSDT"
-    $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
-        console.log(result)
-        r_labels = []
-        r_data = []
-        for(let i=0;i< result.length;i++){
-            r_labels.push("")
-            r_data.push(result[i][4])
+    const ALL_data = {
+        labels: ["","","","","","","","","","","",""],
+        datasets: [{
+          fill: {
+                      target: 'origin',
+                      above: 'rgb(247, 147, 26)',   // Area will be red above the origin
+                      below: 'rgb(247, 147, 26)'    // And blue below the origin
+                    },
+          label: 'ALL Close',
+          backgroundColor: 'rgb(247, 147, 26)',
+          borderColor: 'rgb(247, 147, 26)',
+          data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+        }]
+      };
+      const ALL_config = {
+        type: 'line',
+        data: ALL_data,
+        options: {
+         
         }
-        chart.data.labels = r_labels;
-        chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
-        chart.update(); // finally update our chart
-    }});
+      };
+      const ALL_myChart = new Chart(
+          document.getElementById('ALLChart'),
+          ALL_config
+        );
 
-}
-BTC_graph(BTC_myChart);
+              // function to update our chart
+      function ALL_graph(chart) {
+        var crypto_coin = "BTCUSDT"
+        $.ajax({url: "/user/get_allgraphData/"+crypto_coin+"/", success: function(result){
+            console.log(result)
+            r_labels = []
+            r_data = []
+            $("#cryptoValues").empty()
+            $("#cryptoValues").append(`
+                    <div class="col">
+                        <label>Symbol</label>
+                        <p>BTC</p>
+                    </div>
+                    <div class="col mx-2">
+                        <label>Price (USD)</label>
+                        <p id="btc_price" >128.00%</p>
+                    </div>
+                    ${ result.dict_last.indicator ? `
+                        <div class="col">
+                            <label>Change (24H)</label>
+                            <p id="btcGraphHistory" style="color:green;"><i class="fa fa-caret-up mr-1"></i> ${result.dict_last.per_increase.toFixed(3)} %</p>
+                        </div>
+                        `:`
+                        <div class="col">
+                            <label>Change (24H)</label>
+                            <p id="btcGraphHistory" style="color:red;"><i class="fa fa-caret-down mr-1"></i> ${result.dict_last.per_increase.toFixed(3)} %</p>
+                        </div>
+                        `}
+                   
+                    <div class="col">
+                        <label>Market Cap</label>
+                        <p>$179.12B</p>
+                    </div>
+            `)
+        
+            for(let i=0;i< result.klines.length;i++){
+                r_labels.push("")
+                r_data.push(result.klines[i][4])
+            }
+            chart.data.labels = r_labels;
+            chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+            chart.update(); // finally update our chart
+        }});
+    
+    }
+ALL_graph(ALL_myChart);
+      </script>
+      
+      <script>
+         
+      
+
+
+
 
 const eth_data = {
   labels: ["","","","","","","","","","","",""],
@@ -2616,33 +2808,33 @@ const Lite_myChart = new Chart(
 Lite_graph(Lite_myChart);
 
 
-const XRP_data = {
+const BTC_data = {
   labels: ["","","","","","","","","","","",""],
   datasets: [{
     fill: {
                 target: 'origin',
-                above: 'rgb(0, 230, 118)',   // Area will be red above the origin
-                below: 'rgb(0, 230, 118)'    // And blue below the origin
+                above: 'rgb(247, 147, 26)',   // Area will be red above the origin
+                below: 'rgb(247, 147, 26)'    // And blue below the origin
               },
-    label: 'XRP Close',
-    backgroundColor: 'rgb(0, 230, 118)',
-    borderColor: 'rgb(0, 230, 118)',
+    label: 'BTC Close',
+    backgroundColor: 'rgb(247, 147, 26)',
+    borderColor: 'rgb(247, 147, 26)',
     data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
   }]
 };
-const XRP_config = {
+const BTC_config = {
   type: 'line',
-  data: XRP_data,
+  data: BTC_data,
   options: {
    
   }
 };
-const XRP_myChart = new Chart(
-    document.getElementById('XRPChart'),
-    XRP_config
+const BTC_myChart = new Chart(
+    document.getElementById('BTCChart'),
+    BTC_config
   );
-  function XRP_graph(chart) {
-    var crypto_coin = "XRPUSDT"
+  function BTC_graph(chart) {
+    var crypto_coin = "BTCUSDT"
     $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
         console.log(result)
         r_labels = []
@@ -2657,7 +2849,7 @@ const XRP_myChart = new Chart(
     }});
 
 }
-XRP_graph(XRP_myChart);
+BTC_graph(BTC_myChart);
 </script>
 <script>
    
@@ -2678,10 +2870,10 @@ XRP_graph(XRP_myChart);
                 eth_myChart.data.labels = r_labels;
                 eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
                 eth_myChart.update(); 
-            }else if(id == "XRP"){
-                XRP_myChart.data.labels = r_labels;
-                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
-                XRP_myChart.update(); 
+            }else if(id == "BTC"){
+                BTC_myChart.data.labels = r_labels;
+                BTC_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                BTC_myChart.update(); 
             }
             else if(id == "LTC"){
                 Lite_myChart.data.labels = r_labels;
@@ -2710,10 +2902,10 @@ XRP_graph(XRP_myChart);
                 eth_myChart.data.labels = r_labels;
                 eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
                 eth_myChart.update(); 
-            }else if(id == "XRP"){
-                XRP_myChart.data.labels = r_labels;
-                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
-                XRP_myChart.update(); 
+            }else if(id == "BTC"){
+                BTC_myChart.data.labels = r_labels;
+                BTC_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                BTC_myChart.update(); 
             }
             else if(id == "LTC"){
                 Lite_myChart.data.labels = r_labels;
@@ -2742,10 +2934,10 @@ XRP_graph(XRP_myChart);
                 eth_myChart.data.labels = r_labels;
                 eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
                 eth_myChart.update(); 
-            }else if(id == "XRP"){
-                XRP_myChart.data.labels = r_labels;
-                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
-                XRP_myChart.update(); 
+            }else if(id == "BTC"){
+                BTC_myChart.data.labels = r_labels;
+                BTC_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                BTC_myChart.update(); 
             }
             else if(id == "LTC"){
                 Lite_myChart.data.labels = r_labels;
@@ -2774,10 +2966,10 @@ XRP_graph(XRP_myChart);
                 eth_myChart.data.labels = r_labels;
                 eth_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
                 eth_myChart.update(); 
-            }else if(id == "XRP"){
-                XRP_myChart.data.labels = r_labels;
-                XRP_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
-                XRP_myChart.update(); 
+            }else if(id == "BTC"){
+                BTC_myChart.data.labels = r_labels;
+                BTC_myChart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+                BTC_myChart.update(); 
             }
             else if(id == "LTC"){
                 Lite_myChart.data.labels = r_labels;
