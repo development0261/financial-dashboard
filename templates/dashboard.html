@@ -213,6 +213,13 @@
     font-size: 12px;
     color: #8587a7;
 }
+nav.nav.nav-pills select.form-select {
+    padding: 6px 45px 6px 6px;
+    height: fit-content;
+    background-color: #5965f9;
+    color: #fff;
+    margin-right: 63px;
+}
 </style>
 
 
@@ -1210,9 +1217,12 @@
                         <h4 class="card-title mb-0" id="cryptoTitle">Bitcoin / USD Rate</h4>
                         <div class="">
                             <nav class="nav nav-pills">
-                                <a class="nav-link active" data-toggle="tab" href="#">BTC</a> <a class="nav-link"
-                                    data-toggle="tab" href="#">ETH</a> <a class="nav-link" data-toggle="tab"
-                                    href="#">LTC</a> <a class="nav-link" data-toggle="tab" href="#">BTG</a>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option value="1"><a class="nav-link active" data-toggle="tab" href="#">BTC</a></option>
+                                    <option value="2"><a class="nav-link" data-toggle="tab" href="#">ETH</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">LTC</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">BTG</a></option>
+                                  </select>
                             </nav>
                         </div><!-- card-header-right -->
                     </div>
