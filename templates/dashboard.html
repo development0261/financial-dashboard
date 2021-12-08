@@ -1658,16 +1658,17 @@ nav.nav.nav-pills select.form-select {
    
     var ajax_btc = function () {
         
-        $("#BTC_Chart_Text").empty()
+      
         $.ajax({
             type: 'GET',
             url: "/user/btc_data/",
 
             success: function (data) {
+              
                 btc_value = data.price
                 $('.etc_data').html(parseFloat(data.price).toFixed(4));
                 $('#btc_price').html(`$ ${parseFloat(data.price).toFixed(4)}`);
-                $("#BTC_Chart_Text").html(`BTC (USD)=$ ${parseFloat(data.price).toFixed(4)}`);
+                $("#BTC_Chart_Text").html(`BTC (USD)= $ ${parseFloat(data.price).toFixed(4)}`);
             },
             timeout: 1000
         });
@@ -1868,7 +1869,7 @@ nav.nav.nav-pills select.form-select {
                     $("#coinHistory").append(`<i class="fa fa-caret-down mr-1"></i>${data.per_increase.toFixed(4)}%`)
                
                     $("#BTC_Chart_History").addClass("text-danger")
-                    $("#BTC_Chart_History").html(`- ${data.per_increase.toFixed(4)}% `)
+                    $("#BTC_Chart_History").html(` ${data.per_increase.toFixed(4)}% `)
                 }
             },
             timeout: 5000
