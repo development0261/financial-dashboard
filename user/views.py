@@ -447,8 +447,23 @@ def get_allgraphData(request,crypto):
 
     dict_last['per_increase'] = per_increase
     dict_last['indicator'] = indicator
-    
-    return JsonResponse({'klines':klines1,'dict_last':dict_last},safe=False)    
+    dict_last['price'] = float(last)
+
+    curr = {
+        # "BTC" : ["",""],
+        "BTCUSDT" : ["rgb(247, 147, 26)","/static/assets/img/crypto-currencies/round-outline/Bitcoin.svg"],
+        "ETHUSDT" : ["rgb(20 123 112)","/static/assets/img/crypto-currencies/round-outline/Decred.svg"],
+        "LTCUSDT" : ["rgb(136 138 146)","/static/assets/img/crypto-currencies/round-outline/Litecoin.svg"],
+        "NEOUSDT" : ["rgb(181 20 115)","/static/assets/img/crypto-currencies/round-outline/Netko-coin.svg"],
+        "REPUSDT" : ["rgb(68 78 189)","/static/assets/img/crypto-currencies/round-outline/Augur.svg"],
+        "BTSUSDT" : ["rgb(44 127 167)","/static/assets/img/crypto-currencies/round-outline/BitShares.svg"],
+        "DASHUSDT" : ["rgb(26 63 107)","/static/assets/img/crypto-currencies/round-outline/Dash.svg"],
+        "EURUSDT" : ["rgb(144 130 88)","/static/assets/img/crypto-currencies/round-outline/EOS.svg"],
+        "IOTAUSDT" : ["rgb(17 71 84)","/static/assets/img/crypto-currencies/round-outline/IOTA.svg"],
+        "XMRUSDT" : ["rgb(160 76 43)","/static/assets/img/crypto-currencies/round-outline/Monero.svg"],
+    }
+    crypto_data = curr[crypto]
+    return JsonResponse({'klines':klines1,'dict_last':dict_last,'crypto_data':crypto_data},safe=False)    
 
 def get_graphDataTime(request,crypto,time):
     from datetime import datetime,date,timedelta

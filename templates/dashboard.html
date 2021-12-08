@@ -995,10 +995,10 @@ nav.nav.nav-pills select.form-select {
                         <button class="btn market_search_button" id="search_crypto" type="submit">Search</button>
                     </form>
                 </div>
-
             </div>
-          
+            
         </div>
+        
         <div class="col-lg-3">
             <div class="visualized_statistical_metrics">
                 <div class="row">
@@ -1023,6 +1023,128 @@ nav.nav.nav-pills select.form-select {
         </div>
     </div>
 
+    <div  class="row d-flex justify-content-end">
+        <div class="col-lg-6 px-3">
+            <div class="symbol_data_wrp">
+                <table class="table symbol_data_table">
+                    <tbody>
+                        <tr>
+                            <th>Current Stock Price</th>
+                            <td>$0</td>
+                        </tr>
+                        <tr>
+                            <th>Percent Change</th>
+                            <td>0%</td>
+                        </tr>
+                        <tr>
+                            <th>2 Week Return</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Beta</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Beta(7Day)</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Beta(15Day)</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>52 Week High</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>52 Week Low</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Mean</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Absolute Mean Move</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Variance</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Std.Dev</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>2Std.Dev</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>3Std.Dev</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Range Mean</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Range Std.Dev</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Loss</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Loss</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Move</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Move</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Historical Weekly Volatility</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Projected Range</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Projected Daily Move</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Current Price </th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price Down</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price Daily High </th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Price Daily Low</th>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <!-- /crypto table -->
 
     <!-- row -->
@@ -1217,11 +1339,17 @@ nav.nav.nav-pills select.form-select {
                         <h4 class="card-title mb-0" id="cryptoTitle">Bitcoin / USD Rate</h4>
                         <div class="">
                             <nav class="nav nav-pills">
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" id="cur_select" aria-label="Default select example" onchange="GetSelected()">
                                     <option value="1"><a class="nav-link active" data-toggle="tab" href="#">BTC</a></option>
                                     <option value="2"><a class="nav-link" data-toggle="tab" href="#">ETH</a></option>
                                     <option value="3"><a class="nav-link" data-toggle="tab" href="#">LTC</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">BTG</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">NEO</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">REP</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">BTS</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">DASH</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">EUR</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">IOTA</a></option>
+                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">XMR</a></option>
                                   </select>
                             </nav>
                         </div><!-- card-header-right -->
@@ -1229,7 +1357,7 @@ nav.nav.nav-pills select.form-select {
                 </div>
                 <div class="card-body">
                     <div class="media">
-                        <div class="media-icon"><i class="fab fa-bitcoin"></i></div>
+                        <div class="media-icon" id='cur_image'><i class="fab fa-bitcoin"></i></div>
                         <div class="media-body">
                             <div class="row row-sm" id="cryptoValues">
                                 <div class="col">
@@ -1349,115 +1477,115 @@ nav.nav.nav-pills select.form-select {
                                 <tbody>
                                     <tr>
                                         <th>Current Stock Price</th>
-                                        <td>$21</td>
+                                        <td>$0</td>
                                     </tr>
                                     <tr>
                                         <th>Percent Change</th>
-                                        <td>21%</td>
+                                        <td>0%</td>
                                     </tr>
                                     <tr>
                                         <th>2 Week Return</th>
-                                        <td>21</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Beta</th>
-                                        <td>8</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Beta(7Day)</th>
-                                        <td>7</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Beta(15Day)</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>52 Week High</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>52 Week Low</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Mean</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Absolute Mean Move</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Variance</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Std.Dev</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>2Std.Dev</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>3Std.Dev</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Range Mean</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Range Std.Dev</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Biggest Loss</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Smallest Loss</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Biggest Move</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Smallest Move</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Historical Weekly Volatility</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Projected Range</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Projected Daily Move</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Current Price </th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Expected Price</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Expected Price Down</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Expected Price Daily High </th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr>
                                         <th>Expected Price Daily Low</th>
-                                        <td>12</td>
+                                        <td>0</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1667,7 +1795,7 @@ nav.nav.nav-pills select.form-select {
               
                 btc_value = data.price
                 $('.etc_data').html(parseFloat(data.price).toFixed(4));
-                $('#btc_price').html(`$ ${parseFloat(data.price).toFixed(4)}`);
+               
                 $("#BTC_Chart_Text").html(`BTC (USD)= $ ${parseFloat(data.price).toFixed(4)}`);
             },
             timeout: 1000
@@ -2174,7 +2302,8 @@ nav.nav.nav-pills select.form-select {
             success: function (data) {
               
                 $("#all_data").empty()
-                for (let i = 0; i < data.length; i++) {
+                for (let i = data.length - 1; i > 0 ; i--) {
+                    console.log(i)
                     var open_time = data[i][0]
                     date_epoch = new Date(open_time).toDateString()
                     to_formated_date = new Date(date_to).toDateString()
@@ -2194,6 +2323,10 @@ nav.nav.nav-pills select.form-select {
                         weeklyReturn = ((data[i][5] / data[i + 1][5]) - 1)
                     }
                     
+                    // if(new Date(date_to) > new Date(open_time)){
+                    //     console.log("Matcged")
+                    //     continue
+                    // }
                     $("#all_data").append(`
                     <tr class="datatable-row">
                             <td class="financial_value">${d} ${t}</td>
@@ -2209,10 +2342,6 @@ nav.nav.nav-pills select.form-select {
                         </tr>
                     `)
 
-                    if(new Date(date_to) < new Date(open_time)){
-                        console.log("Matcged")
-                        break
-                    }
                 }
     
     
@@ -2644,48 +2773,51 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const ALL_data = {
-        labels: ["","","","","","","","","","","",""],
-        datasets: [{
-          fill: {
-                      target: 'origin',
-                      above: 'rgb(247, 147, 26)',   // Area will be red above the origin
-                      below: 'rgb(247, 147, 26)'    // And blue below the origin
-                    },
-          label: 'ALL Close',
-          backgroundColor: 'rgb(247, 147, 26)',
-          borderColor: 'rgb(247, 147, 26)',
-          data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
-        }]
-      };
-      const ALL_config = {
-        type: 'line',
-        data: ALL_data,
-        options: {
-         
-        }
-      };
+     const ALL_data = {
+            labels: ["","","","","","","","","","","",""],
+            datasets: [{
+            fill: {
+                    target: 'origin',
+                    above: 'rgb(247, 147, 26)',   // Area will be red above the origin
+                    below: 'rgb(247, 147, 26)'    // And blue below the origin
+                },
+            label: 'BTC Close',
+            backgroundColor: 'rgb(247, 147, 26)',
+            borderColor: 'rgb(247, 147, 26)',
+            data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+            }]
+        };
+        const ALL_config = {
+            type: 'line',
+            data: ALL_data,
+            options: {
+            }
+        };
       const ALL_myChart = new Chart(
           document.getElementById('ALLChart'),
           ALL_config
         );
-
-              // function to update our chart
-      function ALL_graph(chart) {
-        var crypto_coin = "BTCUSDT"
+        console.log(ALL_myChart)
+        // function to update our chart
+      function ALL_graph(chart,cur_value) {
+        // var crypto_coin = "BTSUSDT"
+       
+        var crypto_coin = cur_value+"USDT"
+           
+        
         $.ajax({url: "/user/get_allgraphData/"+crypto_coin+"/", success: function(result){
-            console.log(result)
+           
             r_labels = []
             r_data = []
             $("#cryptoValues").empty()
             $("#cryptoValues").append(`
                     <div class="col">
                         <label>Symbol</label>
-                        <p>BTC</p>
+                        <p>${crypto_coin}</p>
                     </div>
                     <div class="col mx-2">
                         <label>Price (USD)</label>
-                        <p id="btc_price" >128.00%</p>
+                        <p id="btc_price" >${result.dict_last.price.toFixed(3)}</p>
                     </div>
                     ${ result.dict_last.indicator ? `
                         <div class="col">
@@ -2709,16 +2841,30 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
                 r_labels.push("")
                 r_data.push(result.klines[i][4])
             }
+            $("#cur_image").html(`<img src="${result.crypto_data[1]}" width="50" />`)
             chart.data.labels = r_labels;
-            chart.data.datasets[0].data = r_data // or you can iterate for multiple datasets
+            chart.data.datasets[0].data = r_data; // or you can iterate for multiple datasets
+            chart.data.datasets[0].borderColor = result.crypto_data[0];
+            chart.data.datasets[0].backgroundColor = result.crypto_data[0];
+            chart.data.datasets[0].fill.above = result.crypto_data[0];
+            chart.data.datasets[0].label = cur_value+" Close"
             chart.update(); // finally update our chart
+           
         }});
     
     }
-ALL_graph(ALL_myChart);
-      </script>
+// ALL_graph(ALL_myChart);
+
+ ALL_graph(ALL_myChart,"BTC");
+$("#cur_select").change(function(){
+    var selValue = $('#cur_select :selected').text();
+    ALL_graph(ALL_myChart,selValue);
+});
+
+
+    </script>
       
-      <script>
+    <script>
          
       
 
