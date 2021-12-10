@@ -46,7 +46,7 @@
 
     .search_table_wrp .table input {
         width: auto;
-        margin: 0;
+        margin: 2px;
     }
 
     select#crypto_time {
@@ -123,7 +123,7 @@
     }
 
     .statistical_metrics_chart {
-        margin: 10px 0;
+        margin: 1% 0;
     }
 
     .statistical_metrics_chart_wrp {
@@ -159,67 +159,75 @@
 
     .statistical_metrics_chart {
         border: 1px solid rgba(227, 231, 237, 0.1);
-        padding: 20px;
     }
 
     .paging-nav {
-  text-align: right;
-  padding-top: 2px;
+        text-align: right;
+        padding-top: 2px;
+    }
+
+        .paging-nav a {
+        margin: auto 1px;
+        text-decoration: none;
+        display: inline-block;
+        padding: 1px 7px;
+        background: #91b9e6;
+        color: white;
+        border-radius: 3px;
+    }
+
+        .paging-nav .selected-page {
+        background: #187ed5;
+        font-weight: bold;
 }
 
-.paging-nav a {
-  margin: auto 1px;
-  text-decoration: none;
-  display: inline-block;
-  padding: 1px 7px;
-  background: #91b9e6;
-  color: white;
-  border-radius: 3px;
-}
+    .paging-nav,
+    #price_data_table {
+        width: 400px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+    #stock_details td.financial_value {
+        font-size: 11px;
+        letter-spacing: .5px;
+        color: #8587a7;
+    }
+    #stock_details td.financial_value p {
+        margin: 0 !important;
+        color: #8587a7;
+    }
 
-.paging-nav .selected-page {
-  background: #187ed5;
-  font-weight: bold;
-}
+    #staticBackdrop .modal-dialog{
+        min-width: 1000px;
+    }
+    #staticBackdrop h6.model_title {
+        font-size: 14px;
+        font-weight: 400;
+        display: inline-block;
+        width: 170px;
+        margin-bottom: 0;
+    }
 
-.paging-nav,
-#price_data_table {
-  width: 400px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-#stock_details td.financial_value {
-    font-size: 11px;
-    letter-spacing: .5px;
-    color: #8587a7;
-}
-#stock_details td.financial_value p {
-    margin: 0 !important;
-    color: #8587a7;
-}
+    #staticBackdrop p.model_value {
+        font-size: 12px;
+        color: #8587a7;
+    }
+    nav.nav.nav-pills select.form-select {
+        padding: 6px 45px 6px 6px;
+        height: fit-content;
+        background-color: #5965f9;
+        color: #fff;
+        margin-right: 63px;
+    }
 
-#staticBackdrop .modal-dialog{
-    min-width: 1000px;
-}
-#staticBackdrop h6.model_title {
-    font-size: 14px;
-    font-weight: 400;
-    display: inline-block;
-    width: 170px;
-    margin-bottom: 0;
-}
+    div#search_tab {
+        padding-left: 2%;
+    }
 
-#staticBackdrop p.model_value {
-    font-size: 12px;
-    color: #8587a7;
-}
-nav.nav.nav-pills select.form-select {
-    padding: 6px 45px 6px 6px;
-    height: fit-content;
-    background-color: #5965f9;
-    color: #fff;
-    margin-right: 63px;
-}
+    div#visual_metrics {
+        padding-left: 0%;
+    }
+
 </style>
 
 
@@ -907,7 +915,7 @@ nav.nav.nav-pills select.form-select {
                     </div>
                     <!-- cryptop table -->
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <form action="">
                 <div class="price_data_table_wrp" id="price_data_table_div">
                     <table id="price_data_table" class="table table-striped">
@@ -943,7 +951,7 @@ nav.nav.nav-pills select.form-select {
                 </div>
             </form>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" id="search_tab">
             <div class="search_table_wrp">
                 <table class="table">
                     <tbody>
@@ -999,7 +1007,7 @@ nav.nav.nav-pills select.form-select {
             
         </div>
         
-        <div class="col-lg-3">
+        <div class="col-lg-4" id="visual_metrics">
             <div class="visualized_statistical_metrics">
                 <div class="row">
                     <div class="col-lg-12">
@@ -1009,14 +1017,18 @@ nav.nav.nav-pills select.form-select {
                     </div>
                     <div class="col-lg-12">
                         <div class="statistical_metrics_chart">
-                            Chart Section
+                            <canvas id="freq_dist_chart"></canvas>
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="statistical_metrics_chart">Chart Section</div>
+                        <div class="statistical_metrics_chart">
+                            <canvas id="pie_chart"></canvas>
+                        </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="statistical_metrics_chart">Chart Section</div>
+                        <div class="statistical_metrics_chart">
+                            <canvas id="bubble_chart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1385,8 +1397,8 @@ nav.nav.nav-pills select.form-select {
                             <canvas id="ALLChart" style="display: block !important;
                             box-sizing: border-box !important;
                             height: 366px !important;
-                            width: 808px !important;
-                        "></canvas>
+                            width: 808px !important;">
+                            </canvas>
                         </div>
                     </div>
                 </div>
@@ -2006,16 +2018,80 @@ nav.nav.nav-pills select.form-select {
     };
     setInterval(ajax_per_btc, 5000);
 
+    const pie_data = {
+        labels: [
+            'Amount Of Weeks Up',
+            'Amount Of Weeks Down'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [99,0.1],
+            backgroundColor: [
+            '#198754',
+            '#97df92'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const pie_config = {
+        type: 'pie',
+        data: pie_data,
+        options : {
+            legend : {
+                position: 'bottom',
+            },
+            plugins: {
+                datalabels: {
+                    color: '#fff',
+                    display: true, 
+                    formatter: function (value, ctx) {
+                        return ((data * 100) / 52).toFixed(2) + '%'; 
+                    },
+                },
+            },
+        }
+    };
+    const Pie_chart = new Chart(
+        document.getElementById('pie_chart'),
+        pie_config,
+    );
+
+
+    function PIE_CHART(chart,comp_name) {
+        $.ajax({url: "/user/week_up_down/"+comp_name+"/", success: function(result){
+            var up = (result.up*100/52).toFixed(2)
+            var down = (result.down*100/52).toFixed(2)
+
+            chart.data.labels = ["Amount Of Weeks Up ", "Amount Of Weeks Down "];
+            chart.data.datasets[0].data = [up,down]; 
+            chart.update(); // finally update our chart
+           
+        }});
+    }
+        
+    const actions = [
+    {
+        name: 'Position: bottom',
+        handler(chart) {
+        chart.options.plugins.legend.position = 'bottom';
+        chart.update();
+        }
+    },
+    ];
 
     $("#stock").click(function (e) {
         var user_data = document.getElementById("stock_search").value;
         var timeInterval = document.getElementById("timeInterval").value;
         var stock_price = 0.0
+
         $.ajax({
             type: 'GET',
             url: "/user/stocks_data/"+user_data+"/"+timeInterval+"/",
             success: function (result) {
-                console.log(result)
+
+                var comp_name = document.getElementById("stock_search").value;
+                PIE_CHART(Pie_chart,comp_name)
+
                 data = result.stocks_data
                 var vdata = Object.keys(data)[1];
                 console.log(data[vdata])
@@ -2773,7 +2849,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-     const ALL_data = {
+    const ALL_data = {
             labels: ["","","","","","","","","","","",""],
             datasets: [{
             fill: {
@@ -2784,7 +2860,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             label: 'BTC Close',
             backgroundColor: 'rgb(247, 147, 26)',
             borderColor: 'rgb(247, 147, 26)',
-            data: [12, 10, 5, 2, 20, 30, 45,12, 10, 5, 2, 20, 30,],
+            data: [12, 10, 5, 2, 20, 30, 45, 12, 10, 5, 2, 20, 30,],
             }]
         };
         const ALL_config = {
@@ -2793,13 +2869,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             options: {
             }
         };
-      const ALL_myChart = new Chart(
-          document.getElementById('ALLChart'),
-          ALL_config
+        const ALL_myChart = new Chart(
+            document.getElementById('ALLChart'),
+            ALL_config
         );
-        console.log(ALL_myChart)
+        // console.log(ALL_myChart)
         // function to update our chart
-      function ALL_graph(chart,cur_value) {
+        function ALL_graph(chart,cur_value) {
         // var crypto_coin = "BTSUSDT"
        
         var crypto_coin = cur_value+"USDT"
@@ -2853,7 +2929,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
         }});
     
     }
-// ALL_graph(ALL_myChart);
 
  ALL_graph(ALL_myChart,"BTC");
 $("#cur_select").change(function(){
@@ -2862,14 +2937,11 @@ $("#cur_select").change(function(){
 });
 
 
-    </script>
+</script>
       
-    <script>
+<script>
          
-      
-
-
-
+    
 
 const eth_data = {
   labels: ["","","","","","","","","","","",""],
@@ -3008,8 +3080,83 @@ const BTC_myChart = new Chart(
 }
 BTC_graph(BTC_myChart);
 </script>
+
 <script>
-   
+    const labels = [1,2,3,4,5,6,7];
+    const bar_data = {
+        labels: labels,
+        datasets: [{
+            label: 'Total',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+        }]
+    };
+    const bar_config = {
+        type: 'bar',
+        data: bar_data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+    const bar_chart = new Chart(
+        document.getElementById('freq_dist_chart'),
+        bar_config
+    );
+
+    const bubble_data = {
+    datasets: [{
+        label: 'First Dataset',
+        data: [{
+        x: 20,
+        y: 30,
+        r: 10
+        },{
+        x: 30,
+        y: 30,
+        r: 10
+        }, {
+        x: 40,
+        y: 10,
+        r: 10
+        }],
+        backgroundColor: 'rgb(255, 99, 132)'
+        }]
+    };
+    const bubble_config = {
+        type: 'bubble',
+        data: bubble_data,
+        options: {}
+    };
+    const Bubble_chart = new Chart(
+        document.getElementById('bubble_chart'),
+        bubble_config
+    );
+    
+</script>
+
+<script>
     $(document).on('click',".1D_Data",function(){
         var id = $(this).attr('id').split("_")[0]
         var crypto_coin = id+"USDT"

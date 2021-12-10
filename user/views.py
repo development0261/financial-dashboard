@@ -281,7 +281,6 @@ def stocks_data(request,stock,time):
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval={}&apikey=WMICTHH9A9JQYK44'.format(stock,time)
     r = requests.get(url)
     stocks_data = r.json()
-    print(stocks_data)
 
     url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
     r = requests.get(url)
@@ -486,3 +485,27 @@ def get_graphDataTime(request,crypto,time):
 
     klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_end_date,str_today_date)
     return JsonResponse(klines,safe=False)
+
+def week_up_down(request,stock):
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
+    r = requests.get(url)
+    week_data = r.json()
+    Weekly_Time_Series = week_data['Weekly Time Series']
+
+    result = {}
+    for key,value in Weekly_Time_Series.items():
+        result[key]=float(value['1. open'])-float(value['4. close'])
+
+    result_items = result.items()
+    weeks = list(result_items)[:52]
+
+    up = []
+    down = []
+    for row in weeks:
+        if row[1]<0:
+            down.append(row[1])
+        else:
+            up.append(row[1])
+    # {"up": 22, "down": 30}
+
+    return JsonResponse({'up':len(up),'down':len(down),'result':result},safe=False)
