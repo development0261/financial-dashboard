@@ -508,4 +508,4 @@ def week_up_down(request,stock):
             up.append(row[1])
     # {"up": 22, "down": 30}
 
-    return JsonResponse({'up':len(up),'down':len(down),'result':result},safe=False)
+    return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values())},safe=False)

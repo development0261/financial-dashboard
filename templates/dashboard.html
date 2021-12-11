@@ -2057,7 +2057,7 @@
     );
 
 
-    function PIE_CHART(chart,comp_name) {
+    function PIE_CHART(chart,comp_name,stock_price) {
         $.ajax({url: "/user/week_up_down/"+comp_name+"/", success: function(result){
             var up = (result.up*100/52).toFixed(2)
             var down = (result.down*100/52).toFixed(2)
@@ -2065,7 +2065,37 @@
             chart.data.labels = ["Amount Of Weeks Up ", "Amount Of Weeks Down "];
             chart.data.datasets[0].data = [up,down]; 
             chart.update(); // finally update our chart
-           
+            per_array = []
+            for(let i=0;i<result.result.length;i++){
+                per_array.push((parseFloat(result.result[i])*100)/ parseFloat(stock_price))
+            }
+            console.log(per_array)
+            maximum = Math.max(...per_array)
+           minimum = Math.min(...per_array)
+           labels_arr = []
+           data_arr = []
+            range_array = []
+            for(let i = parseInt(minimum) ; i <= parseInt(maximum) ;i++){
+                range_array.push(i)
+            }
+            for(let i =0 ; i< range_array.length-1;i++){
+                labels_arr.push(parseFloat(range_array[i]).toFixed(2)+"-"+parseFloat(range_array[i+1]).toFixed(2))
+                
+                counter = 0;
+                for(let j = 0 ; j < per_array.length;j++){
+                    
+                    if(per_array[j] >= range_array[i] && per_array[j] <= range_array[i+1] ){
+                        counter ++;
+                    }
+                }
+                data_arr.push(counter)
+            }
+            console.log(labels_arr)
+            console.log(data_arr)
+
+            bar_chart.data.labels = range_array
+            bar_chart.data.datasets[0].data = data_arr
+            bar_chart.update(); // finally update our chart
         }});
     }
         
@@ -2090,16 +2120,17 @@
             success: function (result) {
 
                 var comp_name = document.getElementById("stock_search").value;
-                PIE_CHART(Pie_chart,comp_name)
+                
 
                 data = result.stocks_data
                 var vdata = Object.keys(data)[1];
-                console.log(data[vdata])
+             
                 $("#stock_details").empty()
                 data = data[vdata]
-                console.log(Object.keys(data))
+               
                 data1 = data[Object.keys(data)[0]]
                 stock_price = data1[Object.keys(data1)[3]]
+                PIE_CHART(Pie_chart,comp_name,stock_price)
                 var per_change = (data1[Object.keys(data1)[3]] - data1[Object.keys(data1)[0]])*100/(data1[Object.keys(data1)[0]])
                 var sum_close = 0
                 var total_data = Object.keys(data).length
@@ -2110,8 +2141,7 @@
                 var move_arr = []
 
                 for (let i = 0; i < Object.keys(data).length; i++) {
-                    console.log(i)
-                    console.log(Object.keys(data)[i])
+            
                    
                     data1 = data[Object.keys(data)[i]]
                     var open_time = Object.keys(data)[i]
@@ -2351,9 +2381,9 @@
         var date_to = (selecteddateto[2]+ " "+ selectedmonthto + " , "+ selecteddateto[0]);
         
         var to_date = $("#to_date_crypto").val()
-        console.log(to_date)
+
         to_date = new Date(to_date).toDateString()
-        console.log(to_date)
+    
 
         // var selectedyear = d.getFullYear();
         // d.toLocaleString('en-us', { month: 'short' })
@@ -2379,7 +2409,7 @@
               
                 $("#all_data").empty()
                 for (let i = data.length - 1; i > 0 ; i--) {
-                    console.log(i)
+            
                     var open_time = data[i][0]
                     date_epoch = new Date(open_time).toDateString()
                     to_formated_date = new Date(date_to).toDateString()
@@ -2724,8 +2754,7 @@ $("#get_company").click(function(){
     
     
     $.ajax({url: "/user/companyData/"+stock_search+"/", success: function(result){
-      console.log(result)
-      console.log(result['52WeekHigh'])
+
         $("#staticBackdropLabel").html(stock_search)
         $("#staticBackdropBody").empty()
       $("#staticBackdropBody").append(`
@@ -2977,7 +3006,7 @@ const eth_myChart = new Chart(
 function eth_graph(chart) {
     var crypto_coin = "ETHUSDT"
     $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
-        console.log(result)
+    
         r_labels = []
         r_data = []
         for(let i=0;i< result.length;i++){
@@ -3021,7 +3050,7 @@ const Lite_myChart = new Chart(
   function Lite_graph(chart) {
     var crypto_coin = "LTCUSDT"
     $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
-        console.log(result)
+  
         r_labels = []
         r_data = []
         for(let i=0;i< result.length;i++){
@@ -3065,7 +3094,7 @@ const BTC_myChart = new Chart(
   function BTC_graph(chart) {
     var crypto_coin = "BTCUSDT"
     $.ajax({url: "/user/get_graphData/"+crypto_coin+"/", success: function(result){
-        console.log(result)
+       
         r_labels = []
         r_data = []
         for(let i=0;i< result.length;i++){
@@ -3082,12 +3111,12 @@ BTC_graph(BTC_myChart);
 </script>
 
 <script>
-    const labels = [1,2,3,4,5,6,7];
+    const labels = [];
     const bar_data = {
         labels: labels,
         datasets: [{
-            label: 'Total',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            label: 'R Values (%)',
+            data: [],
             backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
@@ -3124,6 +3153,8 @@ BTC_graph(BTC_myChart);
         document.getElementById('freq_dist_chart'),
         bar_config
     );
+
+
 
     const bubble_data = {
     datasets: [{
@@ -3162,7 +3193,7 @@ BTC_graph(BTC_myChart);
         var crypto_coin = id+"USDT"
         var time = "1Day" 
         $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
-            console.log(result)
+       
             r_labels = []
             r_data = []
             for(let i=0;i< result.length;i++){
@@ -3226,7 +3257,7 @@ BTC_graph(BTC_myChart);
         var crypto_coin = id+"USDT"
         var time = "1Month" 
         $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
-            console.log(result)
+        
             r_labels = []
             r_data = []
             for(let i=0;i< result.length;i++){
@@ -3257,7 +3288,7 @@ BTC_graph(BTC_myChart);
         var crypto_coin = id+"USDT"
         var time = "1Year" 
         $.ajax({url: "/user/get_graphDataTime/"+crypto_coin+"/"+time+"/", success: function(result){
-            console.log(result)
+        
             r_labels = []
             r_data = []
             for(let i=0;i< result.length;i++){
