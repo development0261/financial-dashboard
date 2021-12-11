@@ -486,6 +486,29 @@ def get_graphDataTime(request,crypto,time):
     klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_end_date,str_today_date)
     return JsonResponse(klines,safe=False)
 
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup as bs
+def get_spy():
+    
+    url = 'https://www.slickcharts.com/sp500'
+
+    request = requests.get(url,headers={'User-Agent': 'Mozilla/5.0'})
+
+    soup = bs(request.text, "lxml")
+
+    stats = soup.find('table',class_='table table-hover table-borderless table-sm')
+
+    df =pd.read_html(str(stats))[0]
+
+    df['% Chg'] = df['% Chg'].str.strip('()-%')
+
+    df['% Chg'] = pd.to_numeric(df['% Chg'])
+
+    df['Chg'] = pd.to_numeric(df['Chg'])
+
+    return df
+
 def week_up_down(request,stock):
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
     r = requests.get(url)
