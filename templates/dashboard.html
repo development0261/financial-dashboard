@@ -166,7 +166,7 @@
         padding-top: 2px;
     }
 
-        .paging-nav a {
+    .paging-nav a {
         margin: auto 1px;
         text-decoration: none;
         display: inline-block;
@@ -176,10 +176,10 @@
         border-radius: 3px;
     }
 
-        .paging-nav .selected-page {
+    .paging-nav .selected-page {
         background: #187ed5;
         font-weight: bold;
-}
+    }
 
     .paging-nav,
     #price_data_table {
@@ -187,19 +187,22 @@
         margin: 0 auto;
         font-family: Arial, sans-serif;
     }
+
     #stock_details td.financial_value {
         font-size: 11px;
         letter-spacing: .5px;
         color: #8587a7;
     }
+
     #stock_details td.financial_value p {
         margin: 0 !important;
         color: #8587a7;
     }
 
-    #staticBackdrop .modal-dialog{
+    #staticBackdrop .modal-dialog {
         min-width: 1000px;
     }
+
     #staticBackdrop h6.model_title {
         font-size: 14px;
         font-weight: 400;
@@ -212,6 +215,7 @@
         font-size: 12px;
         color: #8587a7;
     }
+
     nav.nav.nav-pills select.form-select {
         padding: 6px 45px 6px 6px;
         height: fit-content;
@@ -227,7 +231,34 @@
     div#visual_metrics {
         padding-left: 0%;
     }
+    .stock_search{
+        background-color: #191f3a;
+    padding: 15px;
+    }
+    .stock_search input {
+    margin-top: 17px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 12px;
+    width: -webkit-fill-available;
+}
+.stock_search input::placeholder{
+    color: #fff;
+    font-size: 12px;
+}
 
+.stock_search select {
+    margin: 10px 0 !important;
+    width: 100% !important;
+}
+
+.stock_search button {
+    text-align: right;
+    margin: 10px;
+}
+.stock_button button{
+    margin-left: 0 !important;
+}
 </style>
 
 
@@ -733,6 +764,762 @@
 <!--Crypto tab -->
 
     <!-- row  -->
+    <div class=" overflow-hidden bg-transparent card-crypto-scroll shadow-none">
+        <div class="js-conveyor-example">
+            <ul class="news-crypto">
+                <li>
+                    <div class="crypto-card" id="rep_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="my-auto crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Augur.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">REP / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="rep_data"></span>
+                                        <span class="tx-13" id="rep_history"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="crypto-card" id="bts_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/BitShares.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">BTS / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="bts_data"></span>
+                                        <span class="ml-2" id="bts_history"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="crypto-card" id="dash_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="my-auto crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Dash.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">Dash / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="dash_data"></span><span
+                                            class="text-success ml-2" id="dash_history"></span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="crypto-card" id="eur_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/EOS.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">EUR / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="eur_data"></span>
+                                        <span class="text-success ml-2" id="eur_history"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="crypto-card" id="eth_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Decred.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">ETH / USDT</p>
+                                    <div class="m-0 tx-13 text-warning ">$<span class="eth_data"></span><span
+                                            class="text-success ml-2" id="eth_history"></span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="crypto-card" id="iota_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/IOTA.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">IOTA / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="iot_data"> ..</span><span
+                                            class="text-success ml-2" id="iota_history"></span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="crypto-card" id="ltc_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Litecoin.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">LTC / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="ltc_data"></span><span
+                                            class="text-success ml-2" id="ltc_history"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="crypto-card" id="xmr_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Monero.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">XMR / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="xmr_data"></span><span
+                                            class="text-success ml-2" id="xmr_history"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="crypto-card" id="neo_data_history">
+                        <div class="row">
+                            <div class="d-flex crypto_card">
+                                <div class="crypto_icon">
+                                    <img src="{% static 'assets/img/crypto-currencies/round-outline/Netko-coin.svg' %}"
+                                        class="w-6 h-6 mt-0" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="mb-1 tx-13">NEO / USDT</p>
+                                    <div class="m-0 tx-13 text-warning">$<span class="neo_data"></span><span
+                                            class="text-success ml-2" id="neo_history"></span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- cryptop table -->
+        <div class="row">
+            <div class="col-lg-5">
+                <form action="">
+                    <div class="price_data_table_wrp" id="price_data_table_div">
+                        <table id="price_data_table" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td class="financial_title" colspan="8">Price</td>
+                                </tr>
+                                <tr>
+                                    <th class="financial_date">Date</th>
+                                    <th class="financial_date">Open</th>
+                                    <th class="financial_date">High</th>
+                                    <th class="financial_date">Low</th>
+                                    <th class="financial_date">Close</th>
+                                    <th class="financial_date">Volume</th>
+                                    <th class="financial_date">Absolute Move </th>
+                                    <th class="financial_date">Weekly Return</th>
+                                </tr>
+                            </thead>
+                            <tbody id="all_data" class="datatable-body">
+                                <tr>
+                                    <td class="financial_value">23/5/21</td>
+                                    <td class="financial_value">Open</td>
+                                    <td class="financial_value">High</td>
+                                    <td class="financial_value">Low</td>
+                                    <td class="financial_value">Close</td>
+                                    <td class="financial_value">Volume</td>
+                                    <td class="financial_value">Absolute Move </td>
+                                    <td class="financial_value">Weekly Return</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+
+                    <div class="price_data_table_wrp" id="price_data_table1_div" style="display:none">
+                        <table id="price_data_table1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td class="financial_title" colspan="8">Price</td>
+                                </tr>
+                                <tr>
+                                    <th class="financial_date">Date</th>
+                                    <th class="financial_date">Open</th>
+                                    <th class="financial_date">High</th>
+                                    <th class="financial_date">Low</th>
+                                    <th class="financial_date">Close</th>
+                                    <th class="financial_date">Volume</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="stock_details" class="datatable-body">
+                                <tr>
+                                    <td class="financial_value">23/5/21</td>
+                                    <td class="financial_value">Open</td>
+                                    <td class="financial_value">High</td>
+                                    <td class="financial_value">Low</td>
+                                    <td class="financial_value">Close</td>
+                                    <td class="financial_value">Volume</td>
+                                
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination_data d-flex mt-4">
+                            
+                                
+                            </ul> 
+                        </nav>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3" id="search_tab">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-crypto" role="tab"
+                            aria-controls="nav-crypto" aria-selected="true">Crypto</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-Stock" role="tab"
+                            aria-controls="nav-Stock" aria-selected="false">Stocks</a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-crypto" role="tabpanel"
+                        aria-labelledby="nav-home-tab">
+                        <div class="search_table_wrp">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Ticker</th>
+                                        <td><input type="text" id="crypto_select" placeholder="BTSUSDT"
+                                                required /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Frome Date</th>
+                                        <td><input type="date" id="date_crypto" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>To Date</th>
+                                        <td><input type="date" id="to_date_crypto" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Time Frame</th>
+                                        <td>
+                                            <select class="form-select crypto mr-3" id="crypto_time"
+                                                aria-label="Default select example">
+                                                <option value="1MINUTE" selected>1 Minute</option>
+                                                <option value="30MINUTE">30 Minute</option>
+                                                <option value="1WEEK">1 Week</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Average Price(Every 5 minutes)</th>
+                                        <td><span id="avg_price_crypto"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="financial_market_search">
+                                <form class="d-flex justify-content-end">
+                                    <!-- <input class="form-control me-2 market_search_bar" id="cryptoSearch" type="search" placeholder="Search"
+                        aria-label="Search"> -->
+
+                                    <!-- <select class="form-select crypto mr-3" id="crypto_select" aria-label="Default select example">
+                        <option value="BTSUSDT" selected>BTS/USDT</option>
+                        <option value="DASHUSDT">Dash/USDT</option>
+                        <option value="EURUSDT">EUR/USDT</option>
+                        <option value="ETHUSDT">ETH/USDT</option>
+                        <option value="IOTAUSDT">IOTA/USDT</option>
+                        <option value="LTCUSDT">LTC/USDT</option>
+                        <option value="XMRUSDT">XMR/USDT</option>
+                        <option value="NEOUSDT">NEO/USDT</option>
+                    </select> -->
+
+                                    <button class="btn market_search_button" id="search_crypto"
+                                        type="submit">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-Stock" role="tabpanel"
+                        aria-labelledby="nav-Stock-tab">
+                        <div class="stock_search">
+                            <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
+                            <select class="crypto mx-3" id="timeInterval" aria-label="Default select example" style="    padding: 0px !important;
+                                                            height: 37px;
+                                                            width: 260px;
+                                                            border: 1px solid rgba(227, 231, 237, 0.1);
+                                    background-color: #ffffff12;
+                                    color: #fff;
+                                    font-size: 14px;
+                                                            ">
+                                <option value="1min" selected="">1min</option>
+                                <option value="5min">5min</option>
+                                <option value="15min">15min</option>
+                                <option value="30min">30min</option>
+                                <option value="60min">60min</option>
+
+
+                            </select>
+                            <div class="stock_button">
+                                <button class="btn market_search_button" id="stock" type="submit">Search</button>
+                            <button class="btn market_search_button ml-3" id="get_company" type="button">Get Company
+                                Details</button>
+                            </div>
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="staticBackdropBody">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="col-lg-4" id="visual_metrics">
+                <div class="visualized_statistical_metrics">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="statistical_metrics_title">
+                                <h6>Metrics</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="statistical_metrics_chart">
+                                <canvas id="freq_dist_chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="statistical_metrics_chart">
+                                <canvas id="pie_chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="statistical_metrics_chart">
+                                <canvas id="bubble_chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div  class="row d-flex justify-content-end">
+            <div class="col-lg-6 px-3">
+                <div class="symbol_data_wrp">
+                    <table class="table symbol_data_table">
+                        <tbody>
+                            <tr>
+                                <th>Current Stock Price</th>
+                                <td>$0</td>
+                            </tr>
+                            <tr>
+                                <th>Percent Change</th>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <th>2 Week Return</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Beta</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Beta(7Day)</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Beta(15Day)</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>52 Week High</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>52 Week Low</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Mean</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Absolute Mean Move</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Variance</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Std.Dev</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>2Std.Dev</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>3Std.Dev</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Range Mean</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Range Std.Dev</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Biggest Loss</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Smallest Loss</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Biggest Move</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Smallest Move</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Historical Weekly Volatility</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Projected Range</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Projected Daily Move</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Current Price </th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Expected Price</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Expected Price Down</th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Expected Price Daily High </th>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <th>Expected Price Daily Low</th>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /crypto table -->
+
+        <!-- row -->
+        <div class="row row-sm">
+            <div class="col-xl-4 col-lg-12 col-md-12">
+                <div class="card crypto  crypt-success overflow-hidden">
+                    <div class="card-body iconfont text-left">
+                        <div class="media">
+                            <div class="coin-logo bg-success-transparent" style="  background-color: rgba(247, 147, 26, 0.17) !important;
+                        ">
+                                <i class="cf cf-btc" style="color:rgb(247, 147, 26)"></i>
+                            </div>
+                            <div class="media-body">
+                                <h6>Bitcoin</h6>
+                                <p id="BTC_Chart_Text" style="color: #fff;">BTC (USD) = $45.81 </p>(<span class="" id="BTC_Chart_History">-12.24%</span>)
+                            </div>
+                        
+                        </div>
+                        <div class="flot-wrapper mt-5">
+                            <div class="flot-chart ht-150 mt-4" id="">
+                                <canvas id="BTCChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer mt-2" style="z-index: 999;">
+                        <nav class="nav">
+                            <a class="nav-link 1D_Data" id="BTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="BTC_1W"
+                                ><span>1W</span></a> <a class="nav-link 1M_Data" id="BTC_1M"
+                                ><span>1M</span></a> <a class="nav-link 1Y_Data" id="BTC_1Y"
+                                ><span>1Y</span></a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="card crypto crypt-primary overflow-hidden">
+                    <div class="card-body iconfont text-left">
+                        <div class="media">
+                            <div class="coin-logo bg-primary-transparent">
+                                <i class="cf cf-eth text-primary"></i>
+                            </div>
+                            <div class="media-body">
+                                <h6>Ethereum</h6>
+                                <p id="ETH_Chart_Text" style="color: #fff;">ETH (USD) = $148.46 </p> (<span class="" id="ETH_Chart_History">-12.24%</span>)
+                            </div>
+                        
+                        </div>
+                        <div class="flot-wrapper mt-5">
+                            <div class="flot-chart ht-150 mt-4" id="">
+                                <canvas id="ETHChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer mt-2" style="z-index: 999;">
+                        <nav class="nav">
+                            <a class="nav-link 1D_Data"  id="ETH_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="ETH_1W"
+                                ><span>1W</span></a> <a class="nav-link 1M_Data" id="ETH_1M"
+                                ><span>1M</span></a> <a class="nav-link 1Y_Data" id="ETH_1Y"
+                                ><span>1Y</span></a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="card crypto crypt-danger overflow-hidden">
+                    <div class="card-body iconfont text-left">
+                        <div class="media">
+                            <div class="coin-logo bg-danger-transparent">
+                                <i class="cf cf-ltc tx-18 text-danger"></i>
+                            </div>
+                            <div class="media-body">
+                                <h6>Litecoin</h6>
+                                <p id="LTC_Chart_Text" style="color: #fff;">LTC (USD) = $45.81 </p>(<span class="" id="LTC_Chart_History">-12.24%</span>)
+                            </div>
+                        
+                        </div>
+                        <div class="flot-wrapper mt-5">
+                            <div class="flot-chart ht-150 mt-4" id="">
+                                <canvas id="LTCChart"></canvas>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="card-footer mt-2" style="z-index: 999;">
+                        <nav class="nav">
+                            <a class="nav-link 1D_Data"  id="LTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="LTC_1W"
+                                ><span>1W</span></a> <a class="nav-link 1M_Data" id="LTC_1M"
+                                ><span>1M</span></a> <a class="nav-link 1Y_Data" id="LTC_1Y"
+                                ><span>1Y</span></a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <!-- /row -->
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-4 col-lg-12">
+                <div class="card overflow-hidden ">
+                    <div class="card-header pb-0">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title mg-b-10">Market Info</h4>
+                            <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        </div>
+                        <p class="tx-12 tx-gray-500 mb-2">An activity is a scheduled phase in a project plan with a distinct
+                            beginning and end. <a href="">Learn more</a></p>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="">
+                            <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3 mt-0">
+                                <img class="w-6 h-6"
+                                    src="{% static 'assets/img/crypto-currencies/round-outline/Bitcoin.svg' %}" alt="image">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
+                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$<span
+                                                class="etc_data"></span></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-success tx-13" id="coinHistory"><i
+                                                class="fa fa-caret-up mr-1"></i>2.04%</span>
+                                        <small class="text-muted ml-auto">340.5 USD</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Ethereum.svg"
+                                    alt="image">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mt-1 mb-0 font-weight-semibold">ETH/USD</p>
+                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$15,183.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.25%</span>
+                                        <small class="text-muted ml-auto">283.5 USD</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Litecoin.svg"
+                                    alt="image">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mt-1 mb-0 font-weight-semibold">LTC/USD</p>
+                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$14,348.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.04%</span>
+                                        <small class="text-muted ml-auto">368.2 USD</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Dash.svg"
+                                    alt="image">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mt-1 mb-0 font-weight-semibold">Dash/USD</p>
+                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$12,157.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>2.04%</span>
+                                        <small class="text-muted ml-auto">127.3 USD</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="list d-flex align-items-center p-2 pl-3 pr-3 mb-0">
+                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/NEM.svg"
+                                    alt="image">
+                                <div class=" w-100 ml-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
+                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$11,183.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>1.04%</span>
+                                        <small class="text-muted ml-auto ">165.8 USD</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-12">
+                <div class="card card-bitcoin" style="height: 500px;">
+                    <div class=" card-minimal-two">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0" id="cryptoTitle">Bitcoin / USD Rate</h4>
+                            <div class="">
+                                <nav class="nav nav-pills">
+                                    <select class="form-select" id="cur_select" aria-label="Default select example" onchange="GetSelected()">
+                                        <option value="1"><a class="nav-link active" data-toggle="tab" href="#">BTC</a></option>
+                                        <option value="2"><a class="nav-link" data-toggle="tab" href="#">ETH</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">LTC</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">NEO</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">REP</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">BTS</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">DASH</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">EUR</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">IOTA</a></option>
+                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">XMR</a></option>
+                                    </select>
+                                </nav>
+                            </div><!-- card-header-right -->
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="media-icon" id='cur_image'><i class="fab fa-bitcoin"></i></div>
+                            <div class="media-body">
+                                <div class="row row-sm" id="cryptoValues">
+                                    <div class="col">
+                                        <label>Symbol</label>
+                                        <p>BTC</p>
+                                    </div>
+                                    <div class="col mx-2">
+                                        <label>Price (USD)</label>
+                                        <p id="btc_price" >128.00%</p>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <label>Change (24H)</label>
+                                        <p id="btcGraphHistory">-0.24%</p>
+                                    </div>
+                                    <div class="col">
+                                        <label>Market Cap</label>
+                                        <p>$179.12B</p>
+                                    </div>
+                                </div><!-- row -->
+                            </div>
+                        </div><!-- media-body -->
+                        <div class="flot-wrapper">
+                            <div class="flot-chart ht-226 wd-100p" id="">
+                                <canvas id="ALLChart" style="display: block !important;
+                                box-sizing: border-box !important;
+                                height: 366px !important;
+                                width: 808px !important;">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="row">
         <div class="col-lg-12">
             <nav>
@@ -914,533 +1701,592 @@
                         </div>
                     </div>
                     <!-- cryptop table -->
-    <div class="row">
-        <div class="col-lg-5">
-            <form action="">
-                <div class="price_data_table_wrp" id="price_data_table_div">
-                    <table id="price_data_table" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <td class="financial_title" colspan="8">Price</td>
-                            </tr>
-                            <tr>
-                                <th class="financial_date">Date</th>
-                                <th class="financial_date">Open</th>
-                                <th class="financial_date">High</th>
-                                <th class="financial_date">Low</th>
-                                <th class="financial_date">Close</th>
-                                <th class="financial_date">Volume</th>
-                                <th class="financial_date">Absolute Move </th>
-                                <th class="financial_date">Weekly Return</th>
-                            </tr>
-                        </thead>
-                        <tbody id="all_data" class="datatable-body">
-                            <tr>
-                                <td class="financial_value">23/5/21</td>
-                                <td class="financial_value">Open</td>
-                                <td class="financial_value">High</td>
-                                <td class="financial_value">Low</td>
-                                <td class="financial_value">Close</td>
-                                <td class="financial_value">Volume</td>
-                                <td class="financial_value">Absolute Move </td>
-                                <td class="financial_value">Weekly Return</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                   
-                </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <form action="">
+                                    <div class="price_data_table_wrp" id="price_data_table_div">
+                                        <table id="price_data_table" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td class="financial_title" colspan="8">Price</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="financial_date">Date</th>
+                                                    <th class="financial_date">Open</th>
+                                                    <th class="financial_date">High</th>
+                                                    <th class="financial_date">Low</th>
+                                                    <th class="financial_date">Close</th>
+                                                    <th class="financial_date">Volume</th>
+                                                    <th class="financial_date">Absolute Move </th>
+                                                    <th class="financial_date">Weekly Return</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="all_data" class="datatable-body">
+                                                <tr>
+                                                    <td class="financial_value">23/5/21</td>
+                                                    <td class="financial_value">Open</td>
+                                                    <td class="financial_value">High</td>
+                                                    <td class="financial_value">Low</td>
+                                                    <td class="financial_value">Close</td>
+                                                    <td class="financial_value">Volume</td>
+                                                    <td class="financial_value">Absolute Move </td>
+                                                    <td class="financial_value">Weekly Return</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    
+                                    </div>
 
-                <div class="price_data_table_wrp" id="price_data_table1_div" style="display:none">
-                    <table id="price_data_table1" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <td class="financial_title" colspan="8">Price</td>
-                            </tr>
-                            <tr>
-                                <th class="financial_date">Date</th>
-                                <th class="financial_date">Open</th>
-                                <th class="financial_date">High</th>
-                                <th class="financial_date">Low</th>
-                                <th class="financial_date">Close</th>
-                                <th class="financial_date">Volume</th>
+                                    <div class="price_data_table_wrp" id="price_data_table1_div" style="display:none">
+                                        <table id="price_data_table1" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td class="financial_title" colspan="8">Price</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="financial_date">Date</th>
+                                                    <th class="financial_date">Open</th>
+                                                    <th class="financial_date">High</th>
+                                                    <th class="financial_date">Low</th>
+                                                    <th class="financial_date">Close</th>
+                                                    <th class="financial_date">Volume</th>
 
-                            </tr>
-                        </thead>
-                        <tbody id="stock_details" class="datatable-body">
-                            <tr>
-                                <td class="financial_value">23/5/21</td>
-                                <td class="financial_value">Open</td>
-                                <td class="financial_value">High</td>
-                                <td class="financial_value">Low</td>
-                                <td class="financial_value">Close</td>
-                                <td class="financial_value">Volume</td>
-                               
-                            </tr>
-                        </tbody>
-                    </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination_data d-flex mt-4">
-                         
-                              
-                        </ul> 
-                    </nav>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-3" id="search_tab">
-            <div class="search_table_wrp">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>Ticker</th>
-                            <td><input type="text" id="crypto_select" placeholder="BTSUSDT"  required/></td>
-                        </tr>
-                        <tr>
-                            <th>Frome Date</th>
-                            <td><input type="date" id="date_crypto" /></td>
-                        </tr>
-                        <tr>
-                            <th>To Date</th>
-                            <td><input type="date" id="to_date_crypto" /></td>
-                        </tr>
-                        <tr>
-                            <th>Time Frame</th>
-                            <td>
-                                <select class="form-select crypto mr-3" id="crypto_time"
-                                    aria-label="Default select example">
-                                    <option value="1MINUTE" selected>1 Minute</option>
-                                    <option value="30MINUTE">30 Minute</option>
-                                    <option value="1WEEK">1 Week</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Average Price(Every 5 minutes)</th>
-                            <td><span id="avg_price_crypto"></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="financial_market_search">
-                    <form class="d-flex justify-content-end">
-                        <!-- <input class="form-control me-2 market_search_bar" id="cryptoSearch" type="search" placeholder="Search"
-                            aria-label="Search"> -->
-
-                        <!-- <select class="form-select crypto mr-3" id="crypto_select" aria-label="Default select example">
-                            <option value="BTSUSDT" selected>BTS/USDT</option>
-                            <option value="DASHUSDT">Dash/USDT</option>
-                            <option value="EURUSDT">EUR/USDT</option>
-                            <option value="ETHUSDT">ETH/USDT</option>
-                            <option value="IOTAUSDT">IOTA/USDT</option>
-                            <option value="LTCUSDT">LTC/USDT</option>
-                            <option value="XMRUSDT">XMR/USDT</option>
-                            <option value="NEOUSDT">NEO/USDT</option>
-                        </select> -->
-
-                        <button class="btn market_search_button" id="search_crypto" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-            
-        </div>
-        
-        <div class="col-lg-4" id="visual_metrics">
-            <div class="visualized_statistical_metrics">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="statistical_metrics_title">
-                            <h6>Metrics</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="statistical_metrics_chart">
-                            <canvas id="freq_dist_chart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="statistical_metrics_chart">
-                            <canvas id="pie_chart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="statistical_metrics_chart">
-                            <canvas id="bubble_chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="row d-flex justify-content-end">
-        <div class="col-lg-6 px-3">
-            <div class="symbol_data_wrp">
-                <table class="table symbol_data_table">
-                    <tbody>
-                        <tr>
-                            <th>Current Stock Price</th>
-                            <td>$0</td>
-                        </tr>
-                        <tr>
-                            <th>Percent Change</th>
-                            <td>0%</td>
-                        </tr>
-                        <tr>
-                            <th>2 Week Return</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Beta</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Beta(7Day)</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Beta(15Day)</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>52 Week High</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>52 Week Low</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Mean</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Absolute Mean Move</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Variance</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Std.Dev</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>2Std.Dev</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>3Std.Dev</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Range Mean</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Range Std.Dev</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Biggest Loss</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Smallest Loss</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Biggest Move</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Smallest Move</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Historical Weekly Volatility</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Projected Range</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Projected Daily Move</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Current Price </th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price Down</th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price Daily High </th>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Price Daily Low</th>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- /crypto table -->
-
-    <!-- row -->
-    <div class="row row-sm">
-        <div class="col-xl-4 col-lg-12 col-md-12">
-            <div class="card crypto  crypt-success overflow-hidden">
-                <div class="card-body iconfont text-left">
-                    <div class="media">
-                        <div class="coin-logo bg-success-transparent" style="  background-color: rgba(247, 147, 26, 0.17) !important;
-                    ">
-                            <i class="cf cf-btc" style="color:rgb(247, 147, 26)"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6>Bitcoin</h6>
-                            <p id="BTC_Chart_Text" style="color: #fff;">BTC (USD) = $45.81 </p>(<span class="" id="BTC_Chart_History">-12.24%</span>)
-                        </div>
-                     
-                    </div>
-                    <div class="flot-wrapper mt-5">
-                        <div class="flot-chart ht-150 mt-4" id="">
-                            <canvas id="BTCChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer mt-2" style="z-index: 999;">
-                    <nav class="nav">
-                        <a class="nav-link 1D_Data" id="BTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="BTC_1W"
-                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="BTC_1M"
-                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="BTC_1Y"
-                            ><span>1Y</span></a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12">
-            <div class="card crypto crypt-primary overflow-hidden">
-                <div class="card-body iconfont text-left">
-                    <div class="media">
-                        <div class="coin-logo bg-primary-transparent">
-                            <i class="cf cf-eth text-primary"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6>Ethereum</h6>
-                            <p id="ETH_Chart_Text" style="color: #fff;">ETH (USD) = $148.46 </p> (<span class="" id="ETH_Chart_History">-12.24%</span>)
-                        </div>
-                     
-                    </div>
-                    <div class="flot-wrapper mt-5">
-                        <div class="flot-chart ht-150 mt-4" id="">
-                            <canvas id="ETHChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer mt-2" style="z-index: 999;">
-                    <nav class="nav">
-                        <a class="nav-link 1D_Data"  id="ETH_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="ETH_1W"
-                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="ETH_1M"
-                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="ETH_1Y"
-                            ><span>1Y</span></a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12">
-            <div class="card crypto crypt-danger overflow-hidden">
-                <div class="card-body iconfont text-left">
-                    <div class="media">
-                        <div class="coin-logo bg-danger-transparent">
-                            <i class="cf cf-ltc tx-18 text-danger"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6>Litecoin</h6>
-                            <p id="LTC_Chart_Text" style="color: #fff;">LTC (USD) = $45.81 </p>(<span class="" id="LTC_Chart_History">-12.24%</span>)
-                        </div>
-                      
-                    </div>
-                    <div class="flot-wrapper mt-5">
-                        <div class="flot-chart ht-150 mt-4" id="">
-                            <canvas id="LTCChart"></canvas>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="card-footer mt-2" style="z-index: 999;">
-                    <nav class="nav">
-                        <a class="nav-link 1D_Data"  id="LTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="LTC_1W"
-                            ><span>1W</span></a> <a class="nav-link 1M_Data" id="LTC_1M"
-                            ><span>1M</span></a> <a class="nav-link 1Y_Data" id="LTC_1Y"
-                            ><span>1Y</span></a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-       
-    </div>
-    <!-- /row -->
-
-    <!-- row -->
-    <div class="row">
-        <div class="col-xl-4 col-lg-12">
-            <div class="card overflow-hidden ">
-                <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-10">Market Info</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
-                    </div>
-                    <p class="tx-12 tx-gray-500 mb-2">An activity is a scheduled phase in a project plan with a distinct
-                        beginning and end. <a href="">Learn more</a></p>
-                </div>
-                <div class="card-body p-0">
-                    <div class="">
-                        <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3 mt-0">
-                            <img class="w-6 h-6"
-                                src="{% static 'assets/img/crypto-currencies/round-outline/Bitcoin.svg' %}" alt="image">
-                            <div class="w-100 ml-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
-                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$<span
-                                            class="etc_data"></span></span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="text-success tx-13" id="coinHistory"><i
-                                            class="fa fa-caret-up mr-1"></i>2.04%</span>
-                                    <small class="text-muted ml-auto">340.5 USD</small>
-                                </div>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="stock_details" class="datatable-body">
+                                                <tr>
+                                                    <td class="financial_value">23/5/21</td>
+                                                    <td class="financial_value">Open</td>
+                                                    <td class="financial_value">High</td>
+                                                    <td class="financial_value">Low</td>
+                                                    <td class="financial_value">Close</td>
+                                                    <td class="financial_value">Volume</td>
+                                                
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination_data d-flex mt-4">
+                                            
+                                                
+                                            </ul> 
+                                        </nav>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                        <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
-                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Ethereum.svg"
-                                alt="image">
-                            <div class="w-100 ml-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mt-1 mb-0 font-weight-semibold">ETH/USD</p>
-                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$15,183.00</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.25%</span>
-                                    <small class="text-muted ml-auto">283.5 USD</small>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
-                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Litecoin.svg"
-                                alt="image">
-                            <div class="w-100 ml-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mt-1 mb-0 font-weight-semibold">LTC/USD</p>
-                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$14,348.00</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.04%</span>
-                                    <small class="text-muted ml-auto">368.2 USD</small>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
-                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Dash.svg"
-                                alt="image">
-                            <div class="w-100 ml-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mt-1 mb-0 font-weight-semibold">Dash/USD</p>
-                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$12,157.00</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>2.04%</span>
-                                    <small class="text-muted ml-auto">127.3 USD</small>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="list d-flex align-items-center p-2 pl-3 pr-3 mb-0">
-                            <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/NEM.svg"
-                                alt="image">
-                            <div class=" w-100 ml-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
-                                    <span class="ml-auto fs-15 mb-0 font-weight-semibold">$11,183.00</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>1.04%</span>
-                                    <small class="text-muted ml-auto ">165.8 USD</small>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-8 col-lg-12">
-            <div class="card card-bitcoin" style="height: 500px;">
-                <div class=" card-minimal-two">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0" id="cryptoTitle">Bitcoin / USD Rate</h4>
-                        <div class="">
-                            <nav class="nav nav-pills">
-                                <select class="form-select" id="cur_select" aria-label="Default select example" onchange="GetSelected()">
-                                    <option value="1"><a class="nav-link active" data-toggle="tab" href="#">BTC</a></option>
-                                    <option value="2"><a class="nav-link" data-toggle="tab" href="#">ETH</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">LTC</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">NEO</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">REP</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">BTS</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">DASH</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">EUR</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">IOTA</a></option>
-                                    <option value="3"><a class="nav-link" data-toggle="tab" href="#">XMR</a></option>
-                                  </select>
-                            </nav>
-                        </div><!-- card-header-right -->
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="media">
-                        <div class="media-icon" id='cur_image'><i class="fab fa-bitcoin"></i></div>
-                        <div class="media-body">
-                            <div class="row row-sm" id="cryptoValues">
-                                <div class="col">
-                                    <label>Symbol</label>
-                                    <p>BTC</p>
-                                </div>
-                                <div class="col mx-2">
-                                    <label>Price (USD)</label>
-                                    <p id="btc_price" >128.00%</p>
+                            <div class="col-lg-3" id="search_tab">
+                                <nav>
+                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-crypto" role="tab"
+                                            aria-controls="nav-crypto" aria-selected="true">Crypto</a>
+                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-Stock" role="tab"
+                                            aria-controls="nav-Stock" aria-selected="false">Stocks</a>
+
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-crypto" role="tabpanel"
+                                        aria-labelledby="nav-home-tab">
+                                        <div class="search_table_wrp">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Ticker</th>
+                                                        <td><input type="text" id="crypto_select" placeholder="BTSUSDT"
+                                                                required /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Frome Date</th>
+                                                        <td><input type="date" id="date_crypto" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>To Date</th>
+                                                        <td><input type="date" id="to_date_crypto" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Time Frame</th>
+                                                        <td>
+                                                            <select class="form-select crypto mr-3" id="crypto_time"
+                                                                aria-label="Default select example">
+                                                                <option value="1MINUTE" selected>1 Minute</option>
+                                                                <option value="30MINUTE">30 Minute</option>
+                                                                <option value="1WEEK">1 Week</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Average Price(Every 5 minutes)</th>
+                                                        <td><span id="avg_price_crypto"></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="financial_market_search">
+                                                <form class="d-flex justify-content-end">
+                                                    <!-- <input class="form-control me-2 market_search_bar" id="cryptoSearch" type="search" placeholder="Search"
+                                        aria-label="Search"> -->
+
+                                                    <!-- <select class="form-select crypto mr-3" id="crypto_select" aria-label="Default select example">
+                                        <option value="BTSUSDT" selected>BTS/USDT</option>
+                                        <option value="DASHUSDT">Dash/USDT</option>
+                                        <option value="EURUSDT">EUR/USDT</option>
+                                        <option value="ETHUSDT">ETH/USDT</option>
+                                        <option value="IOTAUSDT">IOTA/USDT</option>
+                                        <option value="LTCUSDT">LTC/USDT</option>
+                                        <option value="XMRUSDT">XMR/USDT</option>
+                                        <option value="NEOUSDT">NEO/USDT</option>
+                                    </select> -->
+
+                                                    <button class="btn market_search_button" id="search_crypto"
+                                                        type="submit">Search</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-Stock" role="tabpanel"
+                                        aria-labelledby="nav-Stock-tab">
+                                        <div class="stock_search">
+                                            <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
+                                            <select class="crypto mx-3" id="timeInterval" aria-label="Default select example" style="    padding: 0px !important;
+                                                                            height: 37px;
+                                                                            width: 260px;
+                                                                            border: 1px solid rgba(227, 231, 237, 0.1);
+                                                    background-color: #ffffff12;
+                                                    color: #fff;
+                                                    font-size: 14px;
+                                                                            ">
+                                                <option value="1min" selected="">1min</option>
+                                                <option value="5min">5min</option>
+                                                <option value="15min">15min</option>
+                                                <option value="30min">30min</option>
+                                                <option value="60min">60min</option>
+
+
+                                            </select>
+                                            <div class="stock_button">
+                                                <button class="btn market_search_button" id="stock" type="submit">Search</button>
+                                            <button class="btn market_search_button ml-3" id="get_company" type="button">Get Company
+                                                Details</button>
+                                            </div>
+                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body" id="staticBackdropBody">
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="col">
-                                    <label>Change (24H)</label>
-                                    <p id="btcGraphHistory">-0.24%</p>
+                            </div>
+                            
+                            <div class="col-lg-4" id="visual_metrics">
+                                <div class="visualized_statistical_metrics">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="statistical_metrics_title">
+                                                <h6>Metrics</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="statistical_metrics_chart">
+                                                <canvas id="freq_dist_chart"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="statistical_metrics_chart">
+                                                <canvas id="pie_chart"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="statistical_metrics_chart">
+                                                <canvas id="bubble_chart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label>Market Cap</label>
-                                    <p>$179.12B</p>
+                            </div>
+                        </div>
+
+                        <div  class="row d-flex justify-content-end">
+                            <div class="col-lg-6 px-3">
+                                <div class="symbol_data_wrp">
+                                    <table class="table symbol_data_table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Current Stock Price</th>
+                                                <td>$0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Percent Change</th>
+                                                <td>0%</td>
+                                            </tr>
+                                            <tr>
+                                                <th>2 Week Return</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Beta</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Beta(7Day)</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Beta(15Day)</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>52 Week High</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>52 Week Low</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Mean</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Absolute Mean Move</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Variance</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Std.Dev</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>2Std.Dev</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3Std.Dev</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Range Mean</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Range Std.Dev</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Biggest Loss</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Smallest Loss</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Biggest Move</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Smallest Move</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Historical Weekly Volatility</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Projected Range</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Projected Daily Move</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current Price </th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Expected Price</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Expected Price Down</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Expected Price Daily High </th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Expected Price Daily Low</th>
+                                                <td>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div><!-- row -->
+                            </div>
                         </div>
-                    </div><!-- media-body -->
-                    <div class="flot-wrapper">
-                        <div class="flot-chart ht-226 wd-100p" id="">
-                            <canvas id="ALLChart" style="display: block !important;
-                            box-sizing: border-box !important;
-                            height: 366px !important;
-                            width: 808px !important;">
-                            </canvas>
+                        <!-- /crypto table -->
+
+                        <!-- row -->
+                        <div class="row row-sm">
+                            <div class="col-xl-4 col-lg-12 col-md-12">
+                                <div class="card crypto  crypt-success overflow-hidden">
+                                    <div class="card-body iconfont text-left">
+                                        <div class="media">
+                                            <div class="coin-logo bg-success-transparent" style="  background-color: rgba(247, 147, 26, 0.17) !important;
+                                        ">
+                                                <i class="cf cf-btc" style="color:rgb(247, 147, 26)"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6>Bitcoin</h6>
+                                                <p id="BTC_Chart_Text" style="color: #fff;">BTC (USD) = $45.81 </p>(<span class="" id="BTC_Chart_History">-12.24%</span>)
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="flot-wrapper mt-5">
+                                            <div class="flot-chart ht-150 mt-4" id="">
+                                                <canvas id="BTCChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer mt-2" style="z-index: 999;">
+                                        <nav class="nav">
+                                            <a class="nav-link 1D_Data" id="BTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="BTC_1W"
+                                                ><span>1W</span></a> <a class="nav-link 1M_Data" id="BTC_1M"
+                                                ><span>1M</span></a> <a class="nav-link 1Y_Data" id="BTC_1Y"
+                                                ><span>1Y</span></a>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="card crypto crypt-primary overflow-hidden">
+                                    <div class="card-body iconfont text-left">
+                                        <div class="media">
+                                            <div class="coin-logo bg-primary-transparent">
+                                                <i class="cf cf-eth text-primary"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6>Ethereum</h6>
+                                                <p id="ETH_Chart_Text" style="color: #fff;">ETH (USD) = $148.46 </p> (<span class="" id="ETH_Chart_History">-12.24%</span>)
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="flot-wrapper mt-5">
+                                            <div class="flot-chart ht-150 mt-4" id="">
+                                                <canvas id="ETHChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer mt-2" style="z-index: 999;">
+                                        <nav class="nav">
+                                            <a class="nav-link 1D_Data"  id="ETH_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="ETH_1W"
+                                                ><span>1W</span></a> <a class="nav-link 1M_Data" id="ETH_1M"
+                                                ><span>1M</span></a> <a class="nav-link 1Y_Data" id="ETH_1Y"
+                                                ><span>1Y</span></a>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="card crypto crypt-danger overflow-hidden">
+                                    <div class="card-body iconfont text-left">
+                                        <div class="media">
+                                            <div class="coin-logo bg-danger-transparent">
+                                                <i class="cf cf-ltc tx-18 text-danger"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6>Litecoin</h6>
+                                                <p id="LTC_Chart_Text" style="color: #fff;">LTC (USD) = $45.81 </p>(<span class="" id="LTC_Chart_History">-12.24%</span>)
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="flot-wrapper mt-5">
+                                            <div class="flot-chart ht-150 mt-4" id="">
+                                                <canvas id="LTCChart"></canvas>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="card-footer mt-2" style="z-index: 999;">
+                                        <nav class="nav">
+                                            <a class="nav-link 1D_Data"  id="LTC_1D"><span>1D</span></a> <a class="nav-link 1W_Data" id="LTC_1W"
+                                                ><span>1W</span></a> <a class="nav-link 1M_Data" id="LTC_1M"
+                                                ><span>1M</span></a> <a class="nav-link 1Y_Data" id="LTC_1Y"
+                                                ><span>1Y</span></a>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <!-- /row -->
+
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card overflow-hidden ">
+                                    <div class="card-header pb-0">
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="card-title mg-b-10">Market Info</h4>
+                                            <i class="mdi mdi-dots-horizontal text-gray"></i>
+                                        </div>
+                                        <p class="tx-12 tx-gray-500 mb-2">An activity is a scheduled phase in a project plan with a distinct
+                                            beginning and end. <a href="">Learn more</a></p>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="">
+                                            <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3 mt-0">
+                                                <img class="w-6 h-6"
+                                                    src="{% static 'assets/img/crypto-currencies/round-outline/Bitcoin.svg' %}" alt="image">
+                                                <div class="w-100 ml-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
+                                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$<span
+                                                                class="etc_data"></span></span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="text-success tx-13" id="coinHistory"><i
+                                                                class="fa fa-caret-up mr-1"></i>2.04%</span>
+                                                        <small class="text-muted ml-auto">340.5 USD</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Ethereum.svg"
+                                                    alt="image">
+                                                <div class="w-100 ml-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mt-1 mb-0 font-weight-semibold">ETH/USD</p>
+                                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$15,183.00</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.25%</span>
+                                                        <small class="text-muted ml-auto">283.5 USD</small>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Litecoin.svg"
+                                                    alt="image">
+                                                <div class="w-100 ml-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mt-1 mb-0 font-weight-semibold">LTC/USD</p>
+                                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$14,348.00</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="text-danger tx-13"><i class="fa fa-caret-down mr-1"></i>1.04%</span>
+                                                        <small class="text-muted ml-auto">368.2 USD</small>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="list d-flex align-items-center border-bottom p-2 pl-3 pr-3">
+                                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/Dash.svg"
+                                                    alt="image">
+                                                <div class="w-100 ml-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mt-1 mb-0 font-weight-semibold">Dash/USD</p>
+                                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$12,157.00</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>2.04%</span>
+                                                        <small class="text-muted ml-auto">127.3 USD</small>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="list d-flex align-items-center p-2 pl-3 pr-3 mb-0">
+                                                <img class="w-6 h-6" src="../../assets/img/crypto-currencies/round-outline/NEM.svg"
+                                                    alt="image">
+                                                <div class=" w-100 ml-3">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mt-1 mb-0 font-weight-semibold">BTC/USD</p>
+                                                        <span class="ml-auto fs-15 mb-0 font-weight-semibold">$11,183.00</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="text-success tx-13"><i class="fa fa-caret-up mr-1"></i>1.04%</span>
+                                                        <small class="text-muted ml-auto ">165.8 USD</small>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-lg-12">
+                                <div class="card card-bitcoin" style="height: 500px;">
+                                    <div class=" card-minimal-two">
+                                        <div class="card-header">
+                                            <h4 class="card-title mb-0" id="cryptoTitle">Bitcoin / USD Rate</h4>
+                                            <div class="">
+                                                <nav class="nav nav-pills">
+                                                    <select class="form-select" id="cur_select" aria-label="Default select example" onchange="GetSelected()">
+                                                        <option value="1"><a class="nav-link active" data-toggle="tab" href="#">BTC</a></option>
+                                                        <option value="2"><a class="nav-link" data-toggle="tab" href="#">ETH</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">LTC</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">NEO</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">REP</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">BTS</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">DASH</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">EUR</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">IOTA</a></option>
+                                                        <option value="3"><a class="nav-link" data-toggle="tab" href="#">XMR</a></option>
+                                                    </select>
+                                                </nav>
+                                            </div><!-- card-header-right -->
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="media">
+                                            <div class="media-icon" id='cur_image'><i class="fab fa-bitcoin"></i></div>
+                                            <div class="media-body">
+                                                <div class="row row-sm" id="cryptoValues">
+                                                    <div class="col">
+                                                        <label>Symbol</label>
+                                                        <p>BTC</p>
+                                                    </div>
+                                                    <div class="col mx-2">
+                                                        <label>Price (USD)</label>
+                                                        <p id="btc_price" >128.00%</p>
+                                                    </div>
+                                                    
+                                                    <div class="col">
+                                                        <label>Change (24H)</label>
+                                                        <p id="btcGraphHistory">-0.24%</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Market Cap</label>
+                                                        <p>$179.12B</p>
+                                                    </div>
+                                                </div><!-- row -->
+                                            </div>
+                                        </div><!-- media-body -->
+                                        <div class="flot-wrapper">
+                                            <div class="flot-chart ht-226 wd-100p" id="">
+                                                <canvas id="ALLChart" style="display: block !important;
+                                                box-sizing: border-box !important;
+                                                height: 366px !important;
+                                                width: 808px !important;">
+                                                </canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                   <div class="row">
