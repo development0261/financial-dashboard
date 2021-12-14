@@ -1838,6 +1838,49 @@
             bar_chart.update(); // finally update our chart
         }});
     }
+
+    function PIE_CHART_CRYPTO(chart,crypto,crypto_price1) {
+        
+        $.ajax({url: "/user/week_up_down_for_crypto/"+crypto+"/", success: function(result){
+            var up = (result.up*100/52).toFixed(2)
+            var down = (result.down*100/52).toFixed(2)
+
+            chart.data.labels = ["Amount Of Weeks Up ", "Amount Of Weeks Down "];
+            chart.data.datasets[0].data = [up,down]; 
+            chart.update(); // finally update our chart
+            per_array = []
+            for(let i=0;i<result.result.length;i++){
+                per_array.push((parseFloat(result.result[i])*100)/ parseFloat(crypto_price1))
+            }
+            console.log(per_array)
+            maximum = Math.max(...per_array)
+           minimum = Math.min(...per_array)
+           labels_arr = []
+           data_arr = []
+            range_array = []
+            for(let i = parseInt(minimum) ; i <= parseInt(maximum) ;i++){
+                range_array.push(i)
+            }
+            for(let i =0 ; i< range_array.length-1;i++){
+                labels_arr.push(parseFloat(range_array[i]).toFixed(2)+"-"+parseFloat(range_array[i+1]).toFixed(2))
+                
+                counter = 0;
+                for(let j = 0 ; j < per_array.length;j++){
+                    
+                    if(per_array[j] >= range_array[i] && per_array[j] <= range_array[i+1] ){
+                        counter ++;
+                    }
+                }
+                data_arr.push(counter)
+            }
+            console.log(labels_arr)
+            console.log(data_arr)
+
+            bar_chart.data.labels = range_array
+            bar_chart.data.datasets[0].data = data_arr
+            bar_chart.update(); // finally update our chart
+        }});
+    }
         
     const actions = [
     {
@@ -2102,6 +2145,7 @@
     
 
     $("#search_crypto").click(function (e) {
+        var crypto_latest_price = 0.0
         e.preventDefault();
         var crypto_val = document.getElementById("crypto_select");
         var cryptoCoin = crypto_val.value;
@@ -2151,7 +2195,8 @@
                 $("#all_data").empty()
                 $("#price_data_table_div").css('display','block')
                 $("#price_data_table1_div").css('display','none')
-
+                crypto_latest_price = data[data.length - 1][4]
+                alert(crypto_latest_price)
                 for (let i = data.length - 1; i > 0 ; i--) {
             
                     var open_time = data[i][0]
@@ -2167,6 +2212,7 @@
                     var high = data[i][2]
                     var low = data[i][3]
                     var close = data[i][4]
+
                     var Volume = data[i][5]
                     var weeklyReturn
                     if(i < data.length -1 ){
@@ -2194,7 +2240,9 @@
 
                 }
     
-    
+                alert("BEfpore Call")
+                alert(crypto_latest_price)
+                PIE_CHART_CRYPTO(Pie_chart,cryptoCoin,crypto_latest_price) 
     
     setTimeout(function(){
 		$("#price_data_table_div").append(`
@@ -2299,9 +2347,10 @@
     });
 },1000)
             },
-
+           
 
         });
+       
     });
 
 

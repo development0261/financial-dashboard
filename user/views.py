@@ -532,3 +532,31 @@ def week_up_down(request,stock):
     # {"up": 22, "down": 30}
 
     return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values())},safe=False)
+
+
+def week_up_down_for_crypto(request,crypto):
+    
+    url = 'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_WEEKLY&symbol={}&market=CNY&apikey=WMICTHH9A9JQYK44'.format(crypto[:3])
+    r = requests.get(url)
+    week_data = r.json()
+    print(week_data.keys())
+    print("Response")
+    Weekly_Time_Series = week_data['Time Series (Digital Currency Weekly)']
+
+    result = {}
+    for key,value in Weekly_Time_Series.items():
+        result[key]=float(value['1b. open (USD)'])-float(value['4b. close (USD)'])
+
+    result_items = result.items()
+    weeks = list(result_items)[:52]
+
+    up = []
+    down = []
+    for row in weeks:
+        if row[1]<0:
+            down.append(row[1])
+        else:
+            up.append(row[1])
+    # {"up": 22, "down": 30}
+
+    return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values())},safe=False)

@@ -34,5 +34,7 @@ urlpatterns = [
     path('get_allgraphData/<str:crypto>/',get_allgraphData,name="get_allgraphData"),
 
     path('get_graphDataTime/<str:crypto>/<str:time>/',get_graphDataTime,name="get_graphDataTime"),
-    path('week_up_down/<str:stock>/',week_up_down,name="week_up_down")
+    path('week_up_down/<str:stock>/',week_up_down,name="week_up_down"),
+    path('week_up_down_for_crypto/<str:crypto>/',week_up_down_for_crypto,name="week_up_down_for_crypto"),
+
 ]
