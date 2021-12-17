@@ -530,8 +530,21 @@ def week_up_down(request,stock):
         else:
             up.append(row[1])
     # {"up": 22, "down": 30}
+    df = get_spy()
+    print(df)
+    selected_index = df.index[df['Symbol'] == stock].tolist()[0]
+    selected_change = df['% Chg'][selected_index]
+    change_list = []
+    symobls_list =[]
+    if selected_index < 10:
+        try:
+            for i in range(selected_index,selected_index+30):
+                change_list.append({'x':selected_change,'y':round(df['% Chg'][i], 2),'r':5})
+                symobls_list.append(df['Symbol'][i])
+        except:
+            pass
 
-    return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values())},safe=False)
+    return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values()),'symobls_list':symobls_list,'change_list':change_list,'selected_change':selected_change},safe=False)
 
 
 def week_up_down_for_crypto(request,crypto):
