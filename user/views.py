@@ -203,7 +203,7 @@ def get_latest_neo(request):
 def crypto_all_data(request,crypto,date,time):
     # klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE, "1 day ago UTC");
     if time == "1MINUTE":
-        print('1 min called')
+      
         klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_1MINUTE, date)    
     if time == "30MINUTE":
         klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE, date)    
@@ -256,14 +256,13 @@ def crypto_history_data(request,crypto):
     res = dict(reversed(list(history_data.items())))
     dict_last = dict(itertools.islice(res.items(),50))
     per_increase = ((float(last) - float(first)) / float(first)) * 100
-    print(per_increase)    
+     
     indicator = None
     if per_increase < 0:
         indicator = False
     else:
         indicator = True
-    print("BTC")
-    print(indicator)    
+   
 
     dict_last['per_increase'] = per_increase
     dict_last['indicator'] = indicator
@@ -281,6 +280,9 @@ def stocks_data(request,stock,time):
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval={}&apikey=WMICTHH9A9JQYK44'.format(stock,time)
     r = requests.get(url)
     stocks_data = r.json()
+   
+
+    
 
     url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
     r = requests.get(url)
@@ -405,14 +407,14 @@ def companyData(request,stock):
     url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=WMICTHH9A9JQYK44'.format(stock)
     r = requests.get(url)
     stocks_data = r.json()
-    print(stocks_data)
+   
     return JsonResponse(stocks_data,safe=False)
 
 def get_graphData(request,crypto):
     from datetime import datetime,date
     today_date = date.today()
     str_today_date = today_date.strftime("%d %b, %Y")
-    print(str_today_date)
+    
     klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_today_date )
     return JsonResponse(klines,safe=False)
 
@@ -420,7 +422,7 @@ def get_allgraphData(request,crypto):
     from datetime import datetime,date
     today_date = date.today()
     str_today_date = today_date.strftime("%d %b, %Y")
-    print(str_today_date)
+    
     klines1 = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_30MINUTE,str_today_date )
    
     klines = client.get_historical_klines(crypto, Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")
@@ -436,7 +438,7 @@ def get_allgraphData(request,crypto):
     res = dict(reversed(list(history_data.items())))
     dict_last = dict(itertools.islice(res.items(),50))
     per_increase = ((float(last) - float(first)) / float(first)) * 100
-    print(per_increase)    
+   
     indicator = None
     if per_increase < 0:
         indicator = False
@@ -469,7 +471,7 @@ def get_graphDataTime(request,crypto,time):
     today_date = date.today()
     str_today_date = today_date.strftime("%d %b, %Y")
     str_end_date = None
-    print(str_today_date)
+    
     if time == "1Day":
         str_end_date = date.today() - timedelta(days=2)
         str_end_date = str_end_date.strftime("%d %b, %Y")
@@ -531,19 +533,34 @@ def week_up_down(request,stock):
             up.append(row[1])
     # {"up": 22, "down": 30}
     df = get_spy()
-    print(df)
+    
     selected_index = df.index[df['Symbol'] == stock].tolist()[0]
     selected_change = df['% Chg'][selected_index]
-    change_list = []
+    change_list = [round(selected_change,2)]
     symobls_list =[]
     if selected_index < 10:
         try:
             for i in range(selected_index,selected_index+30):
-                change_list.append({'x':selected_change,'y':round(df['% Chg'][i], 2),'r':5})
+                change_list.append(round(df['% Chg'][i], 2))
                 symobls_list.append(df['Symbol'][i])
         except:
             pass
+    import seaborn as sns
 
+    import matplotlib.pyplot as plt
+    # df.insert(0, "#", [v for v in range(6)], True)
+    # df = df.set_index('Symbol').T
+    
+    print(df)
+    print(df.iloc[:,selected_index:selected_index+30])
+    # taking all rows but only 6 columns
+    df_small = df.iloc[selected_index:selected_index+30,4:7]
+    print(df_small)
+    correlation_mat = df_small.corr()
+
+    sns.heatmap(correlation_mat, annot = True)
+
+    plt.show()
     return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values()),'symobls_list':symobls_list,'change_list':change_list,'selected_change':selected_change},safe=False)
 
 
@@ -552,8 +569,7 @@ def week_up_down_for_crypto(request,crypto):
     url = 'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_WEEKLY&symbol={}&market=CNY&apikey=WMICTHH9A9JQYK44'.format(crypto[:3])
     r = requests.get(url)
     week_data = r.json()
-    print(week_data.keys())
-    print("Response")
+   
     Weekly_Time_Series = week_data['Time Series (Digital Currency Weekly)']
 
     result = {}

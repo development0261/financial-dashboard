@@ -1079,6 +1079,14 @@
                         aria-labelledby="nav-Stock-tab">
                         <div class="stock_search">
                             <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
+                            <!-- <tr>
+                                <th>Frome Date</th>
+                                <td><input type="date" id="from_date_stock" /></td>
+                            </tr>
+                            <tr>
+                                <th>To Date</th>
+                                <td><input type="date" id="to_date_stock" /></td>
+                            </tr> -->
                             <select class="crypto mx-3" id="timeInterval" aria-label="Default select example" style="    padding: 0px !important;
                                                             height: 37px;
                                                             width: 260px;
@@ -1900,6 +1908,8 @@
     $("#stock").click(function (e) {
         var user_data = document.getElementById("stock_search").value;
         var timeInterval = document.getElementById("timeInterval").value;
+        // var from_date_stock = $("#from_date_stock").val()
+        // var to_date_stock = $("#to_date_stock").val()
         var stock_price = 0.0
         $("#price_data_table_div").css('display','none')
         $("#price_data_table1_div").css('display','block')
