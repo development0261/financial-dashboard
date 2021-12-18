@@ -277,7 +277,8 @@ def demo(request):
 
 # Stocks api
 def stocks_data(request,stock,time):
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval={}&apikey=WMICTHH9A9JQYK44'.format(stock,time)
+    timeSeries = request.GET['timeSeries']
+    url = 'https://www.alphavantage.co/query?function={}&symbol={}&interval={}&apikey=WMICTHH9A9JQYK44'.format(timeSeries,stock,time)
     r = requests.get(url)
     stocks_data = r.json()
    
@@ -534,7 +535,7 @@ def week_up_down(request,stock):
     # {"up": 22, "down": 30}
     df = get_spy()
     
-    selected_index = df.index[df['Symbol'] == stock].tolist()[0]
+    selected_index = df.index[df['Symbol'] == str(stock).upper()].tolist()[0]
     selected_change = df['% Chg'][selected_index]
     change_list = [round(selected_change,2)]
     symobls_list =[]
@@ -551,16 +552,16 @@ def week_up_down(request,stock):
     # df.insert(0, "#", [v for v in range(6)], True)
     # df = df.set_index('Symbol').T
     
-    print(df)
-    print(df.iloc[:,selected_index:selected_index+30])
-    # taking all rows but only 6 columns
-    df_small = df.iloc[selected_index:selected_index+30,4:7]
-    print(df_small)
-    correlation_mat = df_small.corr()
+    # print(df)
+    # print(df.iloc[:,selected_index:selected_index+30])
+    # # taking all rows but only 6 columns
+    # df_small = df.iloc[selected_index:selected_index+30,4:7]
+    # print(df_small)
+    # correlation_mat = df_small.corr()
 
-    sns.heatmap(correlation_mat, annot = True)
+    # sns.heatmap(correlation_mat, annot = True)
 
-    plt.show()
+    # plt.show()
     return JsonResponse({'up':len(up),'down':len(down),'result':list(result.values()),'symobls_list':symobls_list,'change_list':change_list,'selected_change':selected_change},safe=False)
 
 
