@@ -1079,14 +1079,14 @@
                         aria-labelledby="nav-Stock-tab">
                         <div class="stock_search">
                             <input type="search" name="stock_search" id="stock_search" placeholder="Search for Stock">
-                            <!-- <tr>
+                            <tr>
                                 <th>Frome Date</th>
                                 <td><input type="date" id="from_date_stock" /></td>
                             </tr>
                             <tr>
                                 <th>To Date</th>
                                 <td><input type="date" id="to_date_stock" /></td>
-                            </tr> -->
+                            </tr>
                             <select class="crypto mx-3" id="timeInterval" aria-label="Default select example" style="    padding: 0px !important;
                                                             height: 37px;
                                                             width: 260px;
@@ -1100,6 +1100,22 @@
                                 <option value="15min">15min</option>
                                 <option value="30min">30min</option>
                                 <option value="60min">60min</option>
+
+
+                            </select>
+
+                            <select class="crypto mx-3" id="timeSeries" aria-label="Default select example" style="    padding: 0px !important;
+                            height: 37px;
+                            width: 260px;
+                            border: 1px solid rgba(227, 231, 237, 0.1);
+                                background-color: #ffffff12;
+                                color: #fff;
+                                font-size: 14px;
+                                                        ">
+                            <option value="TIME_SERIES_DAILY_ADJUSTED" selected>TIME_SERIES_DAILY_ADJUSTED</option>
+                            <option value="TIME_SERIES_WEEKLY_ADJUSTED">TIME_SERIES_WEEKLY_ADJUSTED</option>
+                            <option value="TIME_SERIES_MONTHLY_ADJUSTED">TIME_SERIES_MONTHLY_ADJUSTED</option>
+                            
 
 
                             </select>
@@ -1818,7 +1834,7 @@
             for(let i=0;i<result.result.length;i++){
                 per_array.push((parseFloat(result.result[i])*100)/ parseFloat(stock_price))
             }
-            console.log(per_array)
+            
             maximum = Math.max(...per_array)
            minimum = Math.min(...per_array)
            labels_arr = []
@@ -1839,9 +1855,7 @@
                 }
                 data_arr.push(counter)
             }
-            console.log(labels_arr)
-            console.log(data_arr)
-
+            
             bar_chart.data.labels = range_array
             bar_chart.data.datasets[0].data = data_arr
             bar_chart.update(); // finally update our chart
@@ -1908,14 +1922,17 @@
     $("#stock").click(function (e) {
         var user_data = document.getElementById("stock_search").value;
         var timeInterval = document.getElementById("timeInterval").value;
-        // var from_date_stock = $("#from_date_stock").val()
-        // var to_date_stock = $("#to_date_stock").val()
+        var from_date_stock = $("#from_date_stock").val()
+        var to_date_stock = $("#to_date_stock").val()
+       
+        var timeSeries = $("#timeSeries").val()
         var stock_price = 0.0
         $("#price_data_table_div").css('display','none')
         $("#price_data_table1_div").css('display','block')
         $.ajax({
             type: 'GET',
             url: "/user/stocks_data/"+user_data+"/"+timeInterval+"/",
+            data: {'timeSeries':timeSeries},
             success: function (result) {
 
                 var comp_name = document.getElementById("stock_search").value;
@@ -1938,6 +1955,8 @@
                 var smallest_loss = 0
                 var loss_arr = []
                 var move_arr = []
+                console.log(new Date(from_date_stock))
+                console.log(new Date(to_date_stock))
 
                 for (let i = 0; i < Object.keys(data).length; i++) {
             
@@ -1945,9 +1964,11 @@
                     data1 = data[Object.keys(data)[i]]
                     var open_time = Object.keys(data)[i]
                     date_epoch = String(new Date(open_time))
+
+                    
                     var d = date_epoch.slice(0, 15);
                     var t = date_epoch.slice(16, 24);
-                    
+                    console.log(new Date(d))
                     var open = data1[Object.keys(data1)[0]]
                     var high = data1[Object.keys(data1)[1]]
                     var low = data1[Object.keys(data1)[2]]
@@ -1962,16 +1983,33 @@
                     if(parseFloat(close)-parseFloat(open) > 0){
                         move_arr.push(parseFloat(close)-parseFloat(open))
                     }
-                    $("#stock_details").append(`
-                    <tr class="datatable-row" style="color:wheat">
-                            <td class="financial_value"><p>${d}<br> ${t}</p></td>
-                            <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
-                            <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
-                            <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
-                            <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
-                            <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>     
-                        </tr>
-                    `)
+                    if(from_date_stock != '' && to_date_stock!='') 
+                    {
+                        if(new Date(open_time) >= new Date(from_date_stock) && new Date(open_time) <= new Date(to_date_stock)){
+                            $("#stock_details").append(`
+                            <tr class="datatable-row" style="color:wheat">
+                                    <td class="financial_value"><p>${d}<br> ${t}</p></td>
+                                    <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>     
+                                </tr>
+                            `)
+                        }
+                    }else{
+                        $("#stock_details").append(`
+                            <tr class="datatable-row" style="color:wheat">
+                                    <td class="financial_value"><p>${d}<br> ${t}</p></td>
+                                    <td class="financial_value">${parseFloat(open).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(high).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(low).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(close).toFixed(3)}</td>
+                                    <td class="financial_value">${parseFloat(Volume).toFixed(3)}</td>     
+                                </tr>
+                            `)
+                    }
+                   
                 }
 
                 $(".symbol_data_wrp").empty()
@@ -2205,13 +2243,17 @@
         $.ajax({
             type: 'GET',
             url: "/user/all_data/" + cryptoCoin + "/" + final_date + "/" + user_time + "/",
-            success: function (data) {
-              
+            success: function (data) { 
+                var sum_close = 0.0
+                var total_data = data.length
+                var arr_to_variance = []
+                var move_arr = []
+                var loss_arr = []
                 $("#all_data").empty()
                 $("#price_data_table_div").css('display','block')
                 $("#price_data_table1_div").css('display','none')
                 crypto_latest_price = data[data.length - 1][4]
-                
+                per_change = ((data[data.length - 1][4] - data[data.length - 1][1])*100)/(data[data.length - 1][1])
                 for (let i = data.length - 1; i > 0 ; i--) {
             
                     var open_time = data[i][0]
@@ -2227,13 +2269,20 @@
                     var high = data[i][2]
                     var low = data[i][3]
                     var close = data[i][4]
-
+                    arr_to_variance.push(parseFloat(close))
                     var Volume = data[i][5]
                     var weeklyReturn
                     if(i < data.length -1 ){
                         weeklyReturn = ((data[i][5] / data[i + 1][5]) - 1)
                     }
-                    
+                    sum_close = parseFloat(sum_close) + parseFloat(close) 
+
+                    if(parseFloat(open)-parseFloat(close) > 0){
+                        loss_arr.push(parseFloat(open)-parseFloat(close))
+                    }
+                    if(parseFloat(close)-parseFloat(open) > 0){
+                        move_arr.push(parseFloat(close)-parseFloat(open))
+                    }
                     // if(new Date(date_to) > new Date(open_time)){
                     //     console.log("Matcged")
                     //     continue
@@ -2254,10 +2303,127 @@
                     `)
 
                 }
-    
+
                 
                 PIE_CHART_CRYPTO(Pie_chart,cryptoCoin,crypto_latest_price) 
-    
+                const findVariance = (arr = []) => {
+                    if(!arr.length){
+                       return 0;
+                    };
+                    const sum = arr.reduce((acc, val) => acc + val);
+                    const { length: num } = arr;
+                    const median = sum / num;
+                    let variance = 0;
+                    arr.forEach(num => {
+                       variance += ((num - median) * (num - median));
+                    });
+                    variance /= num;
+                    return variance;
+                 };
+            
+                function simpleMovingAverage(prices, window = 5) {
+                    if (!prices || prices.length < window) {
+                      return [];
+                    }
+                  
+                    let index = window - 1;
+                    const length = prices.length + 1;
+                  
+                    const simpleMovingAverages = [];
+                  
+                    while (++index < length) {
+                      const windowSlice = prices.slice(index - window, index);
+                      const sum = windowSlice.reduce((prev, curr) => prev + curr, 0);
+                      simpleMovingAverages.push(sum / window);
+                    }
+                  
+                    return simpleMovingAverages[simpleMovingAverages.length-1 ];
+                  }
+                  function dev(arr){
+                    // Creating the mean with Array.reduce
+                    let mean = arr.reduce((acc, curr)=>{
+                      return acc + curr
+                    }, 0) / arr.length;
+                     
+                    // Assigning (value - mean) ^ 2 to every array item
+                    arr = arr.map((k)=>{
+                      return (k - mean) ** 2
+                    })
+                     
+                    // Calculating the sum of updated array
+                   let sum = arr.reduce((acc, curr)=> acc + curr, 0);
+                    
+                   // Calculating the variance
+                   let variance = sum / arr.length
+                    
+                   // Returning the Standered deviation
+                   return Math.sqrt(sum / arr.length)
+                  }  
+                $(".symbol_data_wrp").empty()
+                $(".symbol_data_wrp").append(`
+                <table class="table symbol_data_table">
+                    <tbody>
+                        <tr>
+                            <th>Current Stock Price</th>
+                            <td>$ ${crypto_latest_price}</td>
+                        </tr>
+                        <tr>
+                            <th>Percent Change</th>
+                            <td>${per_change.toFixed(2)} %</td>
+                        </tr>
+                      
+                       
+                      
+                      
+                        <tr>
+                            <th>Mean</th>
+                            <td>${(sum_close/total_data).toFixed(2)} </td>
+                        </tr>
+                        <tr>
+                            <th>Absolute Mean Move</th>
+                            <td>${simpleMovingAverage(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <th>Variance</th>
+                            <td>${findVariance(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <th>Std.Dev</th>
+                            <td>${dev(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                      
+                        <tr>
+                            <th>Range Mean</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Range Std.Dev</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Loss</th>
+                            <td>${Math.max(...loss_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Loss</th>
+                            <td>${Math.min(...loss_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Biggest Move</th>
+                            <td>${Math.max(...move_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Smallest Move</th>
+                            <td>${Math.min(...move_arr).toFixed(6) }</td>
+                        </tr>
+                        <tr>
+                            <th>Historical Weekly Volatility</th>
+                            <td>${dev(arr_to_variance).toFixed(2)}</td>
+                        </tr>
+                      
+                    </tbody>
+                </table>
+                `)
     setTimeout(function(){
 		$("#price_data_table_div").append(`
 			<ul class="pagination m-3 d-flex justify-content-center" id="crypto_pagination">
